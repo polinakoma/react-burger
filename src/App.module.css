@@ -1,0 +1,13 @@
+.App {
+  width: 2000px;
+  min-height: 1080px;
+  background-color: #131316;
+  padding: 40px 40px 0 40px;
+  margin: 0 auto;
+  border: 1px solid white;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+}

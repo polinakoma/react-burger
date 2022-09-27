@@ -1,0 +1,45 @@
+.header {
+    background-color: #1C1C21;
+    width: 100%;
+    min-height: 88px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    margin-left: 340px;
+    margin-right: 132px;
+}
+
+.buttonConstructor {
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+    margin: auto 0; 
+    cursor: pointer;
+    color: #F2F2F3;
+    text-decoration: none;
+}
+
+.orderLine {
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+    margin: auto 0 auto 49px;
+    cursor: pointer;
+    color: #F2F2F3;
+    text-decoration: none;
+}
+
+.account {
+    display: flex;
+    flex-direction: row;
+    gap: 11px;
+    margin: auto 340px auto 311px; 
+    cursor: pointer;
+    color: #F2F2F3;
+    text-decoration: none;
+}
