@@ -4,20 +4,19 @@ import  styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import craterBun from '../../images/crater_bun.svg'
-import fluorescentBun from '../../images/fluorescent_bun.svg'
 import sauseSpicy from '../../images/spicy_x.svg'
 import sauseSpace from '../../images/space_sauce.svg'
 import sauseYellow from '../../images/sauce-03.svg'
 import sausePink from '../../images/sause_4.svg'
+import burgerIngredients from '../utils/data.js'
 
 
 function BurgerIngredients() {
     const [current, setCurrent] = React.useState('one')
 
     return (
-        <section className={styles.section}>
-            <h1 className={styles.heading}>Соберите бургер</h1>
+        <section className={`${styles.section} mr-10`}>
+            <h1 className={`${styles.heading} mt-10 mb-5`}>Соберите бургер</h1>
 
             <div style={{ display: 'flex', marginBottom: '40px' }}>
                 <Tab value="one" active={current === 'one'} onClick={setCurrent}>
@@ -34,62 +33,60 @@ function BurgerIngredients() {
             <div className={styles.ingredients}>
 
                 <h2 className="text text_type_main-medium">Булки</h2> 
-                {/* <Counter count={1} size="default" /> */}
-                <div className={styles.container}>
-                    <div className={styles.item}>
-                        <img src={craterBun} alt='Краторная булка N-200i'></img>
-                        <div className={styles.price}>
-                            <p className="text text_type_digits-default">20</p>
-                            <CurrencyIcon type="primary" />
-                        </div>
-                        <p className="text text_type_main-default">Краторная булка N-200i</p>
-                    </div>
-
-                    <div className={styles.item}>
-                        <img src={fluorescentBun} alt='Флюоресцентная булка R2-D3'></img>
-                        <div className={styles.price}>
-                            <p className="text text_type_digits-default">20</p>
-                            <CurrencyIcon type="primary" />
-                        </div>
-                        <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
-                    </div>
-                </div>
-
+                <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
+                    {
+                        burgerIngredients.map((ingredient) => {
+                            if(ingredient.type === 'bun')
+                            return (
+                                <div className={styles.item}>
+                                    <img src={ingredient.image} alt={ingredient.name}></img>
+                                    <div className={`${styles.price} mt-1 mb-1`}>
+                                        <p className="text text_type_digits-default">{ingredient.price}</p>
+                                        <CurrencyIcon type="primary" />
+                                     </div>
+                                    <p className="text text_type_main-default" style={{ minHeight: '48px', textAlign: 'center' }}>{ingredient.name}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </ul>
                 <h2 className="text text_type_main-medium">Соусы</h2>
-                <div className={styles.container}>
-                    <div className={styles.item}>
-                        <img src={sauseSpicy} alt='Соус Spicy-X'></img>
-                        <div className={styles.price}>
-                            <p className="text text_type_digits-default">30</p>
-                            <CurrencyIcon type="primary" />
-                        </div>
-                        <p className="text text_type_main-default">Соус Spicy-X</p>
-                    </div>
-
-                    <div className={styles.item}>
-                        <img src={sauseSpace} alt='Соус фирменный Space Sauce'></img>
-                        <div className={styles.price}>
-                            <p className="text text_type_digits-default">30</p>
-                            <CurrencyIcon type="primary" />
-                        </div>
-                        <p className="text text_type_main-default">Соус фирменный Space Sauce</p>
-                    </div>
-
-                    <div className={styles.item}>
-                        <img src={sauseYellow} alt='Флюоресцентная булка R2-D3'></img>
-                    </div>
-
-                    <div className={styles.item}>
-                        <img src={sausePink} alt='Флюоресцентная булка R2-D3'></img>
-                    </div>
-                    {/* <Counter count={1} size="default" /> */}
-                </div>
-
+                <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
+                {
+                        burgerIngredients.map((ingredient) => {
+                            if(ingredient.type === 'sauce')
+                            return (
+                                <div className={styles.item}>
+                                    <img src={ingredient.image} alt={ingredient.name}></img>
+                                    <div className={`${styles.price} mt-1 mb-1`}>
+                                        <p className="text text_type_digits-default">{ingredient.price}</p>
+                                        <CurrencyIcon type="primary" />
+                                     </div>
+                                    <p className="text text_type_main-default" style={{ minHeight: '48px', textAlign: 'center' }}>{ingredient.name}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </ul>
+                <h2 className="text text_type_main-medium">Начинки</h2>
+                <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}> 
+                {
+                        burgerIngredients.map((ingredient) => {
+                            if(ingredient.type === 'main')
+                            return (
+                                <div className={styles.item}>
+                                    <img src={ingredient.image} alt={ingredient.name}></img>
+                                    <div className={`${styles.price} mt-1 mb-1`}>
+                                        <p className="text text_type_digits-default">{ingredient.price}</p>
+                                        <CurrencyIcon type="primary" />
+                                     </div>
+                                    <p className="text text_type_main-default" style={{ minHeight: '48px', textAlign: 'center' }}>{ingredient.name}</p>
+                                </div>
+                            ) 
+                        })
+                    }
+                </ul>
             </div>
-            
-
-
-
         </section>
     )
 }

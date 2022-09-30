@@ -210,3 +210,5 @@ const burgerIngredients = [
      "__v":0
     }
 ] 
+
+export default burgerIngredients

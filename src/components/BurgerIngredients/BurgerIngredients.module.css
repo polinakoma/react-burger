@@ -1,16 +1,13 @@
 .section {
     width: 600px;
-    height: 912px;
+    max-height: 912px;
     margin-left: calc(280px + 60px);
-    margin-right: 40px;
-    border: 2px solid #4C4CFF;
-}
 
+}
 
 .heading {
     display: flex;
     flex-direction: column;
-    margin: 40px 0 20px;
     font-weight: 700;
     font-size: 36px;
     line-height: 40px;
@@ -20,37 +17,37 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 24px 32px 64px;
-    row-gap: 52px;
+    row-gap: 32px;
+    column-gap: 24px;
+    padding: 0;
 }
 
 .price {
     display: flex;
     flex-direction: row;
-    margin: 8px 0;
-    gap: 8px;
 }
 
 .item {
+    max-width: 272px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .ingredients {
-    height: 716px;
+    max-height: 716px;
     overflow: hidden;
     overflow-y: scroll;
+    
 }
 
 .ingredients::-webkit-scrollbar {
     width: 8px;
-    max-height: 664px;   
 }
 
 .ingredients::-webkit-scrollbar-track {
     background: #2F2F37;  
+    border-radius: 0; 
 }
 
 .ingredients::-webkit-scrollbar-thumb {

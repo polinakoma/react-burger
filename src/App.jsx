@@ -9,7 +9,9 @@ function App() {
       <div className={styles.App}>
         <AppHeader />
         <main className={styles.main}>
-          <BurgerIngredients />
+          <BurgerIngredients 
+
+          />
           <BurgerConstuctor />
         </main>  
       </div>
