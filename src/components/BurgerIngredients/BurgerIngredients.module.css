@@ -1,8 +1,12 @@
 .section {
     width: 600px;
     max-height: 912px;
-    margin-left: calc(280px + 60px);
+}
 
+.price {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .heading {
@@ -14,24 +18,20 @@
 }
 
 .container {
-    display: flex;
-    flex-direction: row;
+    composes: price;
     flex-wrap: wrap;
     row-gap: 32px;
     column-gap: 24px;
     padding: 0;
 }
 
-.price {
-    display: flex;
-    flex-direction: row;
-}
-
 .item {
-    max-width: 272px;
+    width: 272px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    cursor: pointer;
 }
 
 .ingredients {
@@ -48,9 +48,14 @@
 .ingredients::-webkit-scrollbar-track {
     background: #2F2F37;  
     border-radius: 0; 
+    margin-bottom: 50px;
 }
 
 .ingredients::-webkit-scrollbar-thumb {
     background-color: #8585AD;  
     border-radius: 0;   
+}
+
+.counter {
+    display: none;
 }

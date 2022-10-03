@@ -1,28 +1,31 @@
 .constructor {
-    width: 100%;
+    /* width: 100%; */
+    width: 600px;
     max-height: 656px;
     box-sizing: border-box;
+}
+
+.listOfInner {
+    width: 584px;
+    padding: 0;
+    max-height: 464px;
     overflow: hidden;
     overflow-y: scroll;
 }
 
-.list {
-    padding: 0;
-    margin-bottom: 0;
+ .listOfInner::-webkit-scrollbar {
+    width: 8px;   
 }
 
- .constructor::-webkit-scrollbar {
-    width: 8px;      
-}
-
-.constructor::-webkit-scrollbar-track {
+.listOfInner::-webkit-scrollbar-track {
     background: #2F2F37;  
     border-radius: 0; 
 }
 
-.constructor::-webkit-scrollbar-thumb {
+.listOfInner::-webkit-scrollbar-thumb {
     background-color: #8585AD;  
     border-radius: 0;   
+    
 } 
 
 .overlay {
@@ -31,9 +34,9 @@
 }
 
 .info {
-    display: flex;
-    flex-direction: row;
+    composes: overlay;
     justify-content: flex-end;
+    margin-right: 16px;
 }
 
 .priceTotal {
@@ -44,13 +47,10 @@
     align-items: center;
 }
 
-.button {
-    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
-    border-radius: 64px;
-    border: none;
-    min-width: 215px;
-    min-height: 64px;
-    color: #F2F2F3;
-    margin-right: 16px;
-    cursor: pointer;
+.constructorList {
+    padding-left: 0;
+    margin-top: 0; 
+    margin-bottom: 0;
 }
+
+
