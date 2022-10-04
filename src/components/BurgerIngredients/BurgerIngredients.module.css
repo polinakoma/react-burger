@@ -25,6 +25,11 @@
     padding: 0;
 }
 
+.switcher {
+    display: flex;
+    margin-bottom: 40px;
+}
+
 .item {
     width: 272px;
     display: flex;
@@ -58,4 +63,9 @@
 
 .counter {
     display: none;
+}
+
+.ingredientName {
+    min-height: 48px;
+    text-align: center;
 }

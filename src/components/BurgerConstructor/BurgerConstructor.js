@@ -3,42 +3,22 @@ import ReactDOM from 'react-dom'
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import burgerIngredients from '../utils/data.js'
-import PropTypes from 'prop-types';
-
-
 import craterBun from '../../images/crater_bun.svg'
-import meat from '../../images//meat-02.svg'
-import mineralRings from '../../images/mineral_rings.svg'
-import Fruit from '../../images/plody.svg'
-import sauseYellow from '../../images/sauce-03.svg'
 import points from '../../images/points.svg'
 import money from '../../images/Subtract.svg'
 
 
 function BurgerConstructor(props) {
-    burgerIngredients.propTypes = {
-        _id: PropTypes.any,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.any.isRequired,
-        image_mobile: PropTypes.any,
-        image_large: PropTypes.any,
-        __v: PropTypes.number
-    }
 
     return (
         <section className="mt-25">
-            <div className={styles.constructor}>
-                <div style={{ display: 'flex', flexDirection: 'column',  
-                alignItems: 'flex-end'}} >
+            <div className={styles.section}>
+                <div className={styles.constructor}>
                     <ul className={styles.constructorList}>
-                    <img src={points} alt='Кнопка' style={{ marginRight: '8px', opacity: '0' }}></img>
+                    <img src={points} alt='Кнопка' className={styles.pointsBun}></img>
                         <ConstructorElement
                             type="top"
                             isLocked={true}
@@ -52,8 +32,10 @@ function BurgerConstructor(props) {
                                 burgerIngredients.map((ingredient) => {
                                     if(ingredient.type !== 'bun') {
                                         return (
-                                            <li className={`${styles.overlay} mb-4`}>
-                                                <img src={points} alt='Кнопка' style={{ marginRight: '8px' }}></img>
+                                            <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
+                                                <div className={styles.points}>
+                                                    <DragIcon type="primary" />
+                                                </div>                                        
                                                 <ConstructorElement
                                                     text={ingredient.name}
                                                     price={ingredient.price}
@@ -65,7 +47,7 @@ function BurgerConstructor(props) {
                                 })
                                 }
                         </ul>  
-                        <img src={points} alt='Кнопка' style={{ marginRight: '8px', opacity: '0' }}></img>            
+                        <img src={points} alt='Кнопка' className={styles.pointsBun}></img>            
                         <ConstructorElement
                             type="bottom"
                             isLocked={true}
@@ -80,9 +62,11 @@ function BurgerConstructor(props) {
             <div className={`${styles.info} mt-10`}>
                 <div className={`${styles.priceTotal} mr-10`}>
                     <p className="text text_type_digits-medium">610</p>
-                    <img src={money} alt='Субстракт'></img>
+                    <div className={styles.currencyIcon}>
+                        <CurrencyIcon type="primary" />
+                    </div>
                 </div>
-                <Button type="primary" size="medium">Оформить заказ</Button>
+                <Button type="primary" size="medium" htmlType='button'>Оформить заказ</Button>
             </div> 
         </section>
 
