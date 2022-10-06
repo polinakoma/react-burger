@@ -5,7 +5,6 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.js'
 import BurgerConstuctor from '../BurgerConstructor/BurgerConstructor.js'
 
 function App() {
-  document.body.style.backgroundColor = "#E5E5E5";
   return (
       <div className={styles.App}>
         <AppHeader />

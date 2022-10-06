@@ -1,16 +1,16 @@
 .header {
     background-color: #1C1C21;
-    width: 1920px;
+    width: 100%;
     min-height: 88px;
     margin: auto;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .navigation {
     display: flex;
     flex-direction: row;
-    margin-left: 320px;
     margin-right: 112px;
 }
 
