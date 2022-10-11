@@ -3,12 +3,6 @@
     max-height: 912px;
 }
 
-.price {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-}
-
 .heading {
     display: flex;
     flex-direction: column;
@@ -17,33 +11,19 @@
     line-height: 40px;
 }
 
-.container {
-    composes: price;
-    flex-wrap: wrap;
-    row-gap: 32px;
-    column-gap: 24px;
-    padding: 0;
-}
-
 .switcher {
     display: flex;
     margin-bottom: 40px;
 }
 
-.item {
-    width: 272px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
+.counter {
+    display: none;
 }
 
 .ingredients {
     max-height: 716px;
     overflow: hidden;
-    overflow-y: scroll;
-    
+    overflow-y: scroll; 
 }
 
 .ingredients::-webkit-scrollbar {
@@ -59,13 +39,4 @@
 .ingredients::-webkit-scrollbar-thumb {
     background-color: #8585AD;  
     border-radius: 0;   
-}
-
-.counter {
-    display: none;
-}
-
-.ingredientName {
-    min-height: 48px;
-    text-align: center;
 }

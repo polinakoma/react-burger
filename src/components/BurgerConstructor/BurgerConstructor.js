@@ -1,17 +1,10 @@
-import React from 'react' // импорт библиотеки
-import ReactDOM from 'react-dom'
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import burgerIngredients from '../utils/data.js'
+import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import craterBun from '../../images/crater_bun.svg'
 import points from '../../images/points.svg'
-import money from '../../images/Subtract.svg'
 
 
-function BurgerConstructor(props) {
+function BurgerConstructor({ingredients, handleOpenModal}) {
 
     return (
         <section className="mt-25">
@@ -26,26 +19,23 @@ function BurgerConstructor(props) {
                             price={20}
                             thumbnail={craterBun}
                         />
-        
                         <ul className={`${styles.listOfInner} mt-4 mb-4`}>
-                            {
-                                burgerIngredients.map((ingredient) => {
-                                    if(ingredient.type !== 'bun') {
-                                        return (
-                                            <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
-                                                <div className={styles.points}>
-                                                    <DragIcon type="primary" />
-                                                </div>                                        
-                                                <ConstructorElement
-                                                    text={ingredient.name}
-                                                    price={ingredient.price}
-                                                    thumbnail={ingredient.image_mobile}
-                                                />
-                                            </li>
-                                        )
-                                    }
-                                })
+                            {ingredients.map((ingredient) => {
+                                if(ingredient.type !== 'bun') {
+                                    return (
+                                        <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
+                                            <div className={styles.points}>
+                                                <DragIcon type="primary" />
+                                            </div>                                        
+                                            <ConstructorElement
+                                                text={ingredient.name}
+                                                price={ingredient.price}
+                                                thumbnail={ingredient.image_mobile}
+                                            />
+                                        </li>
+                                    )
                                 }
+                            })}
                         </ul>  
                         <img src={points} alt='Кнопка' className={styles.pointsBun}></img>            
                         <ConstructorElement
@@ -66,11 +56,10 @@ function BurgerConstructor(props) {
                         <CurrencyIcon type="primary" />
                     </div>
                 </div>
-                <Button type="primary" size="medium" htmlType='button'>Оформить заказ</Button>
+                <Button type="primary" size="medium" htmlType='button' onClick={handleOpenModal}>Оформить заказ</Button>
             </div> 
         </section>
-
     )
-}
+};
 
 export default BurgerConstructor

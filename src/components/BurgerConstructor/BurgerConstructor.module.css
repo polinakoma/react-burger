@@ -1,5 +1,4 @@
 .section {
-    /* width: 100%; */
     width: 600px;
     max-height: 656px;
     box-sizing: border-box;
@@ -31,7 +30,6 @@
 .listOfInner::-webkit-scrollbar-thumb {
     background-color: #8585AD;  
     border-radius: 0;   
-    
 } 
 
 .overlay {
@@ -47,8 +45,7 @@
 
 .priceTotal {
     min-width: 119px;
-    display: flex;
-    flex-direction: row;
+    composes: overlay;
     gap: 9px;
     align-items: center;
 }

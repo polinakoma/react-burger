@@ -4,8 +4,8 @@
     min-height: 88px;
     margin: auto;
     display: flex;
+    composes: main from '../App/App.module.css';
     align-items: center;
-    justify-content: center;
 }
 
 .navigation {

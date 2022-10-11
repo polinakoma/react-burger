@@ -1,10 +1,6 @@
-import React from 'react' // импорт библиотеки
-import ReactDOM from 'react-dom'
 import styles from './AppHedear.module.css';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
-import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { BurgerIcon,  ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
 
 function AppHeader() {
@@ -29,7 +25,7 @@ function AppHeader() {
             </button>  
         </header>
     )
-  }
+}
  
   
 export default AppHeader
