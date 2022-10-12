@@ -1,11 +1,11 @@
 import styles from './OrderDetails.module.css'
-import {CloseIcon, CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import overlayFirst from '../../images/Vector 1.svg'
 import overlaySecond from '../../images/Vector 2.svg'
 import overlayThird from '../../images/Vector 3.svg'
 
 
-function OrderDetails({handleCloseModal}) {
+function OrderDetails() {
 
     return(
         <div className={styles.content}>
@@ -20,9 +20,6 @@ function OrderDetails({handleCloseModal}) {
             <p className="text text_type_main-default pt-30 mb-2">Ваш заказ начали готовить</p>
             <p className="text text_type_main-default text_color_inactive mb-30">Дождитесь готовности 
             на орбитальной станции</p>
-            <div className={styles.closeIcon} onClick={handleCloseModal}> 
-                <CloseIcon type="primary" />
-            </div>
         </div>
     )
 };

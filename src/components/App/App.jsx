@@ -14,7 +14,12 @@ function App() {
  
   const getServerData = () => {
     fetch(link)
-    .then(res => res.json())
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка ${res.status}`);
+    })
     .then(json => setIngredients(json.data))
     .catch(error => console.log(`Ошибка загрузки данных - ${error}`))
   };
@@ -27,10 +32,6 @@ function App() {
 
   const closeModal = () => {
     setIsOrderDetailsOpened(false);
-  };
-
-  const handleCloseModalByEsc = (evt) => {
-    evt.key === "Escape" && closeModal();
   };
 
   function openOrderModal() {
@@ -49,9 +50,9 @@ function App() {
         
         {isOrderDetailsOpened &&
               <Modal 
-                onOverlayClick={closeModal}
-                onEscKeydown={handleCloseModalByEsc}>
-                <OrderDetails handleCloseModal={closeModal} />
+                onClose={closeModal}
+                handleCloseModal={closeModal}>
+                <OrderDetails  />
               </Modal> 
         }  
       </div>

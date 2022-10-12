@@ -4,8 +4,9 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../Modal/Modal.js'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.js'
+import ingredientPropType from '../../utils/prop-types.js'
 
-function IngredientCard({ name, price, image, calories, proteins, fat, image_large, carbohydrates}) {
+function IngredientCard({ingredient}) {
 
     const [isIngredientDetailsOpen, setIngredientDetailsOpen] = React.useState(false)
 
@@ -16,35 +17,25 @@ function IngredientCard({ name, price, image, calories, proteins, fat, image_lar
     const closeIngredientModal = () => {
         setIngredientDetailsOpen(false);
     }
-
-    const handleCloseModalByEsc = (evt) => {
-        evt.key === "Escape" && closeIngredientModal();
-    }
       
     return(
         <>
         <div onClick={openIngredientModal}>
             <Counter size="default" />
-            <img src={image} alt={name}></img>
+            <img src={ingredient.image} alt={ingredient.name}></img>
             <div className={`${styles.price} mt-2 mb-2`}>
-                <p className="text text_type_digits-default">{price}</p>
+                <p className="text text_type_digits-default">{ingredient.price}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            <p className={`${styles.ingredientName} text text_type_main-default`}>{name}</p>
+            <p className={`${styles.ingredientName} text text_type_main-default`}>{ingredient.name}</p>
         </div>
         
         {isIngredientDetailsOpen &&
             <Modal 
-              onOverlayClick={closeIngredientModal}
-              onEscKeydown={handleCloseModalByEsc}>
+              onClose={closeIngredientModal}
+              handleCloseModal={closeIngredientModal}>
             <IngredientDetails      
-                image_large={image_large} 
-                name={name}
-                calories={calories}
-                carbohydrates={carbohydrates}
-                fat={fat} 
-                proteins={proteins}
-                handleCloseIngredientModal={closeIngredientModal}
+                ingredient={ingredient}
             />
             </Modal> 
         }  

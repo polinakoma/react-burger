@@ -1,5 +1,6 @@
 import styles from './IngredientsList.module.css'
 import IngredientCard from '../IngredientCard/IngredientCard.js'
+import ingredientPropType from '../../utils/prop-types.js'
 
 
 function IngredientsList({ingredients, title, type}) {
@@ -13,14 +14,7 @@ function IngredientsList({ingredients, title, type}) {
                     return (
                         <li className={styles.item} key={ingredient._id}>
                             <IngredientCard
-                                name={ingredient.name}
-                                price={ingredient.price}
-                                image={ingredient.image}
-                                image_large={ingredient.image_large} 
-                                calories={ingredient.calories}
-                                carbohydrates={ingredient.carbohydrates}
-                                fat={ingredient.fat} 
-                                proteins={ingredient.proteins}
+                                ingredient={ingredient}
                             />
                         </li>
                     )

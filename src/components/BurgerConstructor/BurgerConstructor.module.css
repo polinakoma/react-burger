@@ -61,9 +61,8 @@
     align-self: center;
 }
 
-.pointsBun {
-    margin-right: 8px;
-    opacity: 0;
+.bun {
+    margin-left: 32px;
 }
 
 .currencyIcon svg {

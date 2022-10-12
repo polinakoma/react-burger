@@ -1,7 +1,7 @@
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import craterBun from '../../images/crater_bun.svg'
-import points from '../../images/points.svg'
+import ingredientPropType from '../../utils/prop-types.js'
 
 
 function BurgerConstructor({ingredients, handleOpenModal}) {
@@ -11,14 +11,16 @@ function BurgerConstructor({ingredients, handleOpenModal}) {
             <div className={styles.section}>
                 <div className={styles.constructor}>
                     <ul className={styles.constructorList}>
-                    <img src={points} alt='Кнопка' className={styles.pointsBun}></img>
-                        <ConstructorElement
-                            type="top"
-                            isLocked={true}
-                            text="Краторная булка N-200i (верх)"
-                            price={20}
-                            thumbnail={craterBun}
-                        />
+
+                        <div className={styles.bun}>
+                            <ConstructorElement
+                                type="top"
+                                isLocked={true}
+                                text="Краторная булка N-200i (верх)"
+                                price={20}
+                                thumbnail={craterBun}
+                            />
+                        </div>
                         <ul className={`${styles.listOfInner} mt-4 mb-4`}>
                             {ingredients.map((ingredient) => {
                                 if(ingredient.type !== 'bun') {
@@ -37,14 +39,17 @@ function BurgerConstructor({ingredients, handleOpenModal}) {
                                 }
                             })}
                         </ul>  
-                        <img src={points} alt='Кнопка' className={styles.pointsBun}></img>            
-                        <ConstructorElement
-                            type="bottom"
-                            isLocked={true}
-                            text="Краторная булка N-200i (низ)"
-                            price={20}
-                            thumbnail={craterBun}
-                        />
+                        
+                        <div className={styles.bun}>
+                            <ConstructorElement
+                                type="bottom"
+                                isLocked={true}
+                                text="Краторная булка N-200i (низ)"
+                                price={20}
+                                thumbnail={craterBun}
+                            />
+                        </div>
+                        
                     </ul>
                 </div>
             </div>
