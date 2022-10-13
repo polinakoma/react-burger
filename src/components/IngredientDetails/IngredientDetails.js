@@ -1,4 +1,5 @@
 import styles from './IngredientDetails.module.css'
+import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
 
 
@@ -29,6 +30,10 @@ function IngredientDetails({ingredient}) {
             </ul>
         </div>
     )
+};
+
+IngredientDetails.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
 };
 
         

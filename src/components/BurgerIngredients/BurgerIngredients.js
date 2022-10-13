@@ -2,6 +2,7 @@ import React from 'react' // импорт библиотеки
 import  styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from '../IngredientsList/IngredientsList.js'
+import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
 
 
@@ -49,6 +50,10 @@ function BurgerIngredients({ingredients}) {
                 </div>
         </section>
     )
+};
+
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
 };
 
 

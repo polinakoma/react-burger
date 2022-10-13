@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react' 
+import { useEffect } from 'react' 
 import ReactDOM from 'react-dom'
 import styles from './Modal.module.css'
 import ModalOverlay from '../ModalOverlay/ModalOverlay.js'
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from 'prop-types';
 
 
 const modalsContainer = document.querySelector('#react-modals');
@@ -10,14 +11,15 @@ const modalsContainer = document.querySelector('#react-modals');
 const Modal = ({ onClose, children, handleCloseModal }) => {
 
     useEffect(() => {
-        document.addEventListener('keydown', (evt) => {
+
+        function handleCloseByEsc(evt) {
             evt.key === "Escape" && handleCloseModal();
-        })
+        };
+
+        document.addEventListener('keydown', handleCloseByEsc)
 
         return() => {
-            document.removeEventListener('keydown', (evt) => {
-                evt.key === "Escape" && handleCloseModal();
-            });
+            document.removeEventListener('keydown', handleCloseByEsc);
         };
     }, [])
 
@@ -32,6 +34,12 @@ const Modal = ({ onClose, children, handleCloseModal }) => {
             <ModalOverlay onClose={onClose}/>
        </>, modalsContainer
     )
+};
+
+Modal.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+    handleCloseModal: PropTypes.func.isRequired
 };
 
 

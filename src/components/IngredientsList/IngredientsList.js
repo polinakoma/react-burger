@@ -1,5 +1,6 @@
 import styles from './IngredientsList.module.css'
 import IngredientCard from '../IngredientCard/IngredientCard.js'
+import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
 
 
@@ -22,6 +23,12 @@ function IngredientsList({ingredients, title, type}) {
             </ul>
          </>
     )
+};
+
+IngredientsList.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired
 };
 
 

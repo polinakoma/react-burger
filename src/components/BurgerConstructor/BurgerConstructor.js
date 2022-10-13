@@ -1,6 +1,7 @@
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import craterBun from '../../images/crater_bun.svg'
+import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
 
 
@@ -66,5 +67,11 @@ function BurgerConstructor({ingredients, handleOpenModal}) {
         </section>
     )
 };
+
+BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+    handleOpenModal: PropTypes.func.isRequired
+};
+
 
 export default BurgerConstructor

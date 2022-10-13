@@ -4,6 +4,7 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../Modal/Modal.js'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.js'
+import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
 
 function IngredientCard({ingredient}) {
@@ -42,5 +43,10 @@ function IngredientCard({ingredient}) {
         </>  
     )
 };
+
+IngredientCard.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
+};
+
 
 export default IngredientCard
