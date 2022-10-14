@@ -45,7 +45,7 @@ function IngredientCard({ingredient}) {
 };
 
 IngredientCard.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
+    ingredient: ingredientPropType.isRequired
 };
 
 
