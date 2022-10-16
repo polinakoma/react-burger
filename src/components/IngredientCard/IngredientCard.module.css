@@ -1,0 +1,10 @@
+.price {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.ingredientName {
+    min-height: 48px;
+    text-align: center;
+}

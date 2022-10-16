@@ -1,0 +1,39 @@
+.content {
+    text-align: center;
+}
+
+/* .closeIcon {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+} */
+
+.checkMark svg {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 399px;
+    left: 337px;
+}
+
+.overlayFirst {
+    position: absolute;
+    top: 390px;
+    left: 326px;
+    z-index: 8;
+}
+
+.overlaySecond {
+    position: absolute;
+    top: 373px;
+    left: 307px;
+    z-index: 5;
+}
+
+.overlayThird {
+    position: absolute;
+    top: 372px;
+    left: 311px;
+    z-index: 1;
+}
