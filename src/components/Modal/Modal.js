@@ -23,6 +23,7 @@ const Modal = ({ onClose, children, handleCloseModal }) => {
         };
     }, [])
 
+    
     return ReactDOM.createPortal(
         <>
             <div className={styles.modal}>

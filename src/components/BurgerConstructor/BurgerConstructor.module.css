@@ -43,13 +43,6 @@
     margin-right: 16px;
 }
 
-.priceTotal {
-    min-width: 119px;
-    composes: overlay;
-    gap: 9px;
-    align-items: center;
-}
-
 .constructorList {
     padding-left: 0;
     margin-top: 0; 
@@ -63,11 +56,6 @@
 
 .bun {
     margin-left: 32px;
-}
-
-.currencyIcon svg {
-    width: 33px;
-    height: 33px;
 }
 
 

@@ -4,13 +4,16 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from '../IngredientsList/IngredientsList.js'
 import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
+import IngredientsContext from '../../context/IngredientsContext';
 
 
-function BurgerIngredients({ingredients}) {
-    
+function BurgerIngredients() {
+
+    const ingredients = React.useContext(IngredientsContext);
+
     const [current, setCurrent] = React.useState('bun');
 
-    const handleChangeeIngredient = (id) => {
+    const handleChangeIngredient = (id) => {
         setCurrent(id);
         document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
     };
@@ -20,17 +23,16 @@ function BurgerIngredients({ingredients}) {
             <h1 className={`${styles.heading} text text_type_main-medium mt-10 mb-5`}>Соберите бургер</h1>
 
             <div className={styles.switcher}>
-                <Tab value="bun" active={current === 'bun'} onClick={handleChangeeIngredient}>
+                <Tab value="bun" active={current === 'bun'} onClick={handleChangeIngredient}>
                     Булки
                 </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={handleChangeeIngredient}>
+                <Tab value="sauce" active={current === 'sauce'} onClick={handleChangeIngredient}>
                     Соусы
                 </Tab>
-                <Tab value="main" active={current === 'main'} onClick={handleChangeeIngredient}>
+                <Tab value="main" active={current === 'main'} onClick={handleChangeIngredient}>
                     Начинки
                 </Tab>
             </div>
-
             <div className={styles.ingredients}>
                     <IngredientsList
                         ingredients={ingredients}
@@ -50,10 +52,6 @@ function BurgerIngredients({ingredients}) {
                 </div>
         </section>
     )
-};
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
 };
 
 

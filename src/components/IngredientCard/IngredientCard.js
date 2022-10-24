@@ -4,20 +4,28 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../Modal/Modal.js'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.js'
-import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
+import ConstructorContext from '../../context/ConstructorContext.js'
+
 
 function IngredientCard({ingredient}) {
+
+    const { constructorDispatch } = React.useContext(ConstructorContext);
 
     const [isIngredientDetailsOpen, setIngredientDetailsOpen] = React.useState(false)
 
     function openIngredientModal() {
           setIngredientDetailsOpen(true);
-    }
+          constructorDispatch({
+            type: "add",
+            payload: ingredient
+        })
+    };
 
     const closeIngredientModal = () => {
         setIngredientDetailsOpen(false);
-    }
+    };
+
       
     return(
         <>

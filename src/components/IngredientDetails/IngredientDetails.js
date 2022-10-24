@@ -1,5 +1,4 @@
 import styles from './IngredientDetails.module.css'
-import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js'
 
 
