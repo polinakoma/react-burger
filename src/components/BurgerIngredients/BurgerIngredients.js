@@ -2,8 +2,6 @@ import React from 'react' // импорт библиотеки
 import  styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from '../IngredientsList/IngredientsList.js'
-import PropTypes from 'prop-types';
-import ingredientPropType from '../../utils/prop-types.js'
 import IngredientsContext from '../../context/IngredientsContext';
 
 
@@ -20,7 +18,8 @@ function BurgerIngredients() {
 
     return (
         <section className={`${styles.section} mr-10`}>
-            <h1 className={`${styles.heading} text text_type_main-medium mt-10 mb-5`}>Соберите бургер</h1>
+            <h1 className={`${styles.heading} text text_type_main-medium mt-10 mb-5`}>
+            Соберите бургер</h1>
 
             <div className={styles.switcher}>
                 <Tab value="bun" active={current === 'bun'} onClick={handleChangeIngredient}>

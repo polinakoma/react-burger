@@ -1,68 +1,49 @@
 import React from 'react';
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, Button, DragIcon } 
+from '@ya.praktikum/react-developer-burger-ui-components'
 import TotalPrice from '../TotalPrice/TotalPrice.js';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorContext from '../../context/ConstructorContext.js';
+import { getIngredients, sendIngredients } from '../../utils/burger-api.js'
+import { BURGER_API_URL, pendingImage } from '../../utils/constans.js'
 
 
 function BurgerConstructor() {
-
-    const url = 'https://norma.nomoreparties.space/api/orders';
 
     const { constructorState } = React.useContext(ConstructorContext);
 
     const [modal, setModal] = React.useState(null);
     const [modalData, setModalData] = React.useState(null);
-    const [totalPrice, setTotalPrice] = React.useState(null);
 
     const closeModal = () => {
         setModal(false);
+        setModalData(null);
       };
-  
-    React.useEffect(() => {
-        var total = 0
 
-        total = constructorState.bun.price * 2
-        setTotalPrice(total)
+    const price = React.useMemo(() => {
+        return (
+          (constructorState.bun ? constructorState.bun.price * 2 : 0) +
+          constructorState.ingredients.reduce((a, b) => a + b.price, 0)
+        );
+      }, [constructorState]);
 
-        constructorState.ingredients.map((item) => {
-          total = total + item.price;
-          setTotalPrice(total);
-        },
-        [constructorState.ingredients, setTotalPrice]
-        )
-    });
+    const data = {
+        "ingredients": [
+            constructorState.bun._id,
+            ...constructorState.ingredients.map((ingredient) => ingredient._id),
+            constructorState.bun._id]
+    };
 
-      function openOrderModal() {
+    function openOrderModal() {
         setModal(true);
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                "Content-type": 'application/json'
-              },
-            body: JSON.stringify(
-                {
-                    "ingredients": [
-                        constructorState.bun._id,
-                        ...constructorState.ingredients.map((ingredient) => ingredient._id),
-                        constructorState.bun._id]
-                }
-            )
-        })
-        .then(res => {
-            if(res.ok) {
-              return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
-        .then(data => {
-            setModalData(data);
-        });
+        sendIngredients(data, setModalData);
       };
 
+    const ingredients = React.useMemo(() => constructorState.ingredients.filter(
+    (ingredient) => ingredient.type !== 'bun'));
+    
 
     return (
         <section className="mt-25">
@@ -73,14 +54,15 @@ function BurgerConstructor() {
                             <ConstructorElement
                                 type="top"
                                 isLocked={true}
-                                text={`${constructorState.bun.name} (верх)`}
+                                text={constructorState.bun.name ? `${constructorState.bun.name} (верх)` 
+                                : 'Выберите булку'}
                                 price={constructorState.bun.price}
-                                thumbnail={constructorState.bun.image_mobile}
+                                thumbnail={constructorState.bun.image_mobile ? 
+                                constructorState.bun.image_mobile : pendingImage}
                             />
                         </div>
                         <ul className={`${styles.listOfInner} mt-4 mb-4`}>
-                            {constructorState.ingredients.map((ingredient) => {
-                                if(ingredient.type !== 'bun') {
+                            {ingredients.map((ingredient) => {
                                     return (
                                         <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
                                             <div className={styles.points}>
@@ -93,27 +75,29 @@ function BurgerConstructor() {
                                             />
                                         </li>
                                     )
-                                }
                             })}
                         </ul>  
                         <div className={styles.bun}>
                             <ConstructorElement
                                 type="bottom"
                                 isLocked={true}
-                                text={`${constructorState.bun.name} (низ)`}
+                                text={constructorState.bun.name ? `${constructorState.bun.name} (низ)` 
+                                : 'Выберите булку'}
                                 price={constructorState.bun.price}
-                                thumbnail={constructorState.bun.image_mobile}
+                                thumbnail={constructorState.bun.image_mobile ? 
+                                constructorState.bun.image_mobile : pendingImage}
                             />
                         </div>
                     </ul>
                 </div>
             </div>
             <div className={`${styles.info} mt-10`}>
-                <TotalPrice totalPrice={totalPrice}/>
-                <Button type="primary" size="medium" htmlType='button' onClick={openOrderModal}>Оформить заказ</Button> 
+                <TotalPrice totalPrice={price}/>
+                <Button type="primary" size="medium" htmlType='button' 
+                onClick={openOrderModal}>Оформить заказ</Button> 
             </div>
 
-            {modalData && modal &&
+            {modalData && 
               <Modal 
                 onClose={closeModal}
                 handleCloseModal={closeModal}>

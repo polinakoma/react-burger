@@ -1,5 +1,5 @@
 import styles from './OrderDetails.module.css'
-import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import overlayFirst from '../../images/Vector 1.svg'
 import overlaySecond from '../../images/Vector 2.svg'
 import overlayThird from '../../images/Vector 3.svg'
@@ -19,8 +19,8 @@ function OrderDetails({orderNumber}) {
             <img src={overlaySecond} className={styles.overlaySecond}></img>
             <img src={overlayThird} className={styles.overlayThird}></img>
             <p className="text text_type_main-default pt-30 mb-2">Ваш заказ начали готовить</p>
-            <p className="text text_type_main-default text_color_inactive mb-30">Дождитесь готовности 
-            на орбитальной станции</p>
+            <p className="text text_type_main-default text_color_inactive mb-30">
+            Дождитесь готовности на орбитальной станции</p>
         </div>
     )
 };

@@ -36,7 +36,8 @@ function IngredientCard({ingredient}) {
                 <p className="text text_type_digits-default">{ingredient.price}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            <p className={`${styles.ingredientName} text text_type_main-default`}>{ingredient.name}</p>
+            <p className={`${styles.ingredientName} text text_type_main-default`}>
+            {ingredient.name}</p>
         </div>
         
         {isIngredientDetailsOpen &&
