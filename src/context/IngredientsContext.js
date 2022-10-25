@@ -3,4 +3,5 @@ import { createContext } from 'react';
 
 const IngredientsContext = createContext([]);
 
-export default IngredientsContext
+
+export default IngredientsContext;

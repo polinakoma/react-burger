@@ -1,7 +1,7 @@
-import styles from './IngredientsList.module.css'
-import IngredientCard from '../IngredientCard/IngredientCard.js'
+import styles from './IngredientsList.module.css';
+import IngredientCard from '../IngredientCard/IngredientCard.js';
 import PropTypes from 'prop-types';
-import ingredientPropType from '../../utils/prop-types.js'
+import ingredientPropType from '../../utils/prop-types.js';
 
 
 function IngredientsList({ingredients, title, type}) {
@@ -11,7 +11,7 @@ function IngredientsList({ingredients, title, type}) {
             <h3 id={type} className="text text_type_main-medium">{title}</h3> 
             <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
                 {ingredients.map((ingredient) => {
-                    if(ingredient.type === type)
+                    if(ingredient.type === type) 
                     return (
                         <li className={styles.item} key={ingredient._id}>
                             <IngredientCard
@@ -32,4 +32,4 @@ IngredientsList.propTypes = {
 };
 
 
-export default IngredientsList
+export default IngredientsList;

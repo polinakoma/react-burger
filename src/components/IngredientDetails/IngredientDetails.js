@@ -8,7 +8,7 @@ function IngredientDetails({ingredient}) {
         <div className={styles.content}>
             <h3 className={`${styles.heading} text text_type_main-large mt-10 ml-10`}>
             Детали ингредиента</h3>
-            <img className={styles.image} src={ingredient.image_large}></img>
+            <img className={styles.image} src={ingredient.image_large} alt='Ингредиент'></img>
             <p className="text text_type_main-medium mt-4 mb-8">{ingredient.name}</p>
             <ul className={`${styles.nutritionsInfo} mb-15`}>
                 <li className={styles.nutrition}>
@@ -45,4 +45,4 @@ IngredientDetails.propTypes = {
 };
 
         
-export default IngredientDetails
+export default IngredientDetails;

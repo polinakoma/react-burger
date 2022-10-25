@@ -1,4 +1,4 @@
-import { BURGER_API_URL, pendingImage } from './constans.js'
+import { BURGER_API_URL } from './constans.js';
 
 
 const checkReponse = (res) => {
@@ -25,7 +25,7 @@ const sendIngredients = (ingredients, func) => {
     .then(data => {
         func(data);
     });
-}
+};
 
 
-export { getIngredients, sendIngredients }
+export { getIngredients, sendIngredients };

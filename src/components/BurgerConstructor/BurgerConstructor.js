@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, DragIcon } 
-from '@ya.praktikum/react-developer-burger-ui-components'
+from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPrice from '../TotalPrice/TotalPrice.js';
-import Modal from '../Modal/Modal';
-import OrderDetails from '../OrderDetails/OrderDetails';
+import Modal from '../Modal/Modal.js';
+import OrderDetails from '../OrderDetails/OrderDetails.js';
 import ConstructorContext from '../../context/ConstructorContext.js';
-import { getIngredients, sendIngredients } from '../../utils/burger-api.js'
-import { BURGER_API_URL, pendingImage } from '../../utils/constans.js'
+import { sendIngredients } from '../../utils/burger-api.js';
+import { pendingImage } from '../../utils/constans.js';
 
 
 function BurgerConstructor() {
@@ -20,14 +20,14 @@ function BurgerConstructor() {
     const closeModal = () => {
         setModal(false);
         setModalData(null);
-      };
+    };
 
     const price = React.useMemo(() => {
         return (
-          (constructorState.bun ? constructorState.bun.price * 2 : 0) +
-          constructorState.ingredients.reduce((a, b) => a + b.price, 0)
+            (constructorState.bun ? constructorState.bun.price * 2 : 0) +
+            constructorState.ingredients.reduce((a, b) => a + b.price, 0)
         );
-      }, [constructorState]);
+    }, [constructorState]);
 
     const data = {
         "ingredients": [
@@ -39,10 +39,10 @@ function BurgerConstructor() {
     function openOrderModal() {
         setModal(true);
         sendIngredients(data, setModalData);
-      };
+    };
 
     const ingredients = React.useMemo(() => constructorState.ingredients.filter(
-    (ingredient) => ingredient.type !== 'bun'));
+    (ingredient) => ingredient.type !== 'bun'), [constructorState.ingredients]);
     
 
     return (
@@ -63,18 +63,18 @@ function BurgerConstructor() {
                         </div>
                         <ul className={`${styles.listOfInner} mt-4 mb-4`}>
                             {ingredients.map((ingredient) => {
-                                    return (
-                                        <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
-                                            <div className={styles.points}>
-                                                <DragIcon type="primary" />
-                                            </div>                                        
-                                            <ConstructorElement
-                                                text={ingredient.name}
-                                                price={ingredient.price}
-                                                thumbnail={ingredient.image_mobile}
-                                            />
-                                        </li>
-                                    )
+                                return (
+                                    <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
+                                        <div className={styles.points}>
+                                            <DragIcon type="primary" />
+                                        </div>                                        
+                                        <ConstructorElement
+                                            text={ingredient.name}
+                                            price={ingredient.price}
+                                            thumbnail={ingredient.image_mobile}
+                                        />
+                                    </li>
+                                )
                             })}
                         </ul>  
                         <div className={styles.bun}>
@@ -98,16 +98,16 @@ function BurgerConstructor() {
             </div>
 
             {modalData && 
-              <Modal 
-                onClose={closeModal}
-                handleCloseModal={closeModal}>
-                <OrderDetails 
-                orderNumber={modalData.order.number} />
-              </Modal> 
+                <Modal 
+                    onClose={closeModal}
+                    handleCloseModal={closeModal}>
+                    <OrderDetails 
+                    orderNumber={modalData.order.number} />
+                </Modal> 
             }  
         </section> 
     )
 };
 
 
-export default BurgerConstructor
+export default BurgerConstructor;

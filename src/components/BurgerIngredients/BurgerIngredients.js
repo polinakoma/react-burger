@@ -2,7 +2,7 @@ import React from 'react' // импорт библиотеки
 import  styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from '../IngredientsList/IngredientsList.js'
-import IngredientsContext from '../../context/IngredientsContext';
+import IngredientsContext from '../../context/IngredientsContext.js';
 
 
 function BurgerIngredients() {
@@ -33,25 +33,25 @@ function BurgerIngredients() {
                 </Tab>
             </div>
             <div className={styles.ingredients}>
-                    <IngredientsList
-                        ingredients={ingredients}
-                        title={'Булки'}
-                        type={'bun'}
-                    />
-                    <IngredientsList
-                        ingredients={ingredients}
-                        title={'Соусы'}
-                        type={'sauce'}
-                    />
-                    <IngredientsList
-                        ingredients={ingredients}
-                        title={'Начинки'}
-                        type={'main'}
-                    />
-                </div>
+                <IngredientsList
+                    ingredients={ingredients}
+                    title={'Булки'}
+                    type={'bun'}
+                />
+                <IngredientsList
+                    ingredients={ingredients}
+                    title={'Соусы'}
+                    type={'sauce'}
+                />
+                <IngredientsList
+                    ingredients={ingredients}
+                    title={'Начинки'}
+                    type={'main'}
+                />
+            </div>
         </section>
     )
 };
 
 
-export default BurgerIngredients
+export default BurgerIngredients;

@@ -15,4 +15,4 @@ import PropTypes from 'prop-types';
     __v: PropTypes.number.isRequired
 }.isRequired);
 
-export default ingredientPropType
+export default ingredientPropType;
