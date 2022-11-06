@@ -5,14 +5,6 @@ const checkReponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   };
 
-
-const getIngredients = (func) => {
-    fetch(`${BURGER_API_URL}/ingredients`)
-    .then((res) => checkReponse(res))
-    .then(json => func(json.data))
-    .catch(error => console.log(`Ошибка загрузки данных - ${error}`))
-};
-
 const sendIngredients = (ingredients, func) => {
     fetch(`${BURGER_API_URL}/orders`, {
         method: 'POST',
@@ -25,7 +17,8 @@ const sendIngredients = (ingredients, func) => {
     .then(data => {
         func(data);
     });
+    //.catch 
 };
 
 
-export { getIngredients, sendIngredients };
+export { sendIngredients };

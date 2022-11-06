@@ -1,15 +1,15 @@
+import React from 'react';
 import styles from './IngredientsList.module.css';
 import IngredientCard from '../IngredientCard/IngredientCard.js';
 import PropTypes from 'prop-types';
 import ingredientPropType from '../../utils/prop-types.js';
 
 
-function IngredientsList({ingredients, title, type}) {
-
+const IngredientsList = React.forwardRef( ({ingredients, title, type}, ref) => {
     return(
         <>
             <h3 id={type} className="text text_type_main-medium">{title}</h3> 
-            <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
+            <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`} ref={ref}>
                 {ingredients.map((ingredient) => {
                     if(ingredient.type === type) 
                     return (
@@ -23,7 +23,7 @@ function IngredientsList({ingredients, title, type}) {
             </ul>
          </>
     )
-};
+});
 
 IngredientsList.propTypes = {
     ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,

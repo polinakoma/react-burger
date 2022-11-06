@@ -3,10 +3,15 @@ import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader.js';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.js';
 import BurgerConstuctor from '../BurgerConstructor/BurgerConstructor.js';
-import IngredientsContext from '../../context/IngredientsContext.js';
 import ConstructorContext from '../../context/ConstructorContext.js';
-import { getIngredients } from '../../utils/burger-api.js';
+import { bindActionCreators } from 'redux';
+import { Provider } from 'react-redux';
+import store from '../../services/index.js';
+import * as actions from '../../services/actions/ingredients.js'
 
+
+const { dispatch } = store;
+const { getIngredientsData } = bindActionCreators(actions, dispatch);
 
 const initialState = {
     bun: [], 
@@ -28,32 +33,30 @@ function reducer(state, action) {
         } 
         default:
             return {...state}
-    };
+    }
 };
 
-
 function App() {
-    const [ingredients, setIngredients] = React.useState([]);
 
     const [constructorState, constructorDispatch] = React.useReducer(reducer, initialState);
- 
+    
     React.useEffect(() => {
-        getIngredients(setIngredients)  
+       getIngredientsData(); 
     }, []);
 
-
     return (
+        <Provider store={store}>
         <div className={styles.app}>  
             <AppHeader />
-            <IngredientsContext.Provider value={ingredients}>
-                <ConstructorContext.Provider value={{constructorState, constructorDispatch}} >
-                    <main className={styles.main}>
-                        <BurgerIngredients />
-                        <BurgerConstuctor />
-                    </main>
+            <ConstructorContext.Provider value={{constructorState, constructorDispatch}} >
+                <main className={styles.main}>
+                    <BurgerIngredients />
+                    <BurgerConstuctor />
+                </main>
             </ConstructorContext.Provider> 
-            </IngredientsContext.Provider>
         </div>
+
+        </Provider>
     )
 };
 

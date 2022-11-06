@@ -7,18 +7,35 @@ import Modal from '../Modal/Modal.js';
 import OrderDetails from '../OrderDetails/OrderDetails.js';
 import ConstructorContext from '../../context/ConstructorContext.js';
 import { sendIngredients } from '../../utils/burger-api.js';
+import { getOrderNumber } from '../../services/actions/ingredients.js'
 import { pendingImage } from '../../utils/constans.js';
+import { useSelector, useDispatch } from 'react-redux'
+import { useContext } from 'react'
+import { bindActionCreators } from 'redux';
+import store from '../../services';
+import * as actions from '../../services/actions/ingredients.js'
 
 
 function BurgerConstructor() {
+    const { constructorState } = useContext(ConstructorContext);
 
-    const { constructorState } = React.useContext(ConstructorContext);
 
-    const [modal, setModal] = React.useState(null);
+    const { dispatch } = store;
+    const { getOrderNumber } = bindActionCreators(actions, dispatch);
+
+
+    const addedIngredients = useSelector(
+        (state) => state.constructorIngredientsReducer.ingredients
+    );
+    const addedBuns = useSelector(
+        (state) => state.constructorIngredientsReducer.bun
+    );
+
+
+
     const [modalData, setModalData] = React.useState(null);
 
-    const closeModal = () => {
-        setModal(false);
+    const closeModal = () => {  
         setModalData(null);
     };
 
@@ -33,12 +50,13 @@ function BurgerConstructor() {
         "ingredients": [
             constructorState.bun._id,
             ...constructorState.ingredients.map((ingredient) => ingredient._id),
-            constructorState.bun._id]
+            constructorState.bun._id
+        ]
     };
 
     function openOrderModal() {
-        setModal(true);
-        sendIngredients(data, setModalData);
+       // sendIngredients(data, setModalData);
+        getOrderNumber(data);
     };
 
     const ingredients = React.useMemo(() => constructorState.ingredients.filter(
@@ -92,9 +110,12 @@ function BurgerConstructor() {
                 </div>
             </div>
             <div className={`${styles.info} mt-10`}>
-                <TotalPrice totalPrice={price}/>
+                <TotalPrice 
+                totalPrice={price} 
+                />
                 <Button type="primary" size="medium" htmlType='button' 
-                onClick={openOrderModal}>Оформить заказ</Button> 
+                onClick={openOrderModal}
+                >Оформить заказ</Button> 
             </div>
 
             {modalData && 

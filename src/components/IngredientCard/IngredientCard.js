@@ -4,25 +4,34 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import Modal from '../Modal/Modal.js';
 import IngredientDetails from '../IngredientDetails/IngredientDetails.js';
 import ingredientPropType from '../../utils/prop-types.js';
-import ConstructorContext from '../../context/ConstructorContext.js';
+import { useDispatch } from 'react-redux';
+import {RESET_INGREDIENT_MODAL, SET_INGREDIENT_MODAL, 
+ADD_INGREDIENT_TO_CONSTRUCTOR} from '../../services/actions/ingredients.js'
 
 
 function IngredientCard({ingredient}) {
 
-    const { constructorDispatch } = React.useContext(ConstructorContext);
+    const dispatch = useDispatch();
 
     const [isIngredientDetailsOpen, setIngredientDetailsOpen] = React.useState(false);
 
-    function openIngredientModal() {
+    const openIngredientModal = (ingredient) => {
         setIngredientDetailsOpen(true);
-        constructorDispatch({
-            type: "add",
+        dispatch ({
+            type: SET_INGREDIENT_MODAL,
             payload: ingredient
-        });
+        })
+        dispatch ({
+            type: ADD_INGREDIENT_TO_CONSTRUCTOR,
+            payload: ingredient
+        })
     };
 
     const closeIngredientModal = () => {
         setIngredientDetailsOpen(false);
+        dispatch({
+            type: RESET_INGREDIENT_MODAL
+        })
     };
 
       
