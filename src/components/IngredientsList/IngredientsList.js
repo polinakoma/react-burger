@@ -2,10 +2,13 @@ import React from 'react';
 import styles from './IngredientsList.module.css';
 import IngredientCard from '../IngredientCard/IngredientCard.js';
 import PropTypes from 'prop-types';
-import ingredientPropType from '../../utils/prop-types.js';
+import { useSelector } from 'react-redux'
 
 
-const IngredientsList = React.forwardRef( ({ingredients, title, type}, ref) => {
+const IngredientsList = React.forwardRef( ({title, type}, ref) => {
+
+    const ingredients = useSelector(state => state.ingredientsReducer.ingredients)
+
     return(
         <>
             <h3 id={type} className="text text_type_main-medium">{title}</h3> 
@@ -26,7 +29,6 @@ const IngredientsList = React.forwardRef( ({ingredients, title, type}, ref) => {
 });
 
 IngredientsList.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
 };

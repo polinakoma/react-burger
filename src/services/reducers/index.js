@@ -7,5 +7,5 @@ export const rootReducers = combineReducers({
     ingredientsReducer, 
     constructorIngredientsReducer, 
     ingredientInfoReducer, 
-    orderReducer
+    orderReducer,
 });

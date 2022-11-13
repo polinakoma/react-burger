@@ -1,14 +1,11 @@
-import React from 'react' // импорт библиотеки
+import React from 'react'
 import  styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from '../IngredientsList/IngredientsList.js'
 import { useInView } from 'react-intersection-observer';
-import { useSelector } from 'react-redux'
 
 
 const BurgerIngredients = () => {
-
-    const ingredients = useSelector(state => state.ingredientsReducer.ingredients)
 
     const [current, setCurrent] = React.useState('bun');
 
@@ -48,25 +45,22 @@ const BurgerIngredients = () => {
                 </div>
             <div className={styles.ingredients}>
                 <IngredientsList
-                    ingredients={ingredients}
                     title={'Булки'}
                     type={'bun'}
                     ref={BunBlockRef}
                 />
                 <IngredientsList
-                    ingredients={ingredients}
                     title={'Соусы'}
                     type={'sauce'}
                     ref={SauceBlockRef}
                 />
                 <IngredientsList
-                    ingredients={ingredients}
                     title={'Начинки'}
                     type={'main'}
                     ref={MainBlockRef}
                 />
             </div>
-        </section>
+        </section> 
     )
 };
 

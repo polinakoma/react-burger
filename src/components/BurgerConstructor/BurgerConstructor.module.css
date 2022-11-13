@@ -32,13 +32,9 @@
     border-radius: 0;   
 } 
 
-.overlay {
+.info {
     display: flex;
     flex-direction: row;
-}
-
-.info {
-    composes: overlay;
     justify-content: flex-end;
     margin-right: 16px;
 }
@@ -47,11 +43,6 @@
     padding-left: 0;
     margin-top: 0; 
     margin-bottom: 0;
-}
-
-.points {
-    margin-right: 8px;
-    align-self: center;
 }
 
 .bun {

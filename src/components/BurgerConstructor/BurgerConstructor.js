@@ -1,109 +1,114 @@
 import React from 'react';
+import { useMemo } from 'react';
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement, Button, DragIcon } 
+import { ConstructorElement, Button } 
 from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPrice from '../TotalPrice/TotalPrice.js';
 import Modal from '../Modal/Modal.js';
 import OrderDetails from '../OrderDetails/OrderDetails.js';
-import ConstructorContext from '../../context/ConstructorContext.js';
-import { sendIngredients } from '../../utils/burger-api.js';
-import { getOrderNumber } from '../../services/actions/ingredients.js'
 import { pendingImage } from '../../utils/constans.js';
-import { useSelector, useDispatch } from 'react-redux'
-import { useContext } from 'react'
+import { useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import store from '../../services';
-import * as actions from '../../services/actions/ingredients.js'
+import * as actions from '../../services/actions/ingredients.js';
+import { useDrop } from "react-dnd";
+import { CONSTRUCTOR_RESET, ADD_INGREDIENT_TO_CONSTRUCTOR} 
+from '../../services/actions/ingredients.js';
+import { v4 as uuidv4 } from 'uuid';
+import ConstructorCard from '../ConstructorCard/ConstructorCard.js';
 
 
 function BurgerConstructor() {
-    const { constructorState } = useContext(ConstructorContext);
 
+    const [modalData, setModalData] = React.useState(null);
 
     const { dispatch } = store;
     const { getOrderNumber } = bindActionCreators(actions, dispatch);
-
-
+    
     const addedIngredients = useSelector(
-        (state) => state.constructorIngredientsReducer.ingredients
-    );
-    const addedBuns = useSelector(
-        (state) => state.constructorIngredientsReducer.bun
+        (state) => state.constructorIngredientsReducer
     );
 
+    const ingredients = useMemo(() => addedIngredients.ingredients.filter(
+        (ingredient) => ingredient.type !== 'bun'), [addedIngredients.ingredients]);
 
-
-    const [modalData, setModalData] = React.useState(null);
 
     const closeModal = () => {  
         setModalData(null);
     };
 
-    const price = React.useMemo(() => {
+    const price = useMemo(() => {
         return (
-            (constructorState.bun ? constructorState.bun.price * 2 : 0) +
-            constructorState.ingredients.reduce((a, b) => a + b.price, 0)
+            (addedIngredients.bun ? addedIngredients.bun.price * 2 : 0) +
+            addedIngredients.ingredients.reduce((a, b) => a + b.price, 0)
         );
-    }, [constructorState]);
+    }, [addedIngredients]);
 
     const data = {
         "ingredients": [
-            constructorState.bun._id,
-            ...constructorState.ingredients.map((ingredient) => ingredient._id),
-            constructorState.bun._id
+            addedIngredients.bun._id,
+            ...addedIngredients.ingredients.map((ingredient) => ingredient._id),
+            addedIngredients.bun._id
         ]
     };
 
     function openOrderModal() {
-       // sendIngredients(data, setModalData);
         getOrderNumber(data);
+        setModalData(true);
+
+        dispatch({
+            type: CONSTRUCTOR_RESET,
+            payload: addedIngredients
+        });
     };
 
-    const ingredients = React.useMemo(() => constructorState.ingredients.filter(
-    (ingredient) => ingredient.type !== 'bun'), [constructorState.ingredients]);
+    const [{isHover}, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop(item) {
+            dispatch ({
+                type: ADD_INGREDIENT_TO_CONSTRUCTOR,
+                payload: { ...item, key: uuidv4()}
+            }) 
+        },
+    });
     
 
     return (
-        <section className="mt-25">
-            <div className={styles.section}>
+        <section className="mt-25" ref={dropTarget}>
+            <div className={styles.section} >
                 <div className={styles.constructor}>
                     <ul className={styles.constructorList}>
                         <div className={styles.bun}>
                             <ConstructorElement
                                 type="top"
                                 isLocked={true}
-                                text={constructorState.bun.name ? `${constructorState.bun.name} (верх)` 
+                                text={addedIngredients.bun.name ? `${addedIngredients.bun.name} (верх)` 
                                 : 'Выберите булку'}
-                                price={constructorState.bun.price}
-                                thumbnail={constructorState.bun.image_mobile ? 
-                                constructorState.bun.image_mobile : pendingImage}
-                            />
+                                price={addedIngredients.bun.price}
+                                thumbnail={addedIngredients.bun.image_mobile ? 
+                                addedIngredients.bun.image_mobile : pendingImage}
+                                />
                         </div>
-                        <ul className={`${styles.listOfInner} mt-4 mb-4`}>
-                            {ingredients.map((ingredient) => {
+                        <ul className={`${styles.listOfInner} mt-4 mb-4`} >
+                            {ingredients.map((ingredient, index) => {
                                 return (
-                                    <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
-                                        <div className={styles.points}>
-                                            <DragIcon type="primary" />
-                                        </div>                                        
-                                        <ConstructorElement
-                                            text={ingredient.name}
-                                            price={ingredient.price}
-                                            thumbnail={ingredient.image_mobile}
-                                        />
-                                    </li>
+                                    <ConstructorCard 
+                                    key={ingredient.key} 
+                                    ingredient={ingredient}
+                                    index={index}
+                                    />
                                 )
                             })}
-                        </ul>  
+                        </ul> 
                         <div className={styles.bun}>
                             <ConstructorElement
                                 type="bottom"
                                 isLocked={true}
-                                text={constructorState.bun.name ? `${constructorState.bun.name} (низ)` 
+                                text={addedIngredients.bun.name ? `${addedIngredients.bun.name} (низ)` 
                                 : 'Выберите булку'}
-                                price={constructorState.bun.price}
-                                thumbnail={constructorState.bun.image_mobile ? 
-                                constructorState.bun.image_mobile : pendingImage}
+                                price={addedIngredients.bun.price}
+                                thumbnail={addedIngredients.bun.image_mobile ? 
+                                addedIngredients.bun.image_mobile : pendingImage}
                             />
                         </div>
                     </ul>
@@ -122,10 +127,9 @@ function BurgerConstructor() {
                 <Modal 
                     onClose={closeModal}
                     handleCloseModal={closeModal}>
-                    <OrderDetails 
-                    orderNumber={modalData.order.number} />
+                    <OrderDetails/>
                 </Modal> 
-            }  
+            } 
         </section> 
     )
 };

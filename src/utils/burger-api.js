@@ -6,6 +6,7 @@ const checkReponse = (res) => {
   };
 
 const sendIngredients = (ingredients, func) => {
+
     fetch(`${BURGER_API_URL}/orders`, {
         method: 'POST',
         headers: {
@@ -19,6 +20,5 @@ const sendIngredients = (ingredients, func) => {
     });
     //.catch 
 };
-
 
 export { sendIngredients };
