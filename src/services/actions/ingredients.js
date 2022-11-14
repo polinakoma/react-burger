@@ -47,7 +47,7 @@ export const getIngredientsData = () => {
     }      
 };
 
-export const getOrderNumber = (data, func) => {
+export const getOrderNumber = (data, onCreateOrderCallback) => {
     return function (dispatch) {
         dispatch({
             type: CREATE_ORDER_REQUEST
@@ -67,7 +67,7 @@ export const getOrderNumber = (data, func) => {
                     payload: res.order
                 })
 
-                func(res.order.number)
+                onCreateOrderCallback(res.order.number)
 
                 dispatch({
                     type: CONSTRUCTOR_RESET
@@ -75,7 +75,6 @@ export const getOrderNumber = (data, func) => {
             }
         })
         .catch(() => {
-            alert('Не удалось создать заказ')
             dispatch({
                 type: CREATE_ORDER_FAILED
             })

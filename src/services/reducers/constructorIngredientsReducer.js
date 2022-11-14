@@ -27,7 +27,7 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
             }
         case CONSTRUCTOR_RESET:
             return {
-                bun: [], 
+                bun: false, 
                 ingredients: []
             }
         case CONSTRUCTOR_REORDER:

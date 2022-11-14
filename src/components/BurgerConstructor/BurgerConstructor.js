@@ -7,7 +7,8 @@ import Modal from '../Modal/Modal.js';
 import OrderDetails from '../OrderDetails/OrderDetails.js';
 import { useSelector, useDispatch } from 'react-redux'
 import { useDrop } from "react-dnd";
-import { ADD_INGREDIENT_TO_CONSTRUCTOR} from '../../services/actions/ingredients.js';
+import { ADD_INGREDIENT_TO_CONSTRUCTOR, CREATE_ORDER_FAILED } 
+from '../../services/actions/ingredients.js';
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorFilling from '../ConstructorFilling/ConstructorFilling.js';
 import ConstructorBun from '../ConstructorBun/ConstructorBun.js';
@@ -48,8 +49,10 @@ function BurgerConstructor() {
     };
 
     function openOrderModal() {
-        dispatch(getOrderNumber(data, setModalData));
+        dispatch(getOrderNumber(data, setModalData)) 
     };
+
+    
 
     const [{isHover}, dropTarget] = useDrop({
         accept: "ingredient",
@@ -91,14 +94,13 @@ function BurgerConstructor() {
             </div>
             <div className={`${styles.info} mt-10`}>
                 <TotalPrice totalPrice={price} /> 
-
-                { addedIngredients.bun == false ?
-                    <Button htmlType='button' disabled>Оформить заказ</Button> 
-                    :
-                    <Button type="primary" size="medium" htmlType='button'
-                    onClick={openOrderModal}>Оформить заказ</Button> 
-                }
-                
+                <Button
+                    type="primary"
+                    size="medium"
+                    htmlType='button'
+                    onClick={openOrderModal}
+                    disabled= {!addedIngredients.bun}>Оформить заказ
+                </Button> 
             </div>
 
             {modalData && 

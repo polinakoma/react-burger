@@ -2,6 +2,7 @@ import styles from './ConstructorBun.module.css';
 import { useSelector } from 'react-redux';
 import { pendingImage } from '../../utils/constans.js';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 
 function ConstructorBun ({type, position}) {
@@ -23,6 +24,11 @@ function ConstructorBun ({type, position}) {
             />
         </div>
     );
+};
+
+ConstructorBun.propTypes = {
+    type: PropTypes.string.isRequired,
+    position: PropTypes.string.isRequired,
 };
 
 
