@@ -17,8 +17,10 @@ const sendIngredients = (ingredients, func) => {
     .then((res) => checkReponse(res))
     .then(data => {
         func(data);
-    });
-    //.catch 
+    })
+    .catch((err) => {
+      console.log(`Ошибка ${err}`)
+    })
 };
 
-export { sendIngredients };
+export { sendIngredients, checkReponse };

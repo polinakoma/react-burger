@@ -6,7 +6,7 @@ const TotalPrice = ({totalPrice}) => {
 
     return (
         <div className={`${styles.priceTotal} mr-10`}>
-            <p className="text text_type_digits-medium">{totalPrice ? totalPrice : 0}</p>
+            <p className="text text_type_digits-medium">{totalPrice || 0}</p>
             <div className={styles.currencyIcon}>
                 <CurrencyIcon type="primary" />
             </div>

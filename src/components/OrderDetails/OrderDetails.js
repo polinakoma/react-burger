@@ -17,9 +17,9 @@ function OrderDetails() {
             <div className={styles.checkMark}>
                 <CheckMarkIcon type="primary" />
             </div>
-            <img src={overlayFirst} className={styles.overlayFirst} alt='Картинка'></img>
-            <img src={overlaySecond} className={styles.overlaySecond} alt='Картинка'></img>
-            <img src={overlayThird} className={styles.overlayThird} alt='Картинка'></img>
+            <img src={overlayFirst} className={styles.overlayFirst} alt=''></img>
+            <img src={overlaySecond} className={styles.overlaySecond} alt=''></img>
+            <img src={overlayThird} className={styles.overlayThird} alt=''></img>
             <p className="text text_type_main-default pt-30 mb-2">Ваш заказ начали готовить</p>
             <p className="text text_type_main-default text_color_inactive mb-30">
             Дождитесь готовности на орбитальной станции</p>
