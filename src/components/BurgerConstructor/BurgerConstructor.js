@@ -1,77 +1,118 @@
+import React from 'react';
+import { useMemo } from 'react';
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import craterBun from '../../images/crater_bun.svg'
-import PropTypes from 'prop-types';
-import ingredientPropType from '../../utils/prop-types.js'
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import TotalPrice from '../TotalPrice/TotalPrice.js';
+import Modal from '../Modal/Modal.js';
+import OrderDetails from '../OrderDetails/OrderDetails.js';
+import { useSelector, useDispatch } from 'react-redux'
+import { useDrop } from "react-dnd";
+import { ADD_INGREDIENT_TO_CONSTRUCTOR, CREATE_ORDER_FAILED } 
+from '../../services/actions/ingredients.js';
+import { v4 as uuidv4 } from 'uuid';
+import ConstructorFilling from '../ConstructorFilling/ConstructorFilling.js';
+import ConstructorBun from '../ConstructorBun/ConstructorBun.js';
+import { getOrderNumber } from '../../services/actions/ingredients.js'
 
 
-function BurgerConstructor({ingredients, handleOpenModal}) {
+function BurgerConstructor() {
+
+    const [modalData, setModalData] = React.useState(null);
+
+    const dispatch = useDispatch();
+    
+    const addedIngredients = useSelector(
+        (state) => state.constructorIngredientsReducer
+    );
+
+    const fillings = useMemo(() => addedIngredients.ingredients.filter(
+        (ingredient) => ingredient.type !== 'bun'), [addedIngredients.ingredients]);
+
+
+    const closeModal = () => {  
+        setModalData(null);
+    };
+
+    const price = useMemo(() => {
+        return (
+            (addedIngredients.bun ? addedIngredients.bun.price * 2 : 0) +
+            addedIngredients.ingredients.reduce((a, b) => a + b.price, 0)
+        );
+    }, [addedIngredients]);
+
+    const data = {
+        "ingredients": [
+            addedIngredients.bun._id,
+            ...addedIngredients.ingredients.map((ingredient) => ingredient._id),
+            addedIngredients.bun._id
+        ]
+    };
+
+    function openOrderModal() {
+        dispatch(getOrderNumber(data, setModalData)) 
+    };
+
+    
+
+    const [{isHover}, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop(item) {
+            dispatch ({
+                type: ADD_INGREDIENT_TO_CONSTRUCTOR,
+                payload: { ...item, key: uuidv4()}
+            }) 
+        },
+    });
+    
 
     return (
-        <section className="mt-25">
-            <div className={styles.section}>
+        <section className="mt-25" ref={dropTarget}>
+            <div className={styles.section} >
                 <div className={styles.constructor}>
                     <ul className={styles.constructorList}>
-
-                        <div className={styles.bun}>
-                            <ConstructorElement
-                                type="top"
-                                isLocked={true}
-                                text="Краторная булка N-200i (верх)"
-                                price={20}
-                                thumbnail={craterBun}
-                            />
-                        </div>
-                        <ul className={`${styles.listOfInner} mt-4 mb-4`}>
-                            {ingredients.map((ingredient) => {
-                                if(ingredient.type !== 'bun') {
-                                    return (
-                                        <li className={`${styles.overlay} mb-4`} key={ingredient._id}>
-                                            <div className={styles.points}>
-                                                <DragIcon type="primary" />
-                                            </div>                                        
-                                            <ConstructorElement
-                                                text={ingredient.name}
-                                                price={ingredient.price}
-                                                thumbnail={ingredient.image_mobile}
-                                            />
-                                        </li>
-                                    )
-                                }
+                        <ConstructorBun 
+                            type='top'
+                            position='(верх)'
+                        />
+                        <ul className={`${styles.listOfInner} mt-4 mb-4`} >
+                            {fillings.map((ingredient, index) => {
+                                return (
+                                    <ConstructorFilling 
+                                    key={ingredient.key} 
+                                    ingredient={ingredient}
+                                    index={index}
+                                    />
+                                )
                             })}
-                        </ul>  
-                        
-                        <div className={styles.bun}>
-                            <ConstructorElement
-                                type="bottom"
-                                isLocked={true}
-                                text="Краторная булка N-200i (низ)"
-                                price={20}
-                                thumbnail={craterBun}
-                            />
-                        </div>
-                        
+                        </ul> 
+                        <ConstructorBun 
+                            type='bottom'
+                            position='(низ)'
+                        />
                     </ul>
                 </div>
             </div>
-
             <div className={`${styles.info} mt-10`}>
-                <div className={`${styles.priceTotal} mr-10`}>
-                    <p className="text text_type_digits-medium">610</p>
-                    <div className={styles.currencyIcon}>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                </div>
-                <Button type="primary" size="medium" htmlType='button' onClick={handleOpenModal}>Оформить заказ</Button>
-            </div> 
-        </section>
+                <TotalPrice totalPrice={price} /> 
+                <Button
+                    type="primary"
+                    size="medium"
+                    htmlType='button'
+                    onClick={openOrderModal}
+                    disabled= {!addedIngredients.bun}>Оформить заказ
+                </Button> 
+            </div>
+
+            {modalData && 
+                <Modal 
+                    onClose={closeModal}
+                    handleCloseModal={closeModal}>
+                    <OrderDetails/>
+                </Modal> 
+            } 
+        </section> 
     )
 };
 
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
-    handleOpenModal: PropTypes.func.isRequired
-};
 
-
-export default BurgerConstructor
+export default BurgerConstructor;

@@ -32,22 +32,11 @@
     border-radius: 0;   
 } 
 
-.overlay {
+.info {
     display: flex;
     flex-direction: row;
-}
-
-.info {
-    composes: overlay;
     justify-content: flex-end;
     margin-right: 16px;
-}
-
-.priceTotal {
-    min-width: 119px;
-    composes: overlay;
-    gap: 9px;
-    align-items: center;
 }
 
 .constructorList {
@@ -55,19 +44,4 @@
     margin-top: 0; 
     margin-bottom: 0;
 }
-
-.points {
-    margin-right: 8px;
-    align-self: center;
-}
-
-.bun {
-    margin-left: 32px;
-}
-
-.currencyIcon svg {
-    width: 33px;
-    height: 33px;
-}
-
 

@@ -1,13 +1,12 @@
 import styles from './AppHedear.module.css';
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
-import { BurgerIcon,  ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import { BurgerIcon,  ListIcon, ProfileIcon, Logo } 
+from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 function AppHeader() {
 
     return (
         <header className={styles.header}>
-
             <nav className={styles.navigation}>
             <button className={`${styles.buttonConstructor} pl-5 pr-5 pb-5 pt-5`} href="#">
                 <BurgerIcon type="primary" />
@@ -25,9 +24,9 @@ function AppHeader() {
             </button>  
         </header>
     )
-}
+};
  
   
-export default AppHeader
+export default AppHeader;
 
   
