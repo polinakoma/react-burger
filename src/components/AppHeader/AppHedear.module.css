@@ -1,0 +1,35 @@
+.header {
+    background-color: #1C1C21;
+    width: 100%;
+    min-height: 88px;
+    margin: auto;
+    display: flex;
+    composes: main from '../App/App.module.css';
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    margin-right: 112px;
+}
+
+.buttonConstructor {
+    display: flex;
+    flex-direction: row;
+    background-color: #1C1C21;
+    border: none;
+    cursor: pointer;
+    color: #F2F2F3;
+    border-radius: 40px;
+    text-decoration: none;
+}
+
+.orderLine {
+    composes: buttonConstructor;
+}
+
+.account {
+    composes: buttonConstructor;
+    margin-left: 289px;
+}
