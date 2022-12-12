@@ -1,0 +1,12 @@
+.priceTotal {
+    min-width: 119px;
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+    align-items: center;
+}
+
+.currencyIcon svg {
+    width: 33px;
+    height: 33px;
+}
