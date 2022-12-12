@@ -11,7 +11,6 @@
 .navigation {
     display: flex;
     flex-direction: row;
-    margin-right: 112px;
 }
 
 .buttonConstructor {
@@ -20,15 +19,21 @@
     background-color: #1C1C21;
     border: none;
     cursor: pointer;
-    color: #F2F2F3;
+    color: #8585AD;
     border-radius: 40px;
+    text-decoration: none;
 }
 
 .orderLine {
     composes: buttonConstructor;
+    margin-right: 112px;
 }
 
 .account {
     composes: buttonConstructor;
-    margin-left: 289px;
+    margin-left: 288px;
+}
+
+.link_active {
+    color: #F2F2F3;;
 }

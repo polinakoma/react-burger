@@ -24,3 +24,16 @@ code {
 	font-style: normal;
 	font-weight: 400;
 }
+
+@font-face {
+	font-family: "JetBrains_Mono";
+	src: url(./fonts/JetBrains_Mono/JetBrainsMono-Bold.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 700;
+}
+@font-face {
+	font-family: "JetBrains_Mono";
+	src: url(./fonts/JetBrains_Mono/JetBrainsMono-Regular.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 400;
+}

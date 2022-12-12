@@ -29,8 +29,8 @@ export const getIngredientsData = () => {
         dispatch({
             type: GET_INGREDIENTS
           });
-          fetch(`${BURGER_API_URL}/ingredients`)
-          .then((res) => checkReponse(res))
+        fetch(`${BURGER_API_URL}/ingredients`)
+        .then((res) => checkReponse(res))
         .then((res) => {
             if(res) {
                 dispatch({
@@ -47,7 +47,7 @@ export const getIngredientsData = () => {
     }      
 };
 
-export const getOrderNumber = (data, onCreateOrderCallback) => {
+export const getOrderNumber = (accessToken, data, onCreateOrderCallback) => {
     return function (dispatch) {
         dispatch({
             type: CREATE_ORDER_REQUEST
@@ -55,7 +55,8 @@ export const getOrderNumber = (data, onCreateOrderCallback) => {
         fetch(`${BURGER_API_URL}/orders`, {
             method: 'POST',
             headers: {
-                "Content-type": 'application/json'
+                "Content-type": 'application/json',
+                "Authorization": accessToken,
               },
             body: JSON.stringify(data)
         })

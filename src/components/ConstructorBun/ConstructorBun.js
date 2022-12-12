@@ -16,10 +16,10 @@ function ConstructorBun ({type, position}) {
             <ConstructorElement
                 type={type}
                 isLocked={true}
-                text={addedIngredients.bun.name ? `${addedIngredients.bun.name} ${position}`
+                text={addedIngredients.bun ? `${addedIngredients.bun.name} ${position}`
                 : 'Выберите булку'}
                 price={addedIngredients.bun.price}
-                thumbnail={addedIngredients.bun.image_mobile ? 
+                thumbnail={addedIngredients.bun ? 
                 addedIngredients.bun.image_mobile : pendingImage}
             />
         </div>
