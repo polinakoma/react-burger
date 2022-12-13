@@ -15,6 +15,7 @@ import ConstructorBun from '../ConstructorBun/ConstructorBun.js';
 import { getOrderNumber } from '../../services/actions/ingredients.js'
 import { getCookie } from '../../utils/cookie';
 import { useHistory } from 'react-router-dom';
+import Preloader from '../Preloader/preloader';
 
 
 function BurgerConstructor() {
@@ -30,6 +31,12 @@ function BurgerConstructor() {
     };
 
     const userInfo = useSelector((state) => state.userRequestReducer.userInfo)
+    const isFetching = useSelector((state) => state.orderReducer.isFetching)
+
+    if(isFetching) {
+        <Preloader />
+    }
+
     const addedIngredients = useSelector(
         (state) => state.constructorIngredientsReducer
     );

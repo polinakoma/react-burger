@@ -1,11 +1,12 @@
 import styles from './login.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ResetPasswordRequest }from '../services/actions/user_requests.js';
-import { useState, useCallback } from 'react';
+import { resetPasswordRequest }from '../services/actions/userRequests.js';
+import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useForm } from '../hooks/useForm';
 
 
 const ForgotPassword = () => {
@@ -13,38 +14,34 @@ const ForgotPassword = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [form, setValue] = useState('');
-
-    const onChange = e => {
-        setValue({ ...form, [e.target.name]: e.target.value });
-    };
+    const {values, handleChange } = useForm({ email: '' });
 
     const redirect = () => {history.push('/reset-password')} 
 
     const forgotPassword = useCallback((e) => {
         e.preventDefault();
-        dispatch(ResetPasswordRequest(form, redirect));
-    }, [form, dispatch]
+        dispatch(resetPasswordRequest(values, redirect));
+    }, [values, dispatch]
     );
 
     return (
         <div className={styles.container}>
             <h1 className={styles.heading}>Восстановление пароля</h1>
-            <form className={styles.form} name="restore_password">
+            <form className={styles.form} onSubmit={forgotPassword} name="restore_password">
                 <EmailInput
-                    onChange={onChange}
-                    value={form.email}
+                    onChange={handleChange}
+                    value={values.email}
                     name={'email'}
                     placeholder="Укажите e-mail"
                     isIcon={false}
-                    extraClass="mb-6 mt-6">
+                    extraClass="mb-6 mt-6"
+                    required>
                 </EmailInput>
                 <div className={styles.submit_button}>
                     <Button
                         type="primary"
                         size="medium"
-                        htmlType='submit'
-                        onClick={forgotPassword}>Восстановить
+                        htmlType='submit'>Восстановить
                     </Button>
                 </div> 
             </form>

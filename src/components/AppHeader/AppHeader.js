@@ -15,13 +15,15 @@ function AppHeader() {
                     <BurgerIcon type="primary" />
                     <p className="text text_type_main-default ml-2">Конструктор</p>
                 </NavLink>
-                <NavLink to='#'
+                <NavLink to='/feed'
                 activeClassName={styles.link_active}
                 className={`${styles.orderLine} pl-5 pr-5 pb-5 pt-5 ml-2`}>
                     <ListIcon type="secondary" />
                     <p className="text text_type_main-default ml-2">Лента заказов</p>
                 </NavLink>
-                <Logo />
+                <NavLink to='/'>
+                    <Logo />
+                </NavLink>
                 <NavLink to='/profile' 
                 activeClassName={styles.link_active}
                 className={`${styles.account} pl-5 pr-5 pb-5 pt-5`}>

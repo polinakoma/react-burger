@@ -7,7 +7,7 @@ import {
     GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, 
     AUTH_CHECKED, 
     UPDATE_USER_DATA, UPDATE_USER_DATA_SUCCESS, UPDATE_USER_DATA_FAILED 
-} from '../actions/user_requests.js'
+} from '../actions/userRequests.js'
 
 
 const initialState = {

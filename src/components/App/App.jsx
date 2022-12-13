@@ -15,10 +15,11 @@ import ResetPassword from '../../pages/reset-password.jsx';
 import Profile from '../../pages/profile.jsx';
 import NotFound from '../../pages/not-found-404.jsx';
 import ProtectedRoute from '../ProtectRoute/ProtectedRoute.js'
-import { checkAuth } from '../../services/actions/user_requests';
+import { checkAuth } from '../../services/actions/userRequests';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { RESET_INGREDIENT_MODAL } from '../../services/actions/ingredients.js';
+import OrderLine from '../OrderLine/OrderLine.js'
 
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
                                 <BurgerConstuctor />
                             </DndProvider>
                         </main>
+                    </Route>
+                    <Route path="/feed" exact>
+                        <OrderLine />
                     </Route>
                     <ProtectedRoute path="/login" onlyUnAuth>
                         <LogIn />

@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logOutRequest } from '../services/actions/user_requests';
+import { logOutRequest } from '../services/actions/userRequests';
 import { Route, useRouteMatch } from 'react-router-dom';
 import { getCookie } from '../utils/cookie';
 import { useCallback } from 'react';
-import { saveUserData } from '../services/actions/user_requests';
+import { saveUserData } from '../services/actions/userRequests';
 
 const Profile = () => {
 
@@ -53,8 +53,8 @@ const Profile = () => {
 
     const saveNewData = useCallback((e) => {
         e.preventDefault();
-        dispatch(saveUserData(accessToken, name, email, password));
-    }, [accessToken, name, email, password, dispatch]
+        dispatch(saveUserData(accessToken, name, email,password));
+    }, [accessToken, name, email,password, dispatch]
     );
 
     return (
@@ -77,7 +77,7 @@ const Profile = () => {
             </nav>
 
             <Route exact path={`${path}`}>  
-                <form className={styles.profile_info}>
+                <form className={styles.profile_info} onSubmit={saveNewData} name="profile">
                     <Input
                         onChange={onChangeName}
                         value={name}
@@ -87,9 +87,9 @@ const Profile = () => {
                         extraClass="mb-6"
                         size={"default"}
                     />
-                <EmailInput
-                    onChange={onChangeEmail}
-                    value={email}
+                    <EmailInput
+                        onChange={onChangeEmail}
+                        value={email}
                         name={'email'}
                         placeholder="Логин"
                         icon={"EditIcon"}
@@ -106,15 +106,13 @@ const Profile = () => {
                         size={"default"}
                     />
                     <div className={styles.buttons}>
-                        <button 
-                            className={styles.buttonCancel} 
-                            onClick={handleResetData}>Отмена
+                        <button className={styles.buttonCancel} 
+                        onClick={handleResetData}>Отмена
                         </button>
                         <Button
                             type="primary"
                             size="medium"
-                            htmlType='button'
-                            onClick={saveNewData}>Сохранить
+                            htmlType='submit'>Сохранить
                         </Button> 
                     </div>
                 </form>

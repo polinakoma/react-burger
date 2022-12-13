@@ -1,4 +1,4 @@
-import { checkReponse }from '../../utils/burger-api.js'
+import { request } from '../../utils/constans.js';
 import { BURGER_API_URL } from '../../utils/constans.js';
 import { getCookie, setCookie, deleteCookie } from '../../utils/cookie.js';
 import { getUserApi } from '../../utils/user-api.js';
@@ -78,17 +78,14 @@ export const registerUserRequest = (form) => {
         dispatch({
             type: REGISTRATION
         })
-
-        fetch(`${BURGER_API_URL}/auth/register`, {
+        request(`${BURGER_API_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 "Content-type": 'application/json'
             },
             body: JSON.stringify(form)
         })
-        .then((res) => checkReponse(res))
         .then(res => {
-            console.log(res)
             if(res.success) {
                 dispatch({
                     type: REGISTRATION_SUCCESS,
@@ -112,15 +109,13 @@ export const logInRequest = (form) => {
         dispatch({
             type: LOGIN
         });
-
-        fetch(`${BURGER_API_URL}/auth/login`, {
-            method: 'POST',
-            headers: {
-                "Content-type": 'application/json'
-            },
-            body: JSON.stringify(form)
-        })
-        .then((res) => checkReponse(res))
+        request(`${BURGER_API_URL}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    "Content-type": 'application/json'
+                },
+                body: JSON.stringify(form)
+            })
         .then(res => {
             if(res.success) {
                 dispatch({
@@ -146,8 +141,7 @@ export const logOutRequest = (refreshToken) => {
         dispatch({
             type: LOGOUT
         })
-
-        fetch(`${BURGER_API_URL}/auth/logout`, {
+        request(`${BURGER_API_URL}/auth/logout`, {
             method: 'POST',
             headers: {
                 "Content-type": 'application/json'
@@ -156,7 +150,6 @@ export const logOutRequest = (refreshToken) => {
                 "token": refreshToken
             })
         })
-        .then((res) => checkReponse(res))
         .then(res => {
             console.log(res)
             if(res.success) {
@@ -178,13 +171,12 @@ export const logOutRequest = (refreshToken) => {
 };
 
 // forgot-password
-export const ResetPasswordRequest = (form, redirect) => {
+export const resetPasswordRequest = (form, redirect) => {
     return function(dispatch) {
         dispatch({
             type: FORGOT_PASSWORD
         });
-
-        fetch(`${BURGER_API_URL}/password-reset`, {
+        request(`${BURGER_API_URL}/password-reset`, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -196,7 +188,6 @@ export const ResetPasswordRequest = (form, redirect) => {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(form)
         })
-        .then((res) => checkReponse(res))
         .then(res => {
             if(res.success) { 
                 console.log(res) 
@@ -222,15 +213,13 @@ export const settingNewPasswordRequest = (form, redirect) => {
         dispatch({
             type: RESET_PASSWORD
         })
-
-        fetch(`${BURGER_API_URL}/password-reset/reset`, {
+        request(`${BURGER_API_URL}/password-reset/reset`, {
             method: 'POST',
             headers: {
                 "Content-type": 'application/json'
             },
             body: JSON.stringify(form)
         })
-        .then((res) => checkReponse(res))
         .then(res => {
             if(res.success) {
                 dispatch({
@@ -248,13 +237,12 @@ export const settingNewPasswordRequest = (form, redirect) => {
     }
 };
 
-export const saveUserData = (accessToken, name, email, password) => {
+export const saveUserData = (accessToken, name, email,password) => {
     return function(dispatch) {
         dispatch({
             type: UPDATE_USER_DATA
         })
-
-        fetch(`${BURGER_API_URL}/auth/user`, {
+        request(`${BURGER_API_URL}/auth/user`, {
             method: 'PATCH',
             headers: {
                 "Content-type": 'application/json',
@@ -266,7 +254,6 @@ export const saveUserData = (accessToken, name, email, password) => {
                 'password': password
             })
         })
-        .then((res) => checkReponse(res))
         .then(res => {
             if(res.success) {
                 dispatch({

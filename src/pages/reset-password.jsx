@@ -1,10 +1,11 @@
 import styles from './login.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { settingNewPasswordRequest } from '../services/actions/user_requests.js';
-import { useState, useCallback } from 'react';
+import { settingNewPasswordRequest } from '../services/actions/userRequests.js';
+import { useCallback } from 'react';
 import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { useForm } from '../hooks/useForm';
 
 
 const ResetPassword = () => {
@@ -16,36 +17,33 @@ const ResetPassword = () => {
 
     if(!email) {
         history.push('/forgot-password')
-    }
-    
-    const [form, setValue] = useState({ password: '', token: '' });
-
-    const onChange = e => {
-        setValue({ ...form, [e.target.name]: e.target.value });
     };
+
+    const {values, handleChange } = useForm({password: '', token: ''});
 
     const redirect = () => {history.push('/')} 
 
     const settingNewPassword = useCallback((e) =>  {
         e.preventDefault();
-        dispatch(settingNewPasswordRequest(form, redirect));
-    }, [form, dispatch]
+        dispatch(settingNewPasswordRequest(values, redirect));
+    }, [values, dispatch]
     );
 
     return (
         <div className={styles.container}>
             <h1 className={styles.heading}>Восстановление пароля</h1>
-            <form className={styles.form} name="password_reset">
+            <form className={styles.form} onSubmit={settingNewPassword} 
+            name="password_reset">
                 <PasswordInput
-                    onChange={onChange}
-                    value={form.password}
+                    onChange={handleChange}
+                    value={values.password}
                     placeholder="Введите новый пароль"
                     name={'password'}
                     extraClass="mb-6 mt-6"
                 />
                 <EmailInput
-                    onChange={onChange}
-                    value={form.token}
+                    onChange={handleChange}
+                    value={values.token}
                     placeholder="Введите код из письма"
                     name={'token'}
                     isIcon={false}
@@ -55,8 +53,7 @@ const ResetPassword = () => {
                     <Button
                         type="primary"
                         size="medium"
-                        htmlType='submit'
-                        onClick={settingNewPassword}>Сохранить
+                        htmlType='submit'>Сохранить
                     </Button>
                 </div> 
             </form>

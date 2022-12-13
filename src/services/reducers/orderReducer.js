@@ -5,7 +5,8 @@ CREATE_ORDER_FAILED } from '../actions/ingredients.js';
 const initialState = {
     orderNumber: '',
     orderRequest: false,
-    orderNumberReceiveFailed: false
+    orderNumberReceiveFailed: false,
+    isFetching: false
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -14,19 +15,22 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 orderRequest: true,
-                orderNumberReceiveFailed: false
+                orderNumberReceiveFailed: false,
+                isFetching: true
             }
         case CREATE_ORDER_SUCCESS:
             return {
                 ...state,
                 orderNumber: action.payload,
-                orderRequest: false
+                orderRequest: false,
+                isFetching: false
             }
         case CREATE_ORDER_FAILED:
             return {
                 ...state,
                 orderRequest: false,
-                orderNumberReceiveFailed: true
+                orderNumberReceiveFailed: true,
+                isFetching: false
             }
         default:
             return state;

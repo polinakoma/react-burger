@@ -8,11 +8,11 @@ export const ProtectedRoute = ({ onlyUnAuth, children, ...props }) => {
 
     const location = useLocation();
     const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
-  //  const isAuthChecked = useSelector((state) => state.userRequestReducer.isAuthChecked); 
+    const isAuthChecked = useSelector((state) => state.userRequestReducer.isAuthChecked); 
 
-    // if(!isAuthChecked) {
-    //     <Preloader />
-    // }
+        if(!isAuthChecked) {
+            <Preloader />
+        }
 
     if(onlyUnAuth && userInfo) {
         const { from } = location.state || { from: {pathname: "/"} };

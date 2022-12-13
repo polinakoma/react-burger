@@ -1,43 +1,39 @@
 import styles from './login.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logInRequest } from '../services/actions/user_requests.js';
+import { logInRequest } from '../services/actions/userRequests.js';
 import { useDispatch } from 'react-redux';
+import { useForm } from '../hooks/useForm.js';
 
 
 const LogIn = () => {
 
     const dispatch = useDispatch();
 
-    const [form, setValue] = useState({email:'', password:''})
-
-    const onChange = e => {
-        setValue(e.target.value)
-        setValue({ ...form, [e.target.name]: e.target.value });
-    };
+    const {values, handleChange } = useForm({email:'', password:''});
 
     const logIn = useCallback((e) => {
         e.preventDefault();
-        dispatch(logInRequest(form));
-    }, [form, dispatch]
+        dispatch(logInRequest(values));
+    }, [values, dispatch]
     ); 
 
     return (
         <div className={styles.container}>
             <h1 className={styles.heading}>Вход</h1>
-            <form className={styles.form} name="sign_in">
+            <form className={styles.form} onSubmit={logIn} name="sign_in">
                 <EmailInput
-                    onChange={onChange}
-                    value={form.email}
+                    onChange={handleChange}
+                    value={values.email}
                     name={'email'}
                     placeholder={'E-mail'}
                     extraClass="mb-6 mt-6">
                 </EmailInput>
                 <PasswordInput
-                    onChange={onChange}
-                    value={form.password}
+                    onChange={handleChange}
+                    value={values.password}
                     name={'password'}
                     placeholder={'Пароль'}
                     extraClass="mb-6">
@@ -46,8 +42,7 @@ const LogIn = () => {
                     <Button
                         type="primary"
                         size="medium"
-                        htmlType='submit'
-                        onClick={logIn}>Войти          
+                        htmlType='submit'>Войти          
                     </Button>
                 </div> 
             </form>
