@@ -19,8 +19,8 @@ import { checkAuth } from '../../services/actions/userRequests';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { RESET_INGREDIENT_MODAL } from '../../services/actions/ingredients.js';
-import OrderLine from '../OrderLine/OrderLine.js'
-
+import OrderLine from '../OrderLine/OrderLine.js';
+import OrderContentModal from '../OrderContentModal/OrderContentModal';
 
 function App() {
 
@@ -59,6 +59,9 @@ function App() {
                     <Route path="/feed" exact>
                         <OrderLine />
                     </Route>
+                    <Route path="/feed/:id">
+                        <OrderContentModal />
+                    </Route>
                     <ProtectedRoute path="/login" onlyUnAuth>
                         <LogIn />
                     </ProtectedRoute>
@@ -74,6 +77,9 @@ function App() {
                     <ProtectedRoute path="/profile" >
                         <Profile />
                     </ProtectedRoute>
+                    <Route path="/profile/orders/:id">
+                        <OrderContentModal />
+                    </Route>
                     <Route path="/ingredients/:id">
                         <IngredientDetails />
                     </Route>

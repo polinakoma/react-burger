@@ -9,6 +9,7 @@ import { Route, useRouteMatch } from 'react-router-dom';
 import { getCookie } from '../utils/cookie';
 import { useCallback } from 'react';
 import { saveUserData } from '../services/actions/userRequests';
+import ProfileOrders from '../components/ProfileOrders/ProfileOrders';
 
 const Profile = () => {
 
@@ -118,7 +119,7 @@ const Profile = () => {
                 </form>
             </Route>
             <Route path={`${path}/orders`} >
-                <h1>Здесь будут заказы</h1>
+                <ProfileOrders />
             </Route>
         </div>
     )

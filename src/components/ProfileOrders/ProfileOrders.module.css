@@ -1,0 +1,87 @@
+.container {
+    max-height: 916px;
+    overflow: hidden;
+    overflow-y: scroll; 
+}
+
+.container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: #2F2F37;  
+    border-radius: 0; 
+    margin-bottom: 64px;
+    height: 696px;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background-color: #8585AD;  
+    border-radius: 0;   
+}
+
+.orderItem {
+    min-width: 844px;
+    border-radius: 40px;
+    background: #1C1C21;
+    box-sizing: border-box;
+    margin-right: 8px;
+    text-decoration: none;
+    color: #F2F2F3;
+    font-family: 'JetBrains_Mono';
+}
+
+.orderDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.orderNumber {
+    font-family: 'Iceland';
+    font-size: 28px;
+    line-height: 24px;
+    margin: 0;
+}
+
+.orderDate {
+    font-size: 16px;
+    line-height: 24px;
+    color: #8585AD;
+    margin: 0;
+}
+
+.orderTitle {
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.orderImage {
+    max-width: 436px;
+    margin: 0;
+}
+
+.orderPrice {
+    max-width: 76px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Iceland';
+    font-size: 28px;
+    line-height: 24px;
+}
+
+.orderStatus {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 0;
+}

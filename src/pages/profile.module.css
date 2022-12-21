@@ -1,6 +1,6 @@
 .container {
     font-family: 'JetBrains_Mono';
-    margin-top: 120px;
+    margin-top: 40px;
     margin-left: 340px;
     display: flex;
     flex-direction: row;
@@ -13,6 +13,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 320px;
+    margin-top: 80px;
 }
 
 .button {
@@ -50,6 +51,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 480px;
+    margin-top: 80px;
 }
 
 .input {
