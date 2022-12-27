@@ -8,11 +8,13 @@
 }
 
 .orderLine {
-    min-width: 600px;
+    width: 600px;
     max-height: 872px;
     overflow: hidden;
     overflow-y: scroll; 
     color: #F2F2F3;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .orderLine::-webkit-scrollbar {
@@ -25,6 +27,7 @@
     border-radius: 0; 
     margin-bottom: 60px;
     height: 812px;
+
 }
 
 .orderLine::-webkit-scrollbar-thumb {
@@ -38,67 +41,14 @@
     min-width: 1240px;
 }
 
+.orderStatistics {
+    display: flex;
+    flex-direction: row;
+}
+
 .container {
-    display: flex;
-    flex-direction: row;
+    composes: orderStatistics;
     justify-content: center;
-}
-
-.orderItem {
-    width: 584px;
-    border-radius: 40px;
-    background: #1C1C21;
-    box-sizing: border-box;
-    margin-right: 8px;
-    text-decoration: none;
-    color: #F2F2F3;
-}
-
-.orderDetails {
-    composes: container;
-    justify-content: space-between;
-}
-
-.orderNumber {
-    font-family: 'Iceland';
-    font-size: 28px;
-    line-height: 24px;
-    margin: 0;
-}
-
-.orderDate {
-    font-size: 16px;
-    line-height: 24px;
-    color: #8585AD;
-    margin: 0;
-}
-
-.orderTitle {
-    font-size: 24px;
-    line-height: 30px;
-}
-
-.orderInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 24px;
-}
-
-.orderImage {
-    max-width: 436px;
-    margin: 0;
-}
-
-.orderPrice {
-    max-width: 76px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 9px;
-    font-family: 'Iceland';
-    font-size: 28px;
-    line-height: 24px;
 }
 
 .statistics {
@@ -107,15 +57,10 @@
     flex-direction: column;
 }
 
-.oredsStatistics {
-    display: flex;
-    flex-direction: row;
-}
-
-.oredsInfo {
+.orderInfo {
     display: flex;
     flex-direction: column;
-    min-width: 272px;
+    width: 272px;
 }
 
 .title {
@@ -130,6 +75,7 @@
     line-height: 24px;
     color: #00CCCC;
     margin-top: 0;
+    margin-bottom: 8px;
 }
 
 .orderNumbers_white {
@@ -142,4 +88,32 @@
     0px 0px 16px rgba(51, 51, 255, 0.25), 
     0px 0px 8px rgba(51, 51, 255, 0.25), 
     0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 312px;
+    width: 272px;
+    box-sizing: border-box;
+    column-count: 5;
+    column-width: 60px;
+    overflow: auto;
+    overflow-x: scroll; 
+}
+
+.list::-webkit-scrollbar {
+    height: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+    background: #2F2F37;  
+    border-radius: 0; 
+}
+
+.list::-webkit-scrollbar-thumb {
+    background-color: #8585AD;  
+    border-radius: 0;   
 }

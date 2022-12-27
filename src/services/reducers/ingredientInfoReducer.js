@@ -1,22 +1,20 @@
-import { SET_INGREDIENT_MODAL, RESET_INGREDIENT_MODAL } 
-from '../actions/ingredients.js';
+import { SET_MODAL, RESET_MODAL } from '../actions/ingredients.js';
 
 
 const initialState = {
-    currentIngredient: null    
+    current: null    
 };
 
 export const ingredientInfoReducer = (state = initialState, action) => {
     switch(action.type) {
-        case SET_INGREDIENT_MODAL:
+        case SET_MODAL:
             return {
                 ...state,
-                currentIngredient: action.payload
+                current: action.payload
             }
-        case RESET_INGREDIENT_MODAL:
+        case RESET_MODAL:
             return {
                 ...state,
-               // currentIngredient: null
             }
         default:
             return state;

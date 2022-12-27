@@ -1,25 +1,17 @@
-.main {
-    display: flex;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .container {
-    min-width: 640px;
+    width: 640px;
     font-family: 'JetBrains_Mono';
     display: flex;
     flex-direction: column;
     color: #F2F2F3;
+    margin: auto;
 }
 
 .orderNumber {
     font-family: 'Iceland';
     font-size: 28px;
     line-height: 24px;
-    align-self: center;
-    margin-top: 0;
+    margin-top: 60px;
 }
 
 .orderContent {
@@ -27,6 +19,8 @@
     font-size: 24px;
     line-height: 30px;
     margin-top: 0;
+    margin-bottom: 28px;
+    margin-bottom: 8px;
 }
 
 .orderTitle {
@@ -46,6 +40,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #8585AD;
+    margin: 0;
 }
 
 .orderInfo {
@@ -54,12 +49,17 @@
     justify-content: space-between;
     align-items: center;
     gap: 9px;
+    margin-bottom: 40px;
+    box-sizing: content-box;
 }
 
 .ingredientArea {
-    max-height: 256px;
+    max-height: 312px;
     overflow: hidden;
     overflow-y: scroll; 
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 40px;
 }
 
 .ingredientArea::-webkit-scrollbar {
@@ -70,8 +70,7 @@
 .ingredientArea::-webkit-scrollbar-track {
     background: #2F2F37;  
     border-radius: 0; 
-    margin-bottom: 60px;
-    height: 256px;
+    height: 312px;
 }
 
 .ingredientArea::-webkit-scrollbar-thumb {
@@ -82,6 +81,7 @@
 .orderIngredient {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     font-size: 16px;
     line-height: 24px;
     align-items: center;
@@ -91,9 +91,40 @@
 .price {
     font-family: 'Iceland';
     font-size: 28px;
-    line-height: 24px;
+    margin: 0; 
 }
 
 .orderIngredientTitle {
-    min-width: 414px;
+    min-width: 320px;
+}
+
+.itemImage {
+    background: #000000;
+    border-radius: 100px;
+    border: 2px solid;
+    border-color: rgba(128, 26, 178, 1)
+    rgba(76, 76, 255, 1);
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+}   
+
+.span {
+    font-family: 'Iceland';
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 24px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.orderprice {
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+}
+
+.block {
+    display: flex;
+    flex-direction: row;
 }

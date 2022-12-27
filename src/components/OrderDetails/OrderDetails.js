@@ -3,12 +3,12 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 import overlayFirst from '../../images/Vector 1.svg';
 import overlaySecond from '../../images/Vector 2.svg';
 import overlayThird from '../../images/Vector 3.svg';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 
 
 function OrderDetails() {
 
-    const orderNumber = useSelector((state) => state.orderReducer.orderNumber)
+    const orderNumber = useSelector((state) => state.orderReducer.orderNumber);
 
     return(
         <div className={styles.content}>

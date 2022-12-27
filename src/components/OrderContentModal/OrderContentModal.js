@@ -1,46 +1,109 @@
 import styles from './OrderContentModal.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import bun from '../../images/bun1.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { creationTime } from '../../utils/constans.js';
 import { useParams } from 'react-router-dom';
+import { orderStatus } from '../../utils/constans.js';
+import { WS_CONNECTION_START } from '../../services/actions/wsActionTypes.js';
+import { useEffect } from 'react';
+import { getCookie } from '../../utils/cookie';
+import { useLocation } from 'react-router-dom';
 
 
 export const OrderContentModal = () => {
 
     const { id } = useParams();
 
-    // достать из стора то, что отрисовывать
-    // взять методом файнд и перебрать все, отрисовать в разметку
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+    const accessToken = getCookie('accessToken');
+
+    useEffect(() => {
+        if(location.pathname.includes('/profile/orders')) {
+            dispatch({
+                type: WS_CONNECTION_START,
+                payload: `wss://norma.nomoreparties.space/orders?token=${accessToken?.replace('Bearer ', '')}`
+            })
+        } else {
+            dispatch({
+                type: WS_CONNECTION_START,
+                payload: 'wss://norma.nomoreparties.space/orders/all'
+            })
+        }
+    }, [dispatch, accessToken, location.pathname]);
+
+    const allOrders = useSelector((state) => state.wsReducer.allOrders);
+    const orderItem = allOrders.find((order) => order._id === id);
+    const allIngredients = useSelector((state) => state.ingredientsReducer.ingredients);
+
+    const orderIngredients = orderItem?.ingredients.map(
+        (id) => id !== null && allIngredients.find((item) => item._id === id));
+
+    const uniqueIngredient = Array.from(new Set(orderIngredients));
+
+    const ingredientCounter = (ingredient) => {
+        let counter = 0;
+        orderIngredients.forEach((item) => {
+            if(item._id === ingredient._id) {
+                counter += 1
+            }
+        })
+        return counter;
+    };
+
+    const calculateSum = () => {
+        let sum = 0;
+        orderIngredients.forEach((ingredient) => {
+          const orderedIngredient = allIngredients.find((item) => item._id === ingredient._id)
+          if (orderedIngredient.price) {
+            sum += orderedIngredient.price
+          }
+        })
+        return sum;
+    };
+
 
     return (
-        <main className={styles.main}>
-            <div className={styles.container}>
-                <p className={`${styles.orderNumber} mb-10`}>#034533</p>
-                <h1 className={`${styles.orderTitle} mb-3`}>Black Hole Singularity острый бургер</h1>
-                <p className={`${styles.orderStatus} mb-15`}>Выполнен</p>
-                <p className={`${styles.orderContent} mb-6`}>Состав:</p>
-
-                <div className={styles.ingredientArea}>
-                    <div className={`${styles.orderIngredient} mb-10`}>
-                        <img src={bun} alt='ингредиент'></img>
-                        <p className={`${styles.orderIngredientTitle} mr-4 ml-4`}>Флюоресцентная булка R2-D3</p>
-                        <p className='mr-2'> 2 х 20</p>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                </div>
-                
-                <div className={styles.orderInfo}>
-                    <p className={styles.orderTime}>Вчера, 13:50 i-GMT+3</p>
+        <>
+            { orderItem && (
+                <div className={styles.container}>
+                    <p className={`${styles.orderNumber} mb-10`}>&#35;{orderItem?.number}</p>
+                    <h1 className={styles.orderTitle}>{orderItem.name}</h1>
+                    <p className={`${styles.orderStatus} mb-15`}>{orderStatus(orderItem.status)}</p>
+                    <p className={styles.orderContent}>Состав:</p>
+                    <ul className={styles.ingredientArea}>
+                        {uniqueIngredient.map((ingredient, index) => {
+                            return (
+                                <li className={`${styles.orderIngredient} mb-6`} key={index}>
+                                    <div className={styles.block}>
+                                        <img src={ingredient.image_mobile} alt={ingredient.name} 
+                                        className={styles.itemImage}></img>
+                                        <p className={`${styles.orderIngredientTitle} ml-4`}>{ingredient.name}</p>
+                                    </div>
+                                    <div className={styles.block}>
+                                        <p className={`${styles.span} mr-2`}>
+                                        {`${ingredientCounter(ingredient)} x ${ingredient.price}`}</p>
+                                        <CurrencyIcon type="primary" />
+                                    </div>
+                                    
+                                </li>
+                            )
+                        }) }
+                    </ul>
+                    
                     <div className={styles.orderInfo}>
-                        <p className={styles.price}>510</p>
-                        <CurrencyIcon type="primary" />
+                        <p className={styles.orderTime}>{creationTime(orderItem.createdAt)}</p>
+                        <div className={styles.orderprice}>
+                            <p className={styles.price}>{calculateSum()}</p>
+                            <CurrencyIcon type="primary" />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </main>
-        
-
+            )}
+        </>
     )
-}
+};
 
 
 export default OrderContentModal;

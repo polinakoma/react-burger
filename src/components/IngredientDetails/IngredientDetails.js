@@ -6,9 +6,9 @@ import { useParams } from 'react-router-dom';
 function IngredientDetails() {
 
     const { id } = useParams();
-    const ingredients = useSelector(state => state.ingredientsReducer.ingredients)
 
-    const ingredient = ingredients.find((ingredient) => ingredient._id === id)
+    const ingredients = useSelector(state => state.ingredientsReducer.ingredients);  
+    const ingredient = ingredients.find((ingredient) => ingredient._id === id);
 
     return (
         <>

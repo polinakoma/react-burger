@@ -1,7 +1,7 @@
 import  styles from './IngredientCard.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientPropType from '../../utils/prop-types.js';
-import { SET_INGREDIENT_MODAL } from '../../services/actions/ingredients.js';
+import { SET_MODAL } from '../../services/actions/ingredients.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { useDrag } from "react-dnd";
@@ -19,7 +19,7 @@ function IngredientCard({ingredient}) {
 
     const openIngredientModal = () => {
         dispatch ({
-            type: SET_INGREDIENT_MODAL,
+            type: SET_MODAL,
             payload: ingredient
         })
     };

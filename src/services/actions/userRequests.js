@@ -151,7 +151,6 @@ export const logOutRequest = (refreshToken) => {
             })
         })
         .then(res => {
-            console.log(res)
             if(res.success) {
                 dispatch({
                     type: LOGOUT_SUCCESS,
