@@ -7,31 +7,42 @@ import Modal from '../Modal/Modal.js';
 import OrderDetails from '../OrderDetails/OrderDetails.js';
 import { useSelector, useDispatch } from 'react-redux'
 import { useDrop } from "react-dnd";
-import { ADD_INGREDIENT_TO_CONSTRUCTOR, CREATE_ORDER_FAILED } 
+import { ADD_INGREDIENT_TO_CONSTRUCTOR } 
 from '../../services/actions/ingredients.js';
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorFilling from '../ConstructorFilling/ConstructorFilling.js';
 import ConstructorBun from '../ConstructorBun/ConstructorBun.js';
 import { getOrderNumber } from '../../services/actions/ingredients.js'
+import { getCookie } from '../../utils/cookie';
+import { useHistory } from 'react-router-dom';
+import Preloader from '../Preloader/preloader';
 
 
 function BurgerConstructor() {
 
-    const [modalData, setModalData] = React.useState(null);
-
     const dispatch = useDispatch();
-    
+    const history = useHistory();
+
+    const accessToken = getCookie('accessToken')
+
+    const [modalData, setModalData] = React.useState(null);
+    const closeModal = () => {  
+        setModalData(null);
+    };
+
+    const userInfo = useSelector((state) => state.userRequestReducer.userInfo)
+    const isFetching = useSelector((state) => state.orderReducer.isFetching)
+
+    if(isFetching) {
+        <Preloader />
+    }
+
     const addedIngredients = useSelector(
         (state) => state.constructorIngredientsReducer
     );
 
     const fillings = useMemo(() => addedIngredients.ingredients.filter(
         (ingredient) => ingredient.type !== 'bun'), [addedIngredients.ingredients]);
-
-
-    const closeModal = () => {  
-        setModalData(null);
-    };
 
     const price = useMemo(() => {
         return (
@@ -49,12 +60,14 @@ function BurgerConstructor() {
     };
 
     function openOrderModal() {
-        dispatch(getOrderNumber(data, setModalData)) 
+        if(!userInfo) {
+            history.push('/login')
+        } else {
+        dispatch(getOrderNumber(accessToken, data, setModalData))
+        } 
     };
 
-    
-
-    const [{isHover}, dropTarget] = useDrop({
+    const [, dropTarget] = useDrop({
         accept: "ingredient",
         drop(item) {
             dispatch ({

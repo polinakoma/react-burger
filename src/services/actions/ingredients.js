@@ -1,5 +1,6 @@
+import { request } from '../../utils/constans.js';
 import { BURGER_API_URL } from '../../utils/constans.js';
-import { checkReponse } from '../../utils/burger-api.js'
+import Preloader from '../../components/Preloader/preloader.js';
 
 
 // для БургерИгредиента
@@ -29,8 +30,7 @@ export const getIngredientsData = () => {
         dispatch({
             type: GET_INGREDIENTS
           });
-          fetch(`${BURGER_API_URL}/ingredients`)
-          .then((res) => checkReponse(res))
+        request(`${BURGER_API_URL}/ingredients`)
         .then((res) => {
             if(res) {
                 dispatch({
@@ -47,19 +47,19 @@ export const getIngredientsData = () => {
     }      
 };
 
-export const getOrderNumber = (data, onCreateOrderCallback) => {
+export const getOrderNumber = (accessToken, data, onCreateOrderCallback) => {
     return function (dispatch) {
         dispatch({
             type: CREATE_ORDER_REQUEST
         });
-        fetch(`${BURGER_API_URL}/orders`, {
+        request(`${BURGER_API_URL}/orders`, {
             method: 'POST',
             headers: {
-                "Content-type": 'application/json'
+                "Content-type": 'application/json',
+                "Authorization": accessToken,
               },
             body: JSON.stringify(data)
         })
-        .then((res) => checkReponse(res))
         .then(res => {
             if(res.success) {
                 dispatch({

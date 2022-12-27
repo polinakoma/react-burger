@@ -1,18 +1,17 @@
 import  styles from './IngredientCard.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from '../Modal/Modal.js';
-import IngredientDetails from '../IngredientDetails/IngredientDetails.js';
 import ingredientPropType from '../../utils/prop-types.js';
-import { RESET_INGREDIENT_MODAL, SET_INGREDIENT_MODAL } 
-from '../../services/actions/ingredients.js';
+import { SET_INGREDIENT_MODAL } from '../../services/actions/ingredients.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { useDrag } from "react-dnd";
+import { Link, useLocation } from 'react-router-dom';
 
 
 function IngredientCard({ingredient}) {
 
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const addedIngredients = useSelector(
         (state) => state.constructorIngredientsReducer
@@ -22,12 +21,6 @@ function IngredientCard({ingredient}) {
         dispatch ({
             type: SET_INGREDIENT_MODAL,
             payload: ingredient
-        })
-    };
-
-    const closeIngredientModal = () => {
-        dispatch({
-            type: RESET_INGREDIENT_MODAL
         })
     };
 
@@ -46,31 +39,23 @@ function IngredientCard({ingredient}) {
            opacity: monitor.isDragging() ? 0.5 : 1
         })
     });
-
-    const currentIngredient = useSelector(state => state.ingredientInfoReducer.currentIngredient);
     
     
     return(
         <>
-            <div onClick={openIngredientModal} ref={dragRef}>
+            <Link to={{
+                    pathname: `/ingredients/${ingredient._id}`,
+                    state: {background: location} 
+                }} onClick={openIngredientModal} ref={dragRef}>
                 {counter > 0 && <Counter count={counter} size={"default"} />}
                 <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
                 <div className={`${styles.price} mt-2 mb-2`}>
-                    <p className="text text_type_digits-default">{ingredient.price}</p>
+                    <p className= "text text_type_digits-default">{ingredient.price}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <p className={`${styles.ingredientName} text text_type_main-default`}>
                 {ingredient.name}</p>
-            </div>
-            
-            {
-                currentIngredient &&
-                <Modal 
-                onClose={closeIngredientModal}
-                handleCloseModal={closeIngredientModal}>
-                    <IngredientDetails />
-                </Modal> 
-            }  
+            </Link>
         </>  
     )
 };

@@ -22,7 +22,7 @@ function ConstructorFilling ({ingredient, index}) {
         })
     };
 
-    const [{ handlerId }, drop] = useDrop({
+    const [, drop] = useDrop({
         accept: 'constructorCard',
         collect(monitor) {
             return {

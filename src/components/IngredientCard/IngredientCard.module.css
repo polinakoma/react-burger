@@ -3,9 +3,12 @@
     flex-direction: row;
     justify-content: center;
     gap: 10px;
+    color: #F2F2F3;
 }
 
 .ingredientName {
     min-height: 48px;
     text-align: center;
+    text-decoration: none;
+    color: #F2F2F3;
 }

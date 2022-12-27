@@ -16,7 +16,7 @@ export const ingredientInfoReducer = (state = initialState, action) => {
         case RESET_INGREDIENT_MODAL:
             return {
                 ...state,
-                currentIngredient: null
+               // currentIngredient: null
             }
         default:
             return state;

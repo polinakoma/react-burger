@@ -1,20 +1,15 @@
 import { BURGER_API_URL } from './constans.js';
+import { request} from './constans.js';
 
-
-const checkReponse = (res) => {
-    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-  };
 
 const sendIngredients = (ingredients, func) => {
-
-    fetch(`${BURGER_API_URL}/orders`, {
-        method: 'POST',
-        headers: {
-            "Content-type": 'application/json'
-          },
-        body: JSON.stringify(ingredients)
-    })
-    .then((res) => checkReponse(res))
+    request(`${BURGER_API_URL}/orders`, {
+      method: 'POST',
+      headers: {
+          "Content-type": 'application/json'
+        },
+      body: JSON.stringify(ingredients)
+  })
     .then(data => {
         func(data);
     })
@@ -23,4 +18,4 @@ const sendIngredients = (ingredients, func) => {
     })
 };
 
-export { sendIngredients, checkReponse };
+export { sendIngredients };
