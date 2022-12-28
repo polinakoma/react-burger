@@ -1,10 +1,12 @@
 import styles from './ProfileOrders.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCookie } from '../../utils/cookie';
-import { WS_CONNECTION_START } from '../../services/actions/wsActionTypes.js';
+import { getCookie } from '../../utils/cookie.js';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } 
+from '../../services/actions/wsActionTypes.js';
 import { OrderItem } from '../OrderItem/OrderItem';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
+import { WEB_SOCKET_URL } from '../../utils/constans';
 
 
 export const ProfileOrders = () => {
@@ -15,8 +17,13 @@ export const ProfileOrders = () => {
     useEffect(() => {
         dispatch({
             type: WS_CONNECTION_START,
-            payload: `wss://norma.nomoreparties.space/orders?token=${accessToken?.replace('Bearer ', '')}`
+            payload: `${WEB_SOCKET_URL}?token=${accessToken?.replace('Bearer ', '')}`
         })
+        return () => {
+            dispatch({
+                type: WS_CONNECTION_CLOSED
+            })
+        }
     }, [dispatch, accessToken]);
 
     const allOrders = useSelector((state) => state.wsReducer.allOrders);
@@ -25,9 +32,9 @@ export const ProfileOrders = () => {
         <div className={styles.container}> 
             <ProfileMenu />
             <ul className={styles.listOfOrders}>
-                {allOrders.map((order, index) => {
+                {allOrders?.map((order) => {
                     return (
-                        <li key={index}>
+                        <li key={order._id}>
                             <OrderItem order={order}/>
                         </li>
                         

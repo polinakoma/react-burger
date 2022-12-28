@@ -1,8 +1,3 @@
-
-    // const ws = new WebSocket("ws://norma.nomoreparties.space/") 
-    // console.log(ws.readyState)    указывает на текущее состояние соединения
-
-
 export const CONNECTING: 'CONNECTING' = 'CONNECTING';
 export const OPEN: 'OPEN' = 'OPEN';
 export const CLOSING: 'CLOSING' = 'CLOSING';

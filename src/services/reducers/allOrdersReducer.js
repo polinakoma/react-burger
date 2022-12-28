@@ -1,6 +1,5 @@
-import {
-    WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, WS_GET_ALL_ORDERS
-} from '../actions/wsActionTypes.js';
+import { WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, 
+WS_GET_ALL_ORDERS } from '../actions/wsActionTypes.js';
 
 
 const initialState = {

@@ -6,13 +6,11 @@ import { useCallback } from 'react';
 import { saveUserData } from '../../services/actions/userRequests.js';
 import { useState } from 'react';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getCookie } from '../../utils/cookie.js';
 
 
 export const ProfileForm = () => {
 
     const dispatch = useDispatch();
-    const accessToken = getCookie('accessToken');
 
     const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
     let userEmail = userInfo.email
@@ -21,6 +19,7 @@ export const ProfileForm = () => {
     const [name, setName] = useState(userName);
     const [email, setEmail] = useState(userEmail);
     const [password, setPassword] = useState('');
+    const [inputChange, setInputChange] = useState(false);
 
     const handleResetData = (e) => {
         e.preventDefault();
@@ -31,22 +30,25 @@ export const ProfileForm = () => {
     const onChangeName = evt => {
         const value = evt.target.value;
         setName(value);
+        value ? setInputChange(true) : setInputChange(false);
     };
 
     const onChangeEmail = evt => {
         const value = evt.target.value;
         setEmail(value);
+        value ? setInputChange(true) : setInputChange(false);
     };
 
     const onChangePassword = evt => {
         const value = evt.target.value;
         setPassword(value);
+        value ? setInputChange(true) : setInputChange(false);
     };
 
-    const saveNewData = useCallback((e) => {
+    const saveNewData = (e) => {
         e.preventDefault();
-        dispatch(saveUserData(accessToken, name, email,password));
-    }, [accessToken, name, email,password, dispatch]);
+        dispatch(saveUserData(name, email,password));
+    };
 
 
     return (
@@ -78,6 +80,8 @@ export const ProfileForm = () => {
                 extraClass="mb-6"
                 size={"default"}
             />
+
+            { inputChange && (
             <div className={styles.buttons}>
                 <button className={styles.buttonCancel} 
                 onClick={handleResetData}>Отмена
@@ -88,6 +92,7 @@ export const ProfileForm = () => {
                     htmlType='submit'>Сохранить
                 </Button> 
             </div>
+            )}
         </form>
     )
 };

@@ -90,3 +90,16 @@
     top: -49px;
     left: 9px;
 }
+
+.orderStatus {
+    font-family: 'JetBrains_Mono';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+}
+
+.orderStatusDone {
+    composes: orderStatus;
+    color: #00CCCC;
+}

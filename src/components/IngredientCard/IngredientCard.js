@@ -46,7 +46,7 @@ function IngredientCard({ingredient}) {
             <Link to={{
                     pathname: `/ingredients/${ingredient._id}`,
                     state: {background: location} 
-                }} onClick={openIngredientModal} ref={dragRef}>
+                }} onClick={openIngredientModal} ref={dragRef} className={styles.link}>
                 {counter > 0 && <Counter count={counter} size={"default"} />}
                 <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
                 <div className={`${styles.price} mt-2 mb-2`}>

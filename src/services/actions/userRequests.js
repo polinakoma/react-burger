@@ -1,4 +1,4 @@
-import { request } from '../../utils/constans.js';
+import { REQUEST } from '../../utils/constans.js';
 import { BURGER_API_URL } from '../../utils/constans.js';
 import { getCookie, setCookie, deleteCookie } from '../../utils/cookie.js';
 import { getUserApi } from '../../utils/user-api.js';
@@ -78,7 +78,7 @@ export const registerUserRequest = (form) => {
         dispatch({
             type: REGISTRATION
         })
-        request(`${BURGER_API_URL}/auth/register`, {
+        REQUEST(`${BURGER_API_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 "Content-type": 'application/json'
@@ -109,7 +109,7 @@ export const logInRequest = (form) => {
         dispatch({
             type: LOGIN
         });
-        request(`${BURGER_API_URL}/auth/login`, {
+        REQUEST(`${BURGER_API_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     "Content-type": 'application/json'
@@ -141,7 +141,7 @@ export const logOutRequest = (refreshToken) => {
         dispatch({
             type: LOGOUT
         })
-        request(`${BURGER_API_URL}/auth/logout`, {
+        REQUEST(`${BURGER_API_URL}/auth/logout`, {
             method: 'POST',
             headers: {
                 "Content-type": 'application/json'
@@ -175,7 +175,7 @@ export const resetPasswordRequest = (form, redirect) => {
         dispatch({
             type: FORGOT_PASSWORD
         });
-        request(`${BURGER_API_URL}/password-reset`, {
+        REQUEST(`${BURGER_API_URL}/password-reset`, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -212,7 +212,7 @@ export const settingNewPasswordRequest = (form, redirect) => {
         dispatch({
             type: RESET_PASSWORD
         })
-        request(`${BURGER_API_URL}/password-reset/reset`, {
+        REQUEST(`${BURGER_API_URL}/password-reset/reset`, {
             method: 'POST',
             headers: {
                 "Content-type": 'application/json'
@@ -236,16 +236,16 @@ export const settingNewPasswordRequest = (form, redirect) => {
     }
 };
 
-export const saveUserData = (accessToken, name, email,password) => {
+export const saveUserData = (name, email,password) => {
     return function(dispatch) {
         dispatch({
             type: UPDATE_USER_DATA
         })
-        request(`${BURGER_API_URL}/auth/user`, {
+        REQUEST(`${BURGER_API_URL}/auth/user`, {
             method: 'PATCH',
             headers: {
                 "Content-type": 'application/json',
-                "Authorization": accessToken,
+                "Authorization": getCookie('accessToken')
             },
             body: JSON.stringify({
                 'name': name,

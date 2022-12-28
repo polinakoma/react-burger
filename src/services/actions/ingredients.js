@@ -1,4 +1,4 @@
-import { request } from '../../utils/constans.js';
+import { REQUEST } from '../../utils/constans.js';
 import { BURGER_API_URL } from '../../utils/constans.js';
 
 
@@ -29,7 +29,7 @@ export const getIngredientsData = () => {
         dispatch({
             type: GET_INGREDIENTS
           });
-        request(`${BURGER_API_URL}/ingredients`)
+          REQUEST(`${BURGER_API_URL}/ingredients`)
         .then((res) => {
             if(res) {
                 dispatch({
@@ -51,7 +51,7 @@ export const getOrderNumber = (accessToken, data, onCreateOrderCallback) => {
         dispatch({
             type: CREATE_ORDER_REQUEST
         });
-        request(`${BURGER_API_URL}/orders`, {
+        REQUEST(`${BURGER_API_URL}/orders`, {
             method: 'POST',
             headers: {
                 "Content-type": 'application/json',

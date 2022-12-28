@@ -1,8 +1,10 @@
 import styles from './OrderLine.module.css'
 import { useEffect } from 'react';
-import { WS_CONNECTION_START } from '../../services/actions/wsActionTypes.js';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } 
+from '../../services/actions/wsActionTypes.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { OrderItem } from '../OrderItem/OrderItem';
+import { WEB_SOCKET_URL } from '../../utils/constans';
 
 
 export const OrderLine = () => { 
@@ -16,8 +18,13 @@ export const OrderLine = () => {
     useEffect(() => {
         dispatch({
             type: WS_CONNECTION_START,
-            payload: 'wss://norma.nomoreparties.space/orders/all'
+            payload: `${WEB_SOCKET_URL}/all`
         })
+        return () => {
+            dispatch({
+                type: WS_CONNECTION_CLOSED
+            })
+        }
     }, [dispatch]);
 
 
@@ -26,9 +33,9 @@ export const OrderLine = () => {
             <h1 className={`${styles.heading} mt-10 mb-5`}>Лента заказов</h1>
             <div className={styles.container}>
                 <ul className={`${styles.orderLine} mr-15`}>
-                    { allOrders.map((order, index) => {
+                    { allOrders?.map((order) => {
                         return (
-                            <li key={index}>
+                            <li key={order._id}>
                                 <OrderItem order={order}/>
                             </li>
                         )
@@ -40,11 +47,11 @@ export const OrderLine = () => {
                         <div className={`${styles.orderInfo} mr-9`}>
                             <h3 className={`${styles.title} mb-6`}>Готовы:</h3>
                             <ul className={styles.list}>
-                                { allOrders.map((order, index) => {
+                                { allOrders?.map((order) => {
                                     if(order.status === 'done') {
                                         return (
                                             <li className={styles.orderNumbers}
-                                            key={index}>
+                                            key={order._id}>
                                             {order.number}
                                             </li>
                                         )
@@ -56,11 +63,11 @@ export const OrderLine = () => {
                         <div className={styles.oredsInfo}>
                             <h3 className={styles.title}>В работе:</h3>
                             <ul className={styles.list}>
-                                { allOrders.map((order, index) => {
-                                    if(order.status !== 'done') {
+                                { allOrders?.map((order) => {
+                                    if(order.status === 'pending') {
                                         return (
                                             <li className={`${styles.orderNumbers_white} mb-2`}
-                                            key={index}>
+                                            key={order._id}>
                                             {order.number}
                                             </li>
                                         )

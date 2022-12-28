@@ -3,8 +3,9 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { creationTime } from '../../utils/constans.js';
-import { orderStatus } from '../../utils/constans.js';
+import { GET_ORDER_TIME } from '../../utils/constans.js';
+import { GET_ORDER_STATUS } from '../../utils/constans.js';
+import PropTypes from 'prop-types';
 
 
 export const OrderItem = ({order}) => {
@@ -15,11 +16,14 @@ export const OrderItem = ({order}) => {
 
     const allIngredients = useSelector((state) => state.ingredientsReducer.ingredients);
 
+    function getSomeIngredient (ingredient, allIngredients) {
+        return allIngredients.find((item) => item._id === ingredient)
+    };
+
     const sum = () => {
         let sum = 0;
         ingredients.forEach((ingredient) => {
-          const orderIngredientItem = 
-          allIngredients.find((allIngredient) => allIngredient._id === ingredient)
+          const orderIngredientItem = getSomeIngredient (ingredient, allIngredients);
           if (orderIngredientItem?.price) {
             sum += orderIngredientItem.price
           }
@@ -27,28 +31,29 @@ export const OrderItem = ({order}) => {
         return sum;
     };
 
-    const getSomeIngredient = (ingredient, allIngredients) => {
-        return allIngredients.find((item) => item._id === ingredient)
-    };
-
     let statusDisplay = ''
     if(location.pathname.includes('/profile/orders')) {
-        statusDisplay = orderStatus(status)
+        statusDisplay = GET_ORDER_STATUS(status)
     };
-
 
     return (
         <Link to={{
             pathname: `${location.pathname}/${_id}`, 
             state: {background: location} 
         }} className={styles.linkStyles}>
-            <div className={`${styles.orderItem} pt-6 pl-6 pr-6 pb-6 mb-4`}>
+            <div className={`${styles.orderItem} p-6 mb-4`}>
                 <div className={styles.orderDetails}>
-                    <p className={styles.orderNumber}>&#35;{number}</p>
-                    <p className={styles.orderDate}>{creationTime(createdAt)}</p>
+                    <p className={styles.orderNumber}>{`#${number}`}</p>
+                    <p className={styles.orderDate}>{GET_ORDER_TIME(createdAt)}</p>
                 </div>
                 <h2 className={`${styles.orderTitle} mt-6 mb-6`}>{name}</h2>
-                <p className={`${styles.orderStatus} mb-6`}>{statusDisplay}</p>
+
+                { statusDisplay === 'Выполнен' ? 
+                (<p className={`${styles.orderStatusDone} mb-6`}>{statusDisplay}</p>) 
+                : 
+                (<p className={`${styles.orderStatus} mb-6`}>{statusDisplay}</p>)
+                }
+                
                 <div className={styles.orderInfo}>
                     <ul className={styles.orderImages}>
                         { ingredients.map((ingredient, index) => {
@@ -57,7 +62,7 @@ export const OrderItem = ({order}) => {
                                 return (
                                     <li className={styles.listOfIngredients} style={{zIndex: 15 - index}} 
                                     key={index}>
-                                        <img src={item.image_mobile} alt={item.name}
+                                        <img src={item?.image_mobile} alt={item?.name}
                                         className={styles.itemImage}></img>
                                     </li>
                                 )
@@ -65,9 +70,9 @@ export const OrderItem = ({order}) => {
                                 return (
                                     <li className={styles.listOfIngredients} style={{zIndex: 15 - index}}
                                     key={index}>
-                                        <img src={item.image_mobile} 
+                                        <img src={item?.image_mobile} 
                                         className={`${styles.itemImage} ${styles.restImage}`}
-                                        alt={item.name}></img>
+                                        alt={item?.name}></img>
                                         <p className={styles.textRest}>&#43;{ingredients.length - 5}</p>
                                     </li>
                                 )
@@ -83,6 +88,10 @@ export const OrderItem = ({order}) => {
             </div>
         </Link>    
     )
+};
+
+OrderItem.propTypes = {
+    order: PropTypes.object.isRequired
 };
 
 export default OrderItem;

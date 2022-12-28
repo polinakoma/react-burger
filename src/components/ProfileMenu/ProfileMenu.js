@@ -1,5 +1,5 @@
 import styles from './ProfileMenu.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOutRequest } from '../../services/actions/userRequests.js';
 
@@ -7,10 +7,16 @@ import { logOutRequest } from '../../services/actions/userRequests.js';
 export const ProfileMenu = () => {
 
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const logOut = () => {
         const refreshToken = localStorage.getItem('refreshToken');
         dispatch(logOutRequest(refreshToken))
+    };
+
+    let hintText = 'В этом разделе вы можете изменить свои персональные данные';
+    if(location.pathname.includes('/profile/orders')) {
+        hintText = 'В этом разделе вы можете просмотреть свою историю заказов'
     };
 
     return (
@@ -28,7 +34,7 @@ export const ProfileMenu = () => {
                 className={styles.button}
                 onClick={logOut}>Выход
             </NavLink>
-            <p className={`${styles.info} mt-20`}>В этом разделе вы можете изменить свои персональные данные</p>
+            <p className={`${styles.info} mt-20`}>{hintText}</p>
         </nav>
     )
 };

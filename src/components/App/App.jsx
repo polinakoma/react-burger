@@ -64,7 +64,7 @@ function App() {
                         <OrderLine />
                     </Route>
                     <Route path="/feed/:id">
-                        <OrderContentModal />
+                        <OrderContentModal isModal={false}/>
                     </Route>
                     <ProtectedRoute path="/profile" exact>
                         <Profile />
@@ -73,7 +73,7 @@ function App() {
                         <ProfileOrders />
                     </ProtectedRoute>
                     <ProtectedRoute path="/profile/orders/:id">
-                        <OrderContentModal />
+                        <OrderContentModal isModal={false}/>
                     </ProtectedRoute>
                     <ProtectedRoute path="/login" onlyUnAuth>
                         <LogIn />
@@ -105,14 +105,14 @@ function App() {
                         <Modal 
                         onClose={closeIngredientModal}
                         handleCloseModal={closeIngredientModal}>
-                            <OrderContentModal />
+                            <OrderContentModal isModal={true}/>
                         </Modal>
                     </Route>
                     <ProtectedRoute path="/profile/orders/:id">
                         <Modal 
                         onClose={closeIngredientModal}
                         handleCloseModal={closeIngredientModal}>
-                            <OrderContentModal />
+                            <OrderContentModal isModal={true}/>
                         </Modal>
                     </ProtectedRoute>
                 </Switch>
