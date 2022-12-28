@@ -3,8 +3,8 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { GET_ORDER_TIME } from '../../utils/constans.js';
-import { GET_ORDER_STATUS } from '../../utils/constans.js';
+import { getOrderTime } from '../../utils/constans.js';
+import { getOrderStatus } from '../../utils/constans.js';
 import PropTypes from 'prop-types';
 
 
@@ -33,7 +33,7 @@ export const OrderItem = ({order}) => {
 
     let statusDisplay = ''
     if(location.pathname.includes('/profile/orders')) {
-        statusDisplay = GET_ORDER_STATUS(status)
+        statusDisplay = getOrderStatus(status)
     };
 
     return (
@@ -44,7 +44,7 @@ export const OrderItem = ({order}) => {
             <div className={`${styles.orderItem} p-6 mb-4`}>
                 <div className={styles.orderDetails}>
                     <p className={styles.orderNumber}>{`#${number}`}</p>
-                    <p className={styles.orderDate}>{GET_ORDER_TIME(createdAt)}</p>
+                    <p className={styles.orderDate}>{getOrderTime(createdAt)}</p>
                 </div>
                 <h2 className={`${styles.orderTitle} mt-6 mb-6`}>{name}</h2>
 
@@ -91,7 +91,14 @@ export const OrderItem = ({order}) => {
 };
 
 OrderItem.propTypes = {
-    order: PropTypes.object.isRequired
+    order: PropTypes.shape({
+        status: PropTypes.string.isRequired, 
+        number: PropTypes.number.isRequired, 
+        createdAt: PropTypes.string.isRequired, 
+        name: PropTypes.string.isRequired, 
+        ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+        _id: PropTypes.string.isRequired
+    }).isRequired
 };
 
 export default OrderItem;

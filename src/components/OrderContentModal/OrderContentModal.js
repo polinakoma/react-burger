@@ -1,14 +1,15 @@
 import styles from './OrderContentModal.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_ORDER_TIME } from '../../utils/constans.js';
+import { getOrderTime } from '../../utils/constans.js';
 import { useParams } from 'react-router-dom';
-import { GET_ORDER_STATUS } from '../../utils/constans.js';
+import { getOrderStatus } from '../../utils/constans.js';
 import { WS_CONNECTION_START } from '../../services/actions/wsActionTypes.js';
 import { useEffect } from 'react';
 import { getCookie } from '../../utils/cookie';
 import { useLocation } from 'react-router-dom';
 import { WEB_SOCKET_URL } from '../../utils/constans.js';
+import PropTypes from 'prop-types';
 
 
 export const OrderContentModal = ({isModal}) => {
@@ -71,7 +72,7 @@ export const OrderContentModal = ({isModal}) => {
                 <div className={styles.container}>
                     <p className={`${styles.orderNumber} mb-10`}>{`#${orderItem?.number}`}</p>
                     <h1 className={styles.orderTitle}>{orderItem.name}</h1>
-                    <p className={`${styles.orderStatus} mb-15`}>{GET_ORDER_STATUS(orderItem.status)}</p>
+                    <p className={`${styles.orderStatus} mb-15`}>{getOrderStatus(orderItem.status)}</p>
                     <p className={styles.orderContent}>Состав:</p>
                     <ul className={styles.ingredientArea}>
                         {uniqueIngredient.map((ingredient) => {
@@ -94,7 +95,7 @@ export const OrderContentModal = ({isModal}) => {
                     </ul>
                     
                     <div className={styles.orderInfo}>
-                        <p className={styles.orderTime}>{GET_ORDER_TIME(orderItem.createdAt)}</p>
+                        <p className={styles.orderTime}>{getOrderTime(orderItem.createdAt)}</p>
                         <div className={styles.orderprice}>
                             <p className={styles.price}>{calculateSum()}</p>
                             <CurrencyIcon type="primary" />
@@ -104,6 +105,10 @@ export const OrderContentModal = ({isModal}) => {
             )}
         </>
     )
+};
+
+OrderContentModal.propTypes = {
+    isModal: PropTypes.bool.isRequired
 };
 
 

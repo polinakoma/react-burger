@@ -10,7 +10,7 @@ function AppHeader() {
     return (
         <header className={styles.header}>
             <nav className={styles.navigation}>
-                <NavLink to='/'
+                <NavLink to='/' exact
                 activeClassName={styles.link_active}
                 className={`${styles.buttonConstructor} pl-5 pr-5 pb-5 pt-5`}>
                     <BurgerIcon type="secondary" />

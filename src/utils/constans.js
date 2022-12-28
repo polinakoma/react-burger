@@ -3,19 +3,19 @@ export const WEB_SOCKET_URL = 'wss://norma.nomoreparties.space/orders';
 
 export const PENDING_IMAGE = 'https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg';
 
-export const CHECK_RESPONSE = (res) => {
+export const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export const REQUEST = (url, options) => {
-    return fetch(url, options).then(CHECK_RESPONSE)
+export const request = (url, options) => {
+    return fetch(url, options).then(checkResponse)
 };
 
-export const GET_ORDER_TIME = (string) => {
+export const getOrderTime = (string) => {
     return new Date(string).toLocaleString();
 };
 
-export const GET_ORDER_STATUS = (status) => {
+export const getOrderStatus = (status) => {
     if(status === 'done') {
         return 'Выполнен'
     } else if(status === 'canseled') {
