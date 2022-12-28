@@ -12,6 +12,9 @@ export const socketMiddleware = (wsActionsAllOrders) => {
                 url = payload;
                 socket = new WebSocket(url);
             };
+            if (type === onClose) {
+                socket && socket.close(1000, 'CLOSE_NORMAL')
+              }
 
             if (socket) {
                 socket.onopen = event => {
