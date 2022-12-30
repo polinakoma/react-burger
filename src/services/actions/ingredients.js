@@ -1,6 +1,5 @@
 import { request } from '../../utils/constans.js';
 import { BURGER_API_URL } from '../../utils/constans.js';
-import Preloader from '../../components/Preloader/preloader.js';
 
 
 // для БургерИгредиента
@@ -20,9 +19,9 @@ export const CONSTRUCTOR_DELETE = 'CONSTRUCTOR_DELETE';
 export const CONSTRUCTOR_RESET = 'CONSTRUCTOR_RESET';
 export const CONSTRUCTOR_REORDER = 'CONSTRUCTOR_REORDER';
 
-// для Попапа Ингредиента
-export const SET_INGREDIENT_MODAL = 'SET_INGREDIENT_MODAL';
-export const RESET_INGREDIENT_MODAL = 'RESET_INGREDIENT_MODAL';
+// для Модального окна
+export const SET_MODAL = 'SET_MODAL';
+export const RESET_MODAL = 'RESET_MODAL';
 
 
 export const getIngredientsData = () => {
@@ -30,7 +29,7 @@ export const getIngredientsData = () => {
         dispatch({
             type: GET_INGREDIENTS
           });
-        request(`${BURGER_API_URL}/ingredients`)
+          request(`${BURGER_API_URL}/ingredients`)
         .then((res) => {
             if(res) {
                 dispatch({

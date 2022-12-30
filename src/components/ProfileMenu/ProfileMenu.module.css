@@ -1,0 +1,37 @@
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 320px;
+    margin-top: 80px;
+}
+
+.button {
+    font-family: 'JetBrains_Mono';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: #8585AD;
+    background-color: transparent;
+    cursor: pointer;
+    height: 64px;
+    border: transparent;
+    text-decoration: none;
+}
+
+.link_active {
+    color: #F2F2F3;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.info {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #8585AD;
+    opacity: 0.4;
+}

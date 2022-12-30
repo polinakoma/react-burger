@@ -14,14 +14,14 @@ const IngredientsList = React.forwardRef( ({title, type}, ref) => {
             <h3 id={type} className="text text_type_main-medium">{title}</h3> 
             <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`} ref={ref}>
                 {ingredients.map((ingredient) => {
-                    if(ingredient.type === type) 
+                    if(ingredient.type === type) {
                     return (
                         <li className={styles.item} key={ingredient._id}>
                             <IngredientCard
                                 ingredient={ingredient}
                             />
                         </li>
-                    )
+                    )}
                 })}
             </ul>
          </>

@@ -1,6 +1,6 @@
 import styles from './ConstructorBun.module.css';
 import { useSelector } from 'react-redux';
-import { pendingImage } from '../../utils/constans.js';
+import { PENDING_IMAGE } from '../../utils/constans.js';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
@@ -20,7 +20,7 @@ function ConstructorBun ({type, position}) {
                 : 'Выберите булку'}
                 price={addedIngredients.bun.price}
                 thumbnail={addedIngredients.bun ? 
-                addedIngredients.bun.image_mobile : pendingImage}
+                addedIngredients.bun.image_mobile : PENDING_IMAGE}
             />
         </div>
     );

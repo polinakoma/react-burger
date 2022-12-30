@@ -151,7 +151,6 @@ export const logOutRequest = (refreshToken) => {
             })
         })
         .then(res => {
-            console.log(res)
             if(res.success) {
                 dispatch({
                     type: LOGOUT_SUCCESS,
@@ -237,7 +236,7 @@ export const settingNewPasswordRequest = (form, redirect) => {
     }
 };
 
-export const saveUserData = (accessToken, name, email,password) => {
+export const saveUserData = (name, email,password) => {
     return function(dispatch) {
         dispatch({
             type: UPDATE_USER_DATA
@@ -246,7 +245,7 @@ export const saveUserData = (accessToken, name, email,password) => {
             method: 'PATCH',
             headers: {
                 "Content-type": 'application/json',
-                "Authorization": accessToken,
+                "Authorization": getCookie('accessToken')
             },
             body: JSON.stringify({
                 'name': name,

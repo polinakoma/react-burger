@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { useLocation, Redirect, Route } from "react-router-dom";
 import Preloader from '../Preloader/preloader.js';
-import PropTypes from 'prop-types';
 
 
 export const ProtectedRoute = ({ onlyUnAuth, children, ...props }) => {
@@ -29,7 +28,6 @@ export const ProtectedRoute = ({ onlyUnAuth, children, ...props }) => {
         {children}
     </Route>)
 };
-
 
 
 export default ProtectedRoute;

@@ -1,7 +1,7 @@
 import  styles from './IngredientCard.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientPropType from '../../utils/prop-types.js';
-import { SET_INGREDIENT_MODAL } from '../../services/actions/ingredients.js';
+import { SET_MODAL } from '../../services/actions/ingredients.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { useDrag } from "react-dnd";
@@ -19,7 +19,7 @@ function IngredientCard({ingredient}) {
 
     const openIngredientModal = () => {
         dispatch ({
-            type: SET_INGREDIENT_MODAL,
+            type: SET_MODAL,
             payload: ingredient
         })
     };
@@ -46,7 +46,7 @@ function IngredientCard({ingredient}) {
             <Link to={{
                     pathname: `/ingredients/${ingredient._id}`,
                     state: {background: location} 
-                }} onClick={openIngredientModal} ref={dragRef}>
+                }} onClick={openIngredientModal} ref={dragRef} className={styles.link}>
                 {counter > 0 && <Counter count={counter} size={"default"} />}
                 <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
                 <div className={`${styles.price} mt-2 mb-2`}>

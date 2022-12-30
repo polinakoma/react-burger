@@ -18,8 +18,10 @@ import ProtectedRoute from '../ProtectRoute/ProtectedRoute.js'
 import { checkAuth } from '../../services/actions/userRequests';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
-import { RESET_INGREDIENT_MODAL } from '../../services/actions/ingredients.js';
-import OrderLine from '../OrderLine/OrderLine.js'
+import { RESET_MODAL } from '../../services/actions/ingredients.js';
+import OrderLine from '../OrderLine/OrderLine.js';
+import OrderContentModal from '../OrderContentModal/OrderContentModal';
+import ProfileOrders from '../ProfileOrders/ProfileOrders';
 
 
 function App() {
@@ -28,22 +30,21 @@ function App() {
     const history = useHistory();
     const location = useLocation();
 
-    const background = location.state?.background
+    const background = location.state?.background;
 
     React.useEffect(() => {
         dispatch(getIngredientsData()); 
         dispatch(checkAuth());
     }, [dispatch]);
 
-
     const closeIngredientModal = () => {
         dispatch({
-            type: RESET_INGREDIENT_MODAL
+            type: RESET_MODAL
         })
         history.goBack();
     };
 
-    
+
     return (
         <div className={styles.app}>  
             <AppHeader />
@@ -56,9 +57,24 @@ function App() {
                             </DndProvider>
                         </main>
                     </Route>
+                    <Route path="/ingredients/:id">
+                        <IngredientDetails />
+                    </Route>
                     <Route path="/feed" exact>
                         <OrderLine />
                     </Route>
+                    <Route path="/feed/:id">
+                        <OrderContentModal isModal={false}/>
+                    </Route>
+                    <ProtectedRoute path="/profile" exact>
+                        <Profile />
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/profile/orders" exact>
+                        <ProfileOrders />
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/profile/orders/:id">
+                        <OrderContentModal isModal={false}/>
+                    </ProtectedRoute>
                     <ProtectedRoute path="/login" onlyUnAuth>
                         <LogIn />
                     </ProtectedRoute>
@@ -71,26 +87,36 @@ function App() {
                     <ProtectedRoute path="/forgot-password" onlyUnAuth>
                         <ForgotPassword />
                     </ProtectedRoute>
-                    <ProtectedRoute path="/profile" >
-                        <Profile />
-                    </ProtectedRoute>
-                    <Route path="/ingredients/:id">
-                        <IngredientDetails />
-                    </Route>
-                    <Route>
+                    <Route path="*">
                         <NotFound />
                     </Route>
                 </Switch>
 
                 {background && (
-                <Route path="/ingredients/:id">
-                    <Modal 
-                    onClose={closeIngredientModal}
-                    handleCloseModal={closeIngredientModal}>
-                        <IngredientDetails />
-                    </Modal>
-                </Route>)}
-                
+                <Switch>
+                    <Route path="/ingredients/:id">
+                        <Modal 
+                        onClose={closeIngredientModal}
+                        handleCloseModal={closeIngredientModal}>
+                            <IngredientDetails />
+                        </Modal>
+                    </Route>
+                    <Route path="/feed/:id">
+                        <Modal 
+                        onClose={closeIngredientModal}
+                        handleCloseModal={closeIngredientModal}>
+                            <OrderContentModal isModal={true}/>
+                        </Modal>
+                    </Route>
+                    <ProtectedRoute path="/profile/orders/:id">
+                        <Modal 
+                        onClose={closeIngredientModal}
+                        handleCloseModal={closeIngredientModal}>
+                            <OrderContentModal isModal={true}/>
+                        </Modal>
+                    </ProtectedRoute>
+                </Switch>
+                )}  
         </div>
     )
 };

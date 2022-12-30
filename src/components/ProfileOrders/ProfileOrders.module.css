@@ -1,0 +1,31 @@
+.container {
+    max-height: 916px;
+    margin-top: 40px;
+    margin-left: 340px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.listOfOrders {
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+    overflow-y: scroll; 
+}
+
+.listOfOrders::-webkit-scrollbar {
+    width: 8px;
+}
+
+.listOfOrders::-webkit-scrollbar-track {
+    background: #2F2F37;  
+    border-radius: 0; 
+    margin-bottom: 64px;
+    height: 696px;
+}
+
+.listOfOrders::-webkit-scrollbar-thumb {
+    background-color: #8585AD;  
+    border-radius: 0;   
+}

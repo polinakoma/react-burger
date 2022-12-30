@@ -37,3 +37,7 @@
 .link_active {
     color: #F2F2F3;;
 }
+
+.link_active svg {
+    fill: #F2F2F3;;
+}

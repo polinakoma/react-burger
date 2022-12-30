@@ -6,13 +6,14 @@ import { NavLink } from 'react-router-dom';
 
 function AppHeader() {
 
+
     return (
         <header className={styles.header}>
             <nav className={styles.navigation}>
-                <NavLink to='/'
+                <NavLink to='/' exact
                 activeClassName={styles.link_active}
                 className={`${styles.buttonConstructor} pl-5 pr-5 pb-5 pt-5`}>
-                    <BurgerIcon type="primary" />
+                    <BurgerIcon type="secondary" />
                     <p className="text text_type_main-default ml-2">Конструктор</p>
                 </NavLink>
                 <NavLink to='/feed'
