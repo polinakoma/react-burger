@@ -1,14 +1,14 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { rootReducers } from './reducers/index.js'; 
+import { rootReducers } from './reducers/index'; 
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { socketMiddleware } from './middleware/socketMiddleware.js';
+import { socketMiddleware } from './middleware/socketMiddleware';
 import {
     WS_CONNECTION_START,
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_CLOSED,
-    WS_GET_ALL_ORDERS } from './actions/wsActionTypes.js';
+    WS_GET_ALL_ORDERS } from './actions/wsActionTypes';
 
 
 const wsActionsAllOrders = {
