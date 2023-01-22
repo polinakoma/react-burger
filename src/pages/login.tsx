@@ -1,10 +1,10 @@
 import styles from './login.module.css';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useCallback, FC } from 'react';
-import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useCallback, FC, FormEvent } from 'react';
+import { EmailInput, PasswordInput, Button } 
+from '@ya.praktikum/react-developer-burger-ui-components';
 import { logInRequest } from '../services/actions/userRequests';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../services/hooks';
 import { useForm } from '../services/hooks';
 
 
@@ -14,7 +14,7 @@ const LogIn: FC = () => {
 
     const {values, handleChange } = useForm({email:'', password:''});
 
-    const logIn = useCallback((evt: any) => {
+    const logIn = useCallback((evt: FormEvent) => {
         evt.preventDefault();
         dispatch(logInRequest(values));
     }, [values, dispatch]
@@ -57,6 +57,5 @@ const LogIn: FC = () => {
         </div>
     )
 };
-
 
 export default LogIn;

@@ -1,8 +1,6 @@
-import { 
-    WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, 
-    WS_CONNECTION_CLOSED, WS_GET_ALL_ORDERS } 
-    from '../actions/wsActionTypes';
-import { TWsTypesActions } from '../actions/wsActionTypes';
+import { WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, 
+    WS_GET_ALL_ORDERS } from '../actions/wsActionTypes';
+import { TWsTypesActions } from '../types/data';
 import { IOrder } from '../types/data';
 
 

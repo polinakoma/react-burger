@@ -40,5 +40,4 @@ const ProfileMenu: FC = () => {
     )
 };
 
-
 export default ProfileMenu;

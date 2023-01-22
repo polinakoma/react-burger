@@ -1,21 +1,19 @@
-import { FC, useState } from 'react';
-import { useMemo } from 'react';
 import styles from './BurgerConstructor.module.css';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { useSelector, useDispatch } from '../../services/hooks'
-import { useDrop } from "react-dnd";
-import { ADD_INGREDIENT_TO_CONSTRUCTOR } 
-from '../../services/actions/ingredients';
-import { v4 as uuidv4 } from 'uuid';
 import ConstructorFilling from '../ConstructorFilling/ConstructorFilling';
 import ConstructorBun from '../ConstructorBun/ConstructorBun';
+import { FC, useState, useMemo } from 'react';
+import { useSelector, useDispatch } from '../../services/hooks'
+import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
+import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/actions/ingredients';
 import { getOrderNumber } from '../../services/actions/ingredients'
 import { getCookie } from '../../utils/cookie';
 import { useHistory } from 'react-router-dom';
 import { IIngredient } from '../../services/types/data';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const BurgerConstructor: FC = () => {
@@ -75,7 +73,6 @@ const BurgerConstructor: FC = () => {
         },
     });
     
-
     return (
         <section className="mt-25" ref={dropTarget}>
             <div className={styles.section}>
@@ -124,6 +121,5 @@ const BurgerConstructor: FC = () => {
         </section> 
     )
 };
-
 
 export default BurgerConstructor;

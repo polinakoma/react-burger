@@ -1,11 +1,11 @@
 import styles from './ProfileOrders.module.css';
+import OrderItem from '../OrderItem/OrderItem';
+import ProfileMenu from '../ProfileMenu/ProfileMenu';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { FC, useEffect } from 'react';
 import { getCookie } from '../../utils/cookie';
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } 
 from '../../services/actions/wsActionTypes';
-import OrderItem from '../OrderItem/OrderItem';
-import ProfileMenu from '../ProfileMenu/ProfileMenu';
 import { WEB_SOCKET_URL } from '../../services/constants/constants';
 import { IOrder } from '../../services/types/data';
 
@@ -14,6 +14,7 @@ const ProfileOrders: FC = () => {
 
     const dispatch = useDispatch();
     const accessToken = getCookie('accessToken');
+    const allOrders = useSelector((state) => state.wsReducer.allOrders);
 
     useEffect(() => {
         dispatch({
@@ -27,8 +28,6 @@ const ProfileOrders: FC = () => {
         }
     }, [dispatch, accessToken]);
 
-    const allOrders = useSelector((state) => state.wsReducer.allOrders);
-
     return (
         <div className={styles.container}> 
             <ProfileMenu />
@@ -37,14 +36,12 @@ const ProfileOrders: FC = () => {
                     return (
                         <li key={order._id}>
                             <OrderItem order={order}/>
-                        </li>
-                        
+                        </li>    
                     )
                 })}
             </ul>
         </div>
     )
 };
-
 
 export default ProfileOrders;

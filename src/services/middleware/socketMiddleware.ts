@@ -1,9 +1,12 @@
-export const socketMiddleware = (wsActionsAllOrders) => {
+import { IWSActions } from "../types/data";
+
+
+export const socketMiddleware = (wsActionsAllOrders: IWSActions) => {
     return ((store) => {
-        let socket = null;
+        let socket: WebSocket | null = null;
         let url = '';
 
-        return next => (action) => {
+        return (next) => (action) => {
             const { dispatch } = store;
             const { type, payload } = action;
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActionsAllOrders;

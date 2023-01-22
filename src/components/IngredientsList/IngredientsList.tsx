@@ -1,14 +1,13 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styles from './IngredientsList.module.css';
 import IngredientCard from '../IngredientCard/IngredientCard';
-import PropTypes from 'prop-types';
 import { useSelector } from '../../services/hooks'; 
 import { IIngredient, IIngredientsList } from '../../services/types/data';
 
 
-const IngredientsList: FC<IIngredientsList> = React.forwardRef( ({title, type}, ref) => {
+const IngredientsList = React.forwardRef<HTMLUListElement, IIngredientsList>( ({title, type}, ref) => {
 
-    const ingredients = useSelector(state => state.ingredientsReducer.ingredients)
+    const ingredients = useSelector(state => state.ingredientsReducer.ingredients);
 
     return(
         <>
@@ -28,6 +27,5 @@ const IngredientsList: FC<IIngredientsList> = React.forwardRef( ({title, type}, 
          </>
     )
 });
-
 
 export default IngredientsList;

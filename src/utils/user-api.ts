@@ -32,7 +32,7 @@ export const refreshToken = () => {
     })
 };
 
-const fetchWithRefresh = async (url: string, options) => {
+const fetchWithRefresh = async (url: string, options?: any) => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res); 

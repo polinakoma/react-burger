@@ -1,5 +1,5 @@
 import styles from './ProfileForm.module.css';
-import { EmailInput, Input, PasswordInput } from 
+import { Input, PasswordInput } from 
 '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { FC } from 'react';
@@ -13,12 +13,13 @@ const ProfileForm: FC = () => {
     const dispatch = useDispatch();
 
     const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
-    let userEmail = userInfo.email
-    let userName = userInfo.name
+    
+    let userEmail = userInfo?.email
+    let userName = userInfo?.name
 
-    const [name, setName] = useState<string>(userName);
-    const [email, setEmail] = useState<string>(userEmail);
-    const [password, setPassword] = useState<string>('');
+    const [name, setName] = useState(userName);
+    const [email, setEmail] = useState(userEmail);
+    const [password, setPassword] = useState('');
     const [inputChange, setInputChange] = useState<boolean>(false);
 
     const handleResetData = (event: MouseEvent) => {
@@ -50,21 +51,20 @@ const ProfileForm: FC = () => {
         dispatch(saveUserData(name, email,password));
     };
 
-
     return (
         <form className={styles.profile_info} onSubmit={saveNewData} name="profile">
             <Input
                 onChange={onChangeName}
-                value={name}
+                value={name ? name : ''}
                 name={'name'}
                 placeholder="Имя"
                 icon={"EditIcon"}
                 extraClass="mb-6"
                 size={"default"}
             />
-            <Input // изменила EmailInput
+            <Input 
                 onChange={onChangeEmail}
-                value={email}
+                value={email ? email : ''}
                 name={'email'}
                 placeholder="Логин"
                 icon={"EditIcon"}
@@ -96,6 +96,5 @@ const ProfileForm: FC = () => {
         </form>
     )
 };
-
 
 export default ProfileForm;

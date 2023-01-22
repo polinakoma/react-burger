@@ -1,20 +1,19 @@
 import styles from './ConstructorFilling.module.css';
-import { CONSTRUCTOR_DELETE, CONSTRUCTOR_REORDER  } 
-from '../../services/actions/ingredients';
 import { useDrag, useDrop } from "react-dnd";
 import { ConstructorElement, DragIcon } 
 from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useRef } from 'react';
 import { useDispatch } from '../../services/hooks'; 
 import { IConstructorFillingProps } from '../../services/types/data';
-import { IIngredient } from '../../services/types/data';
+import { CONSTRUCTOR_DELETE, CONSTRUCTOR_REORDER  } 
+from '../../services/actions/ingredients';
 
 
 const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) => {
 
 	const dispatch = useDispatch();
 
-    const ref = useRef(null)
+    const ref = useRef<HTMLLIElement>(null)
     const id = ingredient._id;
 
     const moveIngredient = (dragIndex: number, hoverIndex: number) => {
@@ -31,7 +30,7 @@ const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) =
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover(item, monitor) {
+        hover(item: any, monitor) {
 			if (!ref.current) {
 				return
 			}
@@ -43,14 +42,13 @@ const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) =
 				return;
 			};
 		
-			const hoverBoundingRect = ref.current?.getBoundingClientRect();
+			const hoverBoundingRect = ref.current.getBoundingClientRect();
 
 			const hoverMiddleY =
 			(hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
 			const clientOffset = monitor.getClientOffset();
-
-			const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+			const hoverClientY = clientOffset?.y ? clientOffset?.y - hoverBoundingRect.top : 0;
 		
 			if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
 				return;
@@ -61,7 +59,6 @@ const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) =
 			};
 
 			moveIngredient(dragIndex, hoverIndex);
-
 			item.index = hoverIndex;
     	},
     });
@@ -77,7 +74,6 @@ const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) =
   	});
 
   	const opacity = isDragging ? 0 : 1;
-
   	drag(drop(ref));
 
 	const handleDeleteItem = () => {
@@ -101,6 +97,5 @@ const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) =
         </li>
     );
 };
-
 
 export default ConstructorFilling;

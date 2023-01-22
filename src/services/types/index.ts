@@ -1,7 +1,7 @@
 import store from '../store';
-import { TIngredientsActions } from '../actions/ingredients';
-import { TUserRequestsActions } from '../actions/userRequests';
-import { TWsTypesActions } from '../actions/wsActionTypes';
+import { TIngredientsActions } from './data';
+import { TUserRequestsActions } from './data';
+import { TWsTypesActions } from './data';
 import { ActionCreator, Action, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
@@ -16,7 +16,7 @@ export type TApplicationActions =
 
 // типизация thunk услилителя
 export type AppThunk<TReturn = void> = ActionCreator<
-ThunkAction<TReturn, Action, RootState, TApplicationActions>>; 
+ThunkAction<TReturn, RootState, Action, TApplicationActions>>; 
 
 // типизация метода dispatch для проверки отправляемого экшена
 export type AppDispatch = Dispatch<TApplicationActions>; 

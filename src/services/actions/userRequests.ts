@@ -2,7 +2,7 @@ import { request, BURGER_API_URL } from '../constants/constants';
 import { getCookie, setCookie, deleteCookie } from '../../utils/cookie';
 import { getUserApi } from '../../utils/user-api';
 import { AppDispatch, AppThunk } from '../types';
-import { IOwner } from '../types/data';
+import { IInputData } from '../types/data';
 
 
 export const LOGIN: 'LOGIN' = 'LOGIN';
@@ -38,102 +38,6 @@ export const UPDATE_USER_DATA_FAILED: 'UPDATE_USER_DATA_FAILED' =
 'UPDATE_USER_DATA_FAILED';
 
 
-export interface ILoginAction {
-    readonly type: typeof LOGIN;
-};
-export interface ILoginSuccessAction {
-    readonly type: typeof LOGIN_SUCCESS;
-    readonly payload: IOwner;
-};
-export interface ILoginFailedAction {
-    readonly type: typeof LOGIN_FAILED;
-};
-export interface ILogoutAction {
-    readonly type: typeof LOGOUT;
-};
-export interface ILogoutSuccessAction {
-    readonly type: typeof LOGOUT_SUCCESS;
-};
-export interface ILogoutFailedAction {
-    readonly type: typeof LOGOUT_FAILED;
-};
-export interface IRegistrationAction {
-    readonly type: typeof REGISTRATION;
-};
-export interface IRegistrationSuccessAction {
-    readonly type: typeof REGISTRATION_SUCCESS;
-    readonly payload: IOwner;
-};
-export interface IRegistrationFailedAction {
-    readonly type: typeof REGISTRATION_FAILED;
-};
-export interface IForgotPasswordAction {
-    readonly type: typeof FORGOT_PASSWORD;
-};
-export interface IForgotPasswordSuccessAction {
-    readonly type: typeof FORGOT_PASSWORD_SUCCESS;
-};
-export interface IForgotPasswordFailedAction {
-    readonly type: typeof FORGOT_PASSWORD_FAILED;
-};
-export interface IResetPasswordAction {
-    readonly type: typeof RESET_PASSWORD;
-};
-export interface IResetPasswordSuccessAction {
-    readonly type: typeof RESET_PASSWORD_SUCCESS;
-};
-export interface IResetPasswordFailedAction {
-    readonly type: typeof RESET_PASSWORD_FAILED;
-};
-export interface IGetUserAction {
-    readonly type: typeof GET_USER;
-};
-export interface IGetUserSuccessAction {
-    readonly type: typeof GET_USER_SUCCESS;
-    readonly payload: IOwner;
-};
-export interface IGetUserFailedAction {
-    readonly type: typeof GET_USER_FAILED;
-};
-export interface IAuthCheckedAction {
-    readonly type: typeof AUTH_CHECKED;
-};
-export interface IUpdateUserDataAction {
-    readonly type: typeof UPDATE_USER_DATA;
-};
-export interface IUpdateUserDataSuccessAction {
-    readonly type: typeof UPDATE_USER_DATA_SUCCESS;
-    readonly payload: IOwner;
-};
-export interface IUpdateUserDataFailedAction {
-    readonly type: typeof UPDATE_USER_DATA_FAILED;
-};
-
-export type TUserRequestsActions = 
-    | ILoginAction  
-    | ILoginFailedAction
-    | ILoginSuccessAction
-    | ILogoutAction 
-    | ILogoutSuccessAction
-    | ILogoutFailedAction
-    | IRegistrationAction 
-    | IRegistrationSuccessAction
-    | IRegistrationFailedAction 
-    | IForgotPasswordAction 
-    | IForgotPasswordSuccessAction
-    | IForgotPasswordFailedAction
-    | IResetPasswordAction
-    | IResetPasswordSuccessAction 
-    | IResetPasswordFailedAction 
-    | IGetUserAction 
-    | IGetUserSuccessAction
-    | IGetUserFailedAction 
-    | IAuthCheckedAction 
-    | IUpdateUserDataAction 
-    | IUpdateUserDataSuccessAction
-    | IUpdateUserDataFailedAction;
-
-
 export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
     dispatch({
         type: GET_USER
@@ -156,6 +60,7 @@ export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
     })
 };
 
+
 export const checkAuth: AppThunk = () => (dispatch: AppDispatch) => {
     if(getCookie('accessToken')) {
         dispatch(getUser())
@@ -171,7 +76,7 @@ export const checkAuth: AppThunk = () => (dispatch: AppDispatch) => {
     }
 };
 
-export const registerUserRequest: AppThunk = (form) => (dispatch: AppDispatch) => {
+export const registerUserRequest: AppThunk = (form: IInputData) => (dispatch: AppDispatch) => {
     dispatch({
         type: REGISTRATION
     });
@@ -200,7 +105,7 @@ export const registerUserRequest: AppThunk = (form) => (dispatch: AppDispatch) =
     });
 };
 
-export const logInRequest: AppThunk = (form) => (dispatch: AppDispatch) => {
+export const logInRequest: AppThunk = (form: IInputData) => (dispatch: AppDispatch) => {
     dispatch({
         type: LOGIN
     });
@@ -230,7 +135,7 @@ export const logInRequest: AppThunk = (form) => (dispatch: AppDispatch) => {
     })
 };
 
-export const logOutRequest: AppThunk = (refreshToken) => (dispatch: AppDispatch) => {
+export const logOutRequest: AppThunk = (refreshToken: string) => (dispatch: AppDispatch) => {
     dispatch({
         type: LOGOUT
     });
@@ -262,7 +167,7 @@ export const logOutRequest: AppThunk = (refreshToken) => (dispatch: AppDispatch)
 };
 
 // forgot-password
-export const resetPasswordRequest: AppThunk = (form, redirect) => 
+export const resetPasswordRequest: AppThunk = (form: IInputData, redirect: () => void) => 
 (dispatch: AppDispatch) => {
     dispatch({
         type: FORGOT_PASSWORD
@@ -285,6 +190,7 @@ export const resetPasswordRequest: AppThunk = (form, redirect) =>
                 type: FORGOT_PASSWORD_SUCCESS,
                 payload: res.success
             });
+            
             redirect();
         }
     })
@@ -297,7 +203,7 @@ export const resetPasswordRequest: AppThunk = (form, redirect) =>
 };
 
 // reset-password
-export const settingNewPasswordRequest: AppThunk = (form, redirect) => 
+export const settingNewPasswordRequest: AppThunk = (form: IInputData, redirect: () => void) => 
 (dispatch: AppDispatch) => {
     dispatch({
         type: RESET_PASSWORD
@@ -325,7 +231,7 @@ export const settingNewPasswordRequest: AppThunk = (form, redirect) =>
     })
 };
 
-export const saveUserData: AppThunk = (name, email,password) => 
+export const saveUserData: AppThunk = (name: string, email: string, password: string) => 
 (dispatch: AppDispatch) => {
     dispatch({
         type: UPDATE_USER_DATA
@@ -344,6 +250,7 @@ export const saveUserData: AppThunk = (name, email,password) =>
     })
     .then(res => {
         if(res.success) {
+                        console.log(res)
             dispatch({
                 type: UPDATE_USER_DATA_SUCCESS,
                 payload: res.user

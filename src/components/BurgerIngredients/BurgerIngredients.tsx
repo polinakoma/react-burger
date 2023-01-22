@@ -1,7 +1,7 @@
-import { FC, useState, useEffect } from 'react'
 import  styles from './BurgerIngredients.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from '../IngredientsList/IngredientsList'
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+import { FC, useState, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer';
 
 
@@ -63,6 +63,5 @@ const BurgerIngredients: FC = () => {
         </section> 
     )
 };
-
 
 export default BurgerIngredients;

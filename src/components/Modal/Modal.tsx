@@ -1,13 +1,12 @@
-import { FC, useEffect, KeyboardEvent } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import { FC, useEffect } from 'react';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { IModalProps } from '../../services/types/data';
 
 
-const modalsContainer: HTMLElement = document.querySelector('#react-modals') as HTMLElement;
+const modalsContainer = document.querySelector('#react-modals') as HTMLElement;
 
 const Modal: FC<IModalProps> = ({ onClose, children, handleCloseModal }) => {
 
@@ -21,7 +20,6 @@ const Modal: FC<IModalProps> = ({ onClose, children, handleCloseModal }) => {
         };
     }, [handleCloseModal]);
 
-    
     return ReactDOM.createPortal(
         <>
             <div className={styles.modal}>
@@ -35,8 +33,4 @@ const Modal: FC<IModalProps> = ({ onClose, children, handleCloseModal }) => {
     )
 };
 
-
 export default Modal;
-
-
-  

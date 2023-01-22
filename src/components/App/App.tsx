@@ -17,10 +17,9 @@ import ProfileOrders from '../ProfileOrders/ProfileOrders';
 import { useDispatch } from '../../services/hooks';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { getIngredientsData } from '../../services/actions/ingredients';
+import { getIngredientsData, RESET_MODAL } from '../../services/actions/ingredients';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { checkAuth } from '../../services/actions/userRequests';
-import { RESET_MODAL } from '../../services/actions/ingredients';
 import { FC, useEffect } from 'react';
 import { Location } from 'history'; 
 
@@ -44,7 +43,6 @@ const App: FC = () => {
         })
         history.goBack();
     };
-
 
     return (
         <div className={styles.app}>  
@@ -121,6 +119,5 @@ const App: FC = () => {
         </div>
     )
 };
-
 
 export default App;

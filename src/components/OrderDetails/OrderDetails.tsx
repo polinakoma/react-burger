@@ -1,8 +1,8 @@
 import styles from './OrderDetails.module.css';
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import overlayFirst from '../../images/Vector 1.svg';
 import overlaySecond from '../../images/Vector 2.svg';
 import overlayThird from '../../images/Vector 3.svg';
+import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '../../services/hooks';
 import { FC } from 'react';
 
@@ -13,7 +13,7 @@ const OrderDetails: FC = () => {
 
     return(
         <div className={styles.content}>
-            <h3 className="text text_type_digits-large mt-30 mb-8">{orderNumber.number}</h3>
+            <h3 className="text text_type_digits-large mt-30 mb-8">{orderNumber?.number}</h3>
             <p className="text text_type_main-medium mb-30">идентификатор заказа</p>
             <div className={styles.checkMark}>
                 <CheckMarkIcon type="primary" />
@@ -27,7 +27,6 @@ const OrderDetails: FC = () => {
         </div>
     )
 };
-
 
 export default OrderDetails;
 

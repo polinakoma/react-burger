@@ -1,9 +1,9 @@
 import styles from './login.module.css';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { settingNewPasswordRequest } from '../services/actions/userRequests';
 import { useCallback, FC } from 'react';
-import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { EmailInput, PasswordInput, Button } 
+from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from '../services/hooks';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from '../services/hooks';
 
@@ -13,21 +13,19 @@ const ResetPassword: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const email = useSelector((state) => state.userRequestReducer.email)
+    const redirect = () => {history.push('/')} 
+
+    const email = useSelector((state) => state.userRequestReducer.userInfo);
+    const {values, handleChange } = useForm({password: '', token: ''});
 
     if(!email) {
         history.push('/forgot-password')
     };
 
-    const {values, handleChange } = useForm({password: '', token: ''});
-
-    const redirect = () => {history.push('/')} 
-
     const settingNewPassword = useCallback((evt: any) =>  {
         evt.preventDefault();
         dispatch(settingNewPasswordRequest(values, redirect));
-    }, [values, dispatch]
-    );
+    }, [values, dispatch]);
 
     return (
         <div className={styles.container}>
@@ -64,6 +62,5 @@ const ResetPassword: FC = () => {
         </div>
     )
 }
-
 
 export default ResetPassword;

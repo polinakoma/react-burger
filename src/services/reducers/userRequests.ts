@@ -6,15 +6,17 @@ import {
     GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, AUTH_CHECKED, 
     UPDATE_USER_DATA, UPDATE_USER_DATA_SUCCESS, UPDATE_USER_DATA_FAILED 
 } from '../actions/userRequests';
-import { TUserRequestsActions } from '../actions/userRequests';
+import { TUserRequestsActions } from '../types/data';
 
 
 export type TUserState = {
     isAuthChecked: boolean;
     userInfo: {
         email: string;
+        password: string;
         name: string;
-    };
+    } | null;
+
     registrationRequest: boolean;
     registrationRequestFailed: boolean;
 
@@ -79,7 +81,11 @@ export const userRequestReducer = (state = initialState,
             return {
                 ...state,
                 registrationRequest: true,
-                userInfo: action.payload,
+                userInfo: {
+                    email: action.payload.email,
+                    name: action.payload.name,
+                    password: '',
+                },
                 isAuthChecked: true,
             }
         case REGISTRATION_FAILED: 
@@ -101,7 +107,11 @@ export const userRequestReducer = (state = initialState,
             return {
                 ...state,
                 loginRequest: true,
-                userInfo: action.payload,
+                userInfo: {
+                    email: action.payload.email,
+                    name: action.payload.name,
+                    password: '',
+                },
                 isAuthChecked: true,
             }
         case LOGIN_FAILED: 
@@ -141,7 +151,11 @@ export const userRequestReducer = (state = initialState,
             return {
                 ...state,
                 getUserRequest: false,
-                userInfo: action.payload
+                userInfo: {
+                    email: action.payload.email,
+                    password: '',
+                    name: action.payload.name,
+                },   
             }
         case GET_USER_FAILED: 
             return {
@@ -164,7 +178,11 @@ export const userRequestReducer = (state = initialState,
             return {
                 ...state,
                 updateUserRequest: false,
-                userInfo: action.payload
+                userInfo: {
+                    email: action.payload.email,
+                    password: '',
+                    name: action.payload.name,
+                },   
             }
         case UPDATE_USER_DATA_FAILED:
             return {

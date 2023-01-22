@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { useSelector } from "../../services/hooks"; 
 import { useLocation, Redirect, Route } from "react-router-dom";
-import { IProtectedRouteProps } from "../../services/types/data";
-import { Location } from '../../services/types/data';
+import { IProtectedRouteProps, Location } from "../../services/types/data";
 
 
 const ProtectedRoute: FC<IProtectedRouteProps> = ({ onlyUnAuth, children, ...props }) => {
@@ -18,13 +17,13 @@ const ProtectedRoute: FC<IProtectedRouteProps> = ({ onlyUnAuth, children, ...pro
     if(!onlyUnAuth && !userInfo) {
         return <Redirect to={{pathname: '/login', state: { from: location }
         }} />
-    }
+    };
 
     return (
-    <Route {...props}>
-        {children}
-    </Route>)
+        <Route {...props}>
+            {children}
+        </Route>
+    )
 };
-
 
 export default ProtectedRoute;

@@ -3,7 +3,7 @@ export const WEB_SOCKET_URL = 'wss://norma.nomoreparties.space/orders';
 
 export const PENDING_IMAGE = 'https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg';
 
-export const checkResponse = (res) => {
+export const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err: string) => Promise.reject(err));
 };
 

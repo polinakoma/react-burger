@@ -51,6 +51,5 @@ const IngredientDetails: FC = () => {
         </>
     )
 };
-
         
 export default IngredientDetails;

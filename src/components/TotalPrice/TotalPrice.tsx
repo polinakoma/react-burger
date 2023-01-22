@@ -1,6 +1,5 @@
 import styles from './TotalPrice.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { FC } from 'react';
 import { ITotalPriceProps } from '../../services/types/data';
 
@@ -16,6 +15,5 @@ const TotalPrice: FC<ITotalPriceProps> = ({totalPrice}) => {
         </div>
     )
 };
-
 
 export default TotalPrice;

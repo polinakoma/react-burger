@@ -2,22 +2,22 @@ import {
     GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, 
     GET_INGREDIENTS_FAILED, CHOOSE_INGREDIENT } 
     from '../actions/ingredients';
-import { TIngredientsActions } from '../actions/ingredients';
+import { TIngredientsActions } from '../types/data';
 import { IIngredient } from '../types/data';
 
 
 export type TIngredientsState = {
-    ingredients: ReadonlyArray<IIngredient>;
+    ingredients: IIngredient[];
     ingredientsRequest: boolean;
     ingredientsFailed: boolean;
-    chosenIngredient: IIngredient;
+    chosenIngredient: IIngredient | null;
 };
 
 const initialState: TIngredientsState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
-    chosenIngredient: []
+    chosenIngredient: null
 };
 
 export const ingredientsReducer = (state = initialState, 
@@ -43,7 +43,8 @@ export const ingredientsReducer = (state = initialState,
             }
         case CHOOSE_INGREDIENT:
             return {
-                chosenIngredient: action.payload
+                ...state,
+                chosenIngredient: action.payload,
             }
         default:
             return state;

@@ -11,12 +11,11 @@ const Profile: FC = () => {
         <div className={styles.container}>
             <ProfileMenu />
 
-            <Route to="/profile" exact>  
+            <Route path="/profile" exact>  
                 <ProfileForm />
             </Route>
         </div>
     )
 };
-
 
 export default Profile;

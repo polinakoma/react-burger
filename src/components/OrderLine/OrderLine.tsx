@@ -1,9 +1,9 @@
-import styles from './OrderLine.module.css'
+import styles from './OrderLine.module.css';
+import OrderItem from '../OrderItem/OrderItem';
 import { FC, useEffect } from 'react';
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } 
 from '../../services/actions/wsActionTypes';
 import { useDispatch, useSelector } from '../../services/hooks';
-import OrderItem from '../OrderItem/OrderItem';
 import { WEB_SOCKET_URL } from '../../services/constants/constants';
 import { IOrder } from '../../services/types/data';
 
@@ -28,7 +28,6 @@ const OrderLine: FC = () => {
         }
     }, [dispatch]);
 
-
     return (
         <main className={styles.main}>
             <h1 className={`${styles.heading} mt-10 mb-5`}>Лента заказов</h1>
@@ -40,8 +39,7 @@ const OrderLine: FC = () => {
                                 <OrderItem order={order}/>
                             </li>
                         )
-                    })
-                    }
+                    })}
                 </ul>
                 <section className={styles.statistics}>
                     <div className={`${styles.orderStatistics}  mb-15`}>
@@ -57,8 +55,7 @@ const OrderLine: FC = () => {
                                             </li>
                                         )
                                     }
-                                })
-                                }
+                                })}
                             </ul>
                         </div>
                         <div className={styles.oredsInfo}>
@@ -73,8 +70,7 @@ const OrderLine: FC = () => {
                                             </li>
                                         )
                                     }
-                                })
-                                }
+                                })}
                             </ul>
                         </div>
                     </div>
@@ -91,6 +87,5 @@ const OrderLine: FC = () => {
         </main>
     )
 };
-
 
 export default OrderLine;

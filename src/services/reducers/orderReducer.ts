@@ -1,18 +1,19 @@
 import { 
     CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, 
     CREATE_ORDER_FAILED } from '../actions/ingredients';  
-import { TIngredientsActions } from '../actions/ingredients';   
+import { TIngredientsActions } from '../types/data';   
+import { IOrder } from '../types/data'
 
 
 export type TOrderState = {
-    orderNumber: string;
+    orderNumber: IOrder | null;
     orderRequest: boolean;
     orderNumberReceiveFailed: boolean;
     isFetching: boolean;
 };
 
 const initialState: TOrderState = {
-    orderNumber: '',
+    orderNumber: null,
     orderRequest: false,
     orderNumberReceiveFailed: false,
     isFetching: false

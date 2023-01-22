@@ -1,6 +1,5 @@
 import  styles from './IngredientCard.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientPropType from '../../utils/prop-types';
 import { SET_MODAL } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { FC, useMemo } from 'react';
@@ -41,13 +40,13 @@ const IngredientCard: FC<IIngredientCardProps> = ({ingredient}) => {
         })
     });
     
-    
     return(
         <>
-            <Link to={{
-                    pathname: `/ingredients/${ingredient._id}`,
-                    state: {background: location} 
-                }} onClick={openIngredientModal} ref={dragRef} className={styles.link}>
+            <Link to={{ pathname: `/ingredients/${ingredient._id}`,
+                    state: {background: location} }} 
+                  onClick={openIngredientModal} 
+                  ref={dragRef} 
+                  className={styles.link}>
                 {counter > 0 && <Counter count={counter} size={"default"} />}
                 <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
                 <div className={`${styles.price} mt-2 mb-2`}>
@@ -60,6 +59,5 @@ const IngredientCard: FC<IIngredientCardProps> = ({ingredient}) => {
         </>  
     )
 };
-
 
 export default IngredientCard;

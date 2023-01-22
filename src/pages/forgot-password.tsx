@@ -1,10 +1,10 @@
 import styles from './login.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPasswordRequest }from '../services/actions/userRequests';
-import { useCallback, FC } from 'react';
+import { useCallback, FC,FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../services/hooks';
 import { Link } from 'react-router-dom';
 import { useForm } from '../services/hooks';
 
@@ -15,11 +15,10 @@ const ForgotPassword: FC = () => {
     const dispatch = useDispatch();
 
     const {values, handleChange } = useForm({ email: '' });
-
     const redirect = () => {history.push('/reset-password')} 
 
-    const forgotPassword = useCallback((evt: any) => {
-        evt.preventDefault();
+    const forgotPassword = useCallback((event: FormEvent) => {
+        event.preventDefault();
         dispatch(resetPasswordRequest(values, redirect));
     }, [values, dispatch]
     );
@@ -52,6 +51,5 @@ const ForgotPassword: FC = () => {
         </div>
     )
 };
-
 
 export default ForgotPassword;

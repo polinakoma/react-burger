@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { rootReducers } from './reducers/index'; 
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { socketMiddleware } from './middleware/socketMiddleware';
+import { IWSActions } from './types/data'
 import {
     WS_CONNECTION_START,
     WS_CONNECTION_SUCCESS,
@@ -11,7 +12,7 @@ import {
     WS_GET_ALL_ORDERS } from './actions/wsActionTypes';
 
 
-const wsActionsAllOrders = {
+const wsActionsAllOrders: IWSActions = {
     wsInit: WS_CONNECTION_START,
     onOpen: WS_CONNECTION_SUCCESS,
     onClose: WS_CONNECTION_CLOSED,

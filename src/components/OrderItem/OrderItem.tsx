@@ -4,7 +4,6 @@ import { useSelector } from '../../services/hooks';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { getOrderTime, getOrderStatus } from '../../services/constants/constants';
-import PropTypes from 'prop-types';
 import { FC } from 'react';
 import { IOrderItem, IIngredient } from '../../services/types/data';
 
@@ -14,16 +13,15 @@ const OrderItem: FC<IOrderItem> = ({order}) => {
     const {status, number, createdAt, name, ingredients, _id} = order;
 
     const location = useLocation();
-
     const allIngredients = useSelector((state) => state.ingredientsReducer.ingredients);
 
-    function getSomeIngredient (ingredient: IIngredient, allIngredients: IIngredient[]) {
+    function getSomeIngredient (ingredient: string, allIngredients: IIngredient[]) {
         return allIngredients.find((item: any) => item._id === ingredient)
     };
 
     const sum = () => {
         let sum = 0;
-        ingredients.forEach((ingredient) => {
+        ingredients.forEach((ingredient: string) => {
           const orderIngredientItem = getSomeIngredient (ingredient, allIngredients);
           if (orderIngredientItem?.price) {
             sum += orderIngredientItem.price
@@ -39,9 +37,9 @@ const OrderItem: FC<IOrderItem> = ({order}) => {
 
     return (
         <Link to={{
-            pathname: `${location.pathname}/${_id}`, 
-            state: {background: location} 
-        }} className={styles.linkStyles}>
+              pathname: `${location.pathname}/${_id}`, 
+              state: {background: location} }} 
+        className={styles.linkStyles}>
             <div className={`${styles.orderItem} p-6 mb-4`}>
                 <div className={styles.orderDetails}>
                     <p className={styles.orderNumber}>{`#${number}`}</p>
@@ -83,7 +81,7 @@ const OrderItem: FC<IOrderItem> = ({order}) => {
                     </ul>
                     <div className={styles.orderPrice}>
                         <p>{sum()}</p>
-                        <CurrencyIcon/>
+                        <CurrencyIcon type={'secondary'}/>
                     </div>
                 </div> 
             </div>

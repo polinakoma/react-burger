@@ -2,7 +2,7 @@ import {
     ADD_INGREDIENT_TO_CONSTRUCTOR, CONSTRUCTOR_DELETE, 
     CONSTRUCTOR_REORDER, CONSTRUCTOR_RESET } 
     from '../actions/ingredients';
-import { TIngredientsActions } from '../actions/ingredients';
+import { TIngredientsActions } from '../types/data';
 import { IIngredient } from '../types/data';
 
   

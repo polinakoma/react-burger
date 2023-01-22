@@ -1,10 +1,10 @@
 import styles from './login.module.css';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { registerUserRequest } from '../services/actions/userRequests';
-import { useCallback, FC } from 'react';
-import { EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useCallback, FC, FormEvent } from 'react';
+import { EmailInput, PasswordInput, Input, Button } 
+from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from '../services/hooks';
 import { useForm } from '../services/hooks';
 
 
@@ -13,17 +13,16 @@ const Registration: FC = () => {
     const dispatch = useDispatch();
 
     const {values, handleChange } = useForm({
-    name: '', 
-    email: '', 
-    password: ''
+        name: '', 
+        email: '', 
+        password: ''
     });
 
-    const createAccout = useCallback((evt: any) => {
+    const createAccout = useCallback((evt: FormEvent) => {
         evt.preventDefault();
         dispatch(registerUserRequest(values));
     }, [values, dispatch]
     );
-
 
     return (
         <div className={styles.container}>
@@ -67,6 +66,5 @@ const Registration: FC = () => {
         </div>
     )
 };
-
 
 export default Registration;

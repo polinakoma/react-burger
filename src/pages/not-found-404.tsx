@@ -8,5 +8,4 @@ const NotFoundPage: FC = () => {
     )
 };
 
-
 export default NotFoundPage;

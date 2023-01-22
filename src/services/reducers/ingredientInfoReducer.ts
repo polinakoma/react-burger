@@ -1,13 +1,13 @@
 import { SET_MODAL, RESET_MODAL } from '../actions/ingredients';
-import { TIngredientsActions } from '../actions/ingredients';
+import { TIngredientsActions, IIngredient } from '../types/data';
 
 
 export type TIngredientInfoState = {
-    current: any;  // испрвить
+    current: IIngredient | null;  
 };
 
 const initialState: TIngredientInfoState = {
-    current: null    
+    current: null   
 };
 
 export const ingredientInfoReducer = (state = initialState, 
