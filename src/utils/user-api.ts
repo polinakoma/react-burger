@@ -21,26 +21,26 @@ export const refreshToken = () => {
             token: localStorage.getItem('refreshToken')})
     })
     .then(checkResponse)
-    .then(refreshData => {
-        if(!refreshData.success) {
-            Promise.reject(refreshData)
-        }
-
-        localStorage.setItem('refreshToken', refreshData.refreshToken);
-        setCookie('accessToken', refreshData.accessToken)
-
-    })
-};
+}; 
 
 const fetchWithRefresh = async (url: string, options?: any) => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res); 
-    } catch (error) {
+    } catch (error: any) {
         if (error.message === 'jwt expired') {
-            const refreshData = await refreshToken();
-            
-            options.headers.Authorization = refreshData.accessToken;
+            await refreshToken()
+            .then(refreshData => {
+                if(!refreshData.success) {
+                    Promise.reject(refreshData)
+                }
+        
+                localStorage.setItem('refreshToken', refreshData.refreshToken);
+                setCookie('accessToken', refreshData.accessToken)
+
+                options.headers.Authorization = refreshData.accessToken;
+        
+            })
 
             const res = await fetch(url, options);
             return await checkResponse(res); 

@@ -5,8 +5,8 @@ from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useRef } from 'react';
 import { useDispatch } from '../../services/hooks'; 
 import { IConstructorFillingProps } from '../../services/types/data';
-import { CONSTRUCTOR_DELETE, CONSTRUCTOR_REORDER  } 
-from '../../services/actions/ingredients';
+import { CONSTRUCTOR_REORDER  } from '../../services/actions/ingredients';
+import { handleDeleteConstructor } from '../../services/actions/ingredients';
 
 
 const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) => {
@@ -77,10 +77,7 @@ const ConstructorFilling: FC<IConstructorFillingProps> = ({ingredient, index}) =
   	drag(drop(ref));
 
 	const handleDeleteItem = () => {
-		dispatch({
-			type: CONSTRUCTOR_DELETE,
-			payload: ingredient.key
-		})
+		dispatch(handleDeleteConstructor(ingredient));
 	};
 
     return (

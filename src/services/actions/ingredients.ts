@@ -1,5 +1,7 @@
+import { SetStateAction } from 'react';
 import { request, BURGER_API_URL } from '../constants/constants';
-import { AppDispatch, AppThunk } from '../types';
+import { AppDispatch } from '../types';
+import { IIngredient } from '../types/data';
 
 
 // BurgerIngredients
@@ -25,7 +27,7 @@ export const SET_MODAL: 'SET_MODAL' = 'SET_MODAL';
 export const RESET_MODAL: 'RESET_MODAL' = 'RESET_MODAL';
 
 
-export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
+export const getIngredientsData = () => (dispatch: AppDispatch) => {
     dispatch({
         type: GET_INGREDIENTS
     });
@@ -45,7 +47,10 @@ export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
     })     
 };
 
-export const getOrderNumber: AppThunk = (accessToken, data, onCreateOrderCallback) => 
+export const getOrderNumber = (accessToken: string | undefined, 
+data: { ingredients: (string | undefined)[]; }, 
+onCreateOrderCallback: { (value: SetStateAction<number | undefined>): void; (arg0: any): void; }) => 
+
 (dispatch: AppDispatch) => {
     dispatch({
         type: CREATE_ORDER_REQUEST
@@ -76,3 +81,8 @@ export const getOrderNumber: AppThunk = (accessToken, data, onCreateOrderCallbac
         })
     })
 };
+
+export const handleDeleteConstructor = (ingredient: IIngredient) => ({
+    type: CONSTRUCTOR_DELETE,
+    payload: ingredient.key,
+})

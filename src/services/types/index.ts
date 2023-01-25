@@ -1,12 +1,11 @@
-import store from '../store';
 import { TIngredientsActions } from './data';
 import { TUserRequestsActions } from './data';
 import { TWsTypesActions } from './data';
-import { ActionCreator, Action, Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { rootReducers } from '../reducers';
 
 // типизация хранилища
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducers>;
 
 // типизация всех экшенов
 export type TApplicationActions = 
@@ -15,8 +14,8 @@ export type TApplicationActions =
     | TWsTypesActions;
 
 // типизация thunk услилителя
-export type AppThunk<TReturn = void> = ActionCreator<
-ThunkAction<TReturn, RootState, Action, TApplicationActions>>; 
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, 
+RootState, unknown, TApplicationActions>; 
 
 // типизация метода dispatch для проверки отправляемого экшена
-export type AppDispatch = Dispatch<TApplicationActions>; 
+export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;

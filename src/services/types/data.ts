@@ -154,7 +154,7 @@ export interface IAddIngredientToConstructorAction {
 };
 export interface IConstructorDeleteAction {
     readonly type: typeof CONSTRUCTOR_DELETE;
-    readonly payload: string;
+    readonly payload: string | undefined;
 };
 export interface IConstructorResetAction  {
     readonly type: typeof CONSTRUCTOR_RESET;

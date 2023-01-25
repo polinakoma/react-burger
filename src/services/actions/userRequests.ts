@@ -1,7 +1,7 @@
 import { request, BURGER_API_URL } from '../constants/constants';
 import { getCookie, setCookie, deleteCookie } from '../../utils/cookie';
 import { getUserApi } from '../../utils/user-api';
-import { AppDispatch, AppThunk } from '../types';
+import { AppDispatch } from '../types';
 import { IInputData } from '../types/data';
 
 
@@ -38,7 +38,7 @@ export const UPDATE_USER_DATA_FAILED: 'UPDATE_USER_DATA_FAILED' =
 'UPDATE_USER_DATA_FAILED';
 
 
-export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
+export const getUser = () => (dispatch: AppDispatch) => {
     dispatch({
         type: GET_USER
     });
@@ -61,10 +61,10 @@ export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
 };
 
 
-export const checkAuth: AppThunk = () => (dispatch: AppDispatch) => {
+export const checkAuth = () => (dispatch: AppDispatch) => {
     if(getCookie('accessToken')) {
         dispatch(getUser())
-            .finally(() => {
+        .finally(() => {
                 dispatch ({
                     type: AUTH_CHECKED
                 })
@@ -76,7 +76,7 @@ export const checkAuth: AppThunk = () => (dispatch: AppDispatch) => {
     }
 };
 
-export const registerUserRequest: AppThunk = (form: IInputData) => (dispatch: AppDispatch) => {
+export const registerUserRequest = (form: IInputData) => (dispatch: AppDispatch) => {
     dispatch({
         type: REGISTRATION
     });
@@ -105,7 +105,7 @@ export const registerUserRequest: AppThunk = (form: IInputData) => (dispatch: Ap
     });
 };
 
-export const logInRequest: AppThunk = (form: IInputData) => (dispatch: AppDispatch) => {
+export const logInRequest = (form: IInputData) => (dispatch: AppDispatch) => {
     dispatch({
         type: LOGIN
     });
@@ -135,7 +135,7 @@ export const logInRequest: AppThunk = (form: IInputData) => (dispatch: AppDispat
     })
 };
 
-export const logOutRequest: AppThunk = (refreshToken: string) => (dispatch: AppDispatch) => {
+export const logOutRequest = (refreshToken: string | null) => (dispatch: AppDispatch) => {
     dispatch({
         type: LOGOUT
     });
@@ -167,7 +167,7 @@ export const logOutRequest: AppThunk = (refreshToken: string) => (dispatch: AppD
 };
 
 // forgot-password
-export const resetPasswordRequest: AppThunk = (form: IInputData, redirect: () => void) => 
+export const resetPasswordRequest = (form: IInputData, redirect: () => void) => 
 (dispatch: AppDispatch) => {
     dispatch({
         type: FORGOT_PASSWORD
@@ -203,7 +203,7 @@ export const resetPasswordRequest: AppThunk = (form: IInputData, redirect: () =>
 };
 
 // reset-password
-export const settingNewPasswordRequest: AppThunk = (form: IInputData, redirect: () => void) => 
+export const settingNewPasswordRequest = (form: IInputData, redirect: () => void) => 
 (dispatch: AppDispatch) => {
     dispatch({
         type: RESET_PASSWORD
@@ -231,7 +231,8 @@ export const settingNewPasswordRequest: AppThunk = (form: IInputData, redirect: 
     })
 };
 
-export const saveUserData: AppThunk = (name: string, email: string, password: string) => 
+export const saveUserData = (name: string | undefined, email: string | undefined, 
+    password: string) => 
 (dispatch: AppDispatch) => {
     dispatch({
         type: UPDATE_USER_DATA

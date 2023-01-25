@@ -24,7 +24,7 @@ const enhancers = composeWithDevTools(applyMiddleware(thunk,
     socketMiddleware(wsActionsAllOrders)
     ));
 
-const store = createStore(rootReducers, enhancers);
+export const store = createStore(rootReducers, enhancers);
 
 
 export default store;

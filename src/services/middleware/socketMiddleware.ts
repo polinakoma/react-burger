@@ -1,7 +1,9 @@
+import { Middleware } from "redux";
+import { RootState } from "../types";
 import { IWSActions } from "../types/data";
 
 
-export const socketMiddleware = (wsActionsAllOrders: IWSActions) => {
+export const socketMiddleware = (wsActionsAllOrders: IWSActions): Middleware<{}, RootState> => {
     return ((store) => {
         let socket: WebSocket | null = null;
         let url = '';

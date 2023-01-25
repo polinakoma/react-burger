@@ -48,7 +48,7 @@ const ProfileForm: FC = () => {
 
     const saveNewData = (event: FormEvent) => {
         event.preventDefault();
-        dispatch(saveUserData(name, email,password));
+        dispatch(saveUserData(name, email, password));
     };
 
     return (
