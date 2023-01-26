@@ -1,6 +1,6 @@
 import styles from './login.module.css';
 import { settingNewPasswordRequest } from '../services/actions/userRequests';
-import { useCallback, FC } from 'react';
+import { useCallback, FC, FormEvent } from 'react';
 import { EmailInput, PasswordInput, Button } 
 from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from '../services/hooks';
@@ -22,7 +22,7 @@ const ResetPassword: FC = () => {
         history.push('/forgot-password')
     };
 
-    const settingNewPassword = useCallback((evt: any) =>  {
+    const settingNewPassword = useCallback((evt: FormEvent) =>  {
         evt.preventDefault();
         dispatch(settingNewPasswordRequest(values, redirect));
     }, [values, dispatch]);

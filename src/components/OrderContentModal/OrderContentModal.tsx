@@ -38,14 +38,15 @@ const OrderContentModal: FC<IOrderContentModalProps> = ({isModal}) => {
     const allIngredients = useSelector((state) => state.ingredientsReducer.ingredients);
 
     const orderItem = allOrders.find((order: IOrder) => order._id === id);
-    
-    const orderIngredients = orderItem?.ingredients.map(
-        (ingredient) => ingredient !== null ? allIngredients.find((item) => item._id === ingredient) : undefined
-        );
+ 
+    const orderIngredients = orderItem?.ingredients.reduce((prev: IIngredient[], curr) => {
+        const current = allIngredients.find((item) => item._id === curr);
+        return current ? [...prev, current] : prev;
+    }, []);
 
-    const uniqueIngredient = Array.from(new Set(orderIngredients));
+    const uniqueIngredient = Array.from(new Set(orderIngredients)) as IIngredient[];
 
-    const ingredientCounter = (ingredient: IIngredient | undefined) => {
+    const ingredientCounter = (ingredient: IIngredient) => {
         let counter = 0;
         orderIngredients?.forEach((item: any) => {
             if(item?._id === ingredient?._id) {
@@ -58,7 +59,7 @@ const OrderContentModal: FC<IOrderContentModalProps> = ({isModal}) => {
     const calculateSum = () => {
         let sum = 0;
         orderIngredients?.forEach((ingredient: any) => {
-          const orderedIngredient = allIngredients.find((item: IIngredient | undefined) => 
+          const orderedIngredient = allIngredients.find((item: IIngredient) => 
           item?._id === ingredient?._id)
           if (orderedIngredient?.price) {
             sum += orderedIngredient?.price
@@ -77,7 +78,7 @@ const OrderContentModal: FC<IOrderContentModalProps> = ({isModal}) => {
                     <p className={`${styles.orderStatus} mb-15`}>{getOrderStatus(orderItem.status)}</p>
                     <p className={styles.orderContent}>Состав:</p>
                     <ul className={styles.ingredientArea}>
-                        {uniqueIngredient?.map((ingredient: IIngredient | undefined) => {
+                        {uniqueIngredient.map((ingredient: IIngredient) => {
                             return (
                                 <li className={`${styles.orderIngredient} mb-6`} key={ingredient?._id}>
                                     <div className={styles.block}>

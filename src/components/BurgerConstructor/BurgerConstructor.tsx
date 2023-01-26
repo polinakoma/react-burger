@@ -47,21 +47,23 @@ const BurgerConstructor: FC = () => {
         );
     }, [addedIngredients]);
 
-    const data = {
-        "ingredients": [
-            addedIngredients.bun?._id,
+    const data = addedIngredients.bun ? {
+        ingredients: [
+            addedIngredients.bun._id,
             ...addedIngredients.ingredients.map((ingredient: IIngredient) => ingredient._id),
-            addedIngredients.bun?._id
-        ]
-    };
+            addedIngredients.bun._id
+        ]  
+    } : undefined;
 
     function openOrderModal() {
         if(!userInfo) {
             history.push('/login')
         } else {
-        dispatch(getOrderNumber(accessToken, data, setModalData))
+        dispatch(getOrderNumber(data, setModalData, accessToken))
         } 
     };
+
+    
 
     const [, dropTarget] = useDrop({
         accept: "ingredient",
