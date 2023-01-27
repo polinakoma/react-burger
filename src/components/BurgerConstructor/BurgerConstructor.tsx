@@ -4,11 +4,11 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorFilling from '../ConstructorFilling/ConstructorFilling';
 import ConstructorBun from '../ConstructorBun/ConstructorBun';
-import { FC, useState, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks'
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
-import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/actions/ingredients';
+import { ADD_INGREDIENT_TO_CONSTRUCTOR, RESET_MODAL } from '../../services/actions/ingredients';
 import { getOrderNumber } from '../../services/actions/ingredients'
 import { getCookie } from '../../utils/cookie';
 import { useHistory } from 'react-router-dom';
@@ -21,15 +21,10 @@ const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const accessToken = getCookie('accessToken')
-
-    const [modalData, setModalData] = useState<number>();
-
-    const closeModal = () => {  
-        setModalData(undefined);
-    };
+    const accessToken = getCookie('accessToken')!;
 
     const userInfo = useSelector((state) => state.userRequestReducer.userInfo)
+    const OrderInfo = useSelector((state) => state.ingredientInfoReducer.current) as number;
 
     const addedIngredients = useSelector(
         (state) => state.constructorIngredientsReducer
@@ -47,23 +42,21 @@ const BurgerConstructor: FC = () => {
         );
     }, [addedIngredients]);
 
-    const data = addedIngredients.bun ? {
-        ingredients: [
-            addedIngredients.bun._id,
-            ...addedIngredients.ingredients.map((ingredient: IIngredient) => ingredient._id),
-            addedIngredients.bun._id
-        ]  
-    } : undefined;
-
     function openOrderModal() {
         if(!userInfo) {
             history.push('/login')
-        } else {
-        dispatch(getOrderNumber(data, setModalData, accessToken))
+            return;
         } 
-    };
 
-    
+        const data = {
+            ingredients: [
+            addedIngredients.bun!._id,
+            ...addedIngredients.ingredients.map((ingredient: IIngredient) => ingredient._id),
+            addedIngredients.bun!._id
+        ] 
+    } 
+        dispatch(getOrderNumber(data, accessToken)) 
+    };
 
     const [, dropTarget] = useDrop({
         accept: "ingredient",
@@ -74,6 +67,12 @@ const BurgerConstructor: FC = () => {
             }) 
         },
     });
+
+    const closeModal = () => {
+        dispatch({
+            type: RESET_MODAL
+        })
+    };
     
     return (
         <section className="mt-25" ref={dropTarget}>
@@ -113,13 +112,13 @@ const BurgerConstructor: FC = () => {
                 </Button> 
             </div>
 
-            {modalData && 
+            { typeof OrderInfo === 'number'  && 
                 <Modal 
-                    onClose={closeModal}
-                    handleCloseModal={closeModal}>
+                onClose={closeModal}
+                handleCloseModal={closeModal}>
                     <OrderDetails/>
-                </Modal> 
-            } 
+                </Modal>
+            }
         </section> 
     )
 };

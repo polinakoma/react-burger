@@ -46,9 +46,7 @@ export const getIngredientsData = () => (dispatch: AppDispatch) => {
     })     
 };
 
-export const getOrderNumber = (data: { ingredients: string[] } | undefined,   
-    onCreateOrderCallback: { (value: SetStateAction<number | undefined>): void; (arg0: any): void; }, 
-    accessToken?: string) => 
+export const getOrderNumber = (data: { ingredients: string[]; }, accessToken: string) => 
 (dispatch: AppDispatch) => {
     dispatch({
         type: CREATE_ORDER_REQUEST
@@ -67,7 +65,10 @@ export const getOrderNumber = (data: { ingredients: string[] } | undefined,
                 type: CREATE_ORDER_SUCCESS,
                 payload: res.order
             })
-            onCreateOrderCallback(res.order.number);
+            dispatch({
+                type: SET_MODAL,
+                payload: res.order.number
+            })
             dispatch({
                 type: CONSTRUCTOR_RESET
             })

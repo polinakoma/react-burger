@@ -3,7 +3,7 @@ import { TIngredientsActions, IIngredient } from '../types/data';
 
 
 export type TIngredientInfoState = {
-    current: IIngredient | null;  
+    current: IIngredient | number | null;  
 };
 
 const initialState: TIngredientInfoState = {
@@ -21,6 +21,7 @@ export const ingredientInfoReducer = (state = initialState,
         case RESET_MODAL:
             return {
                 ...state,
+                current: null
             }
         default:
             return state;

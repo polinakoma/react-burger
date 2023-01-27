@@ -44,7 +44,6 @@ const App: FC = () => {
         history.goBack();
     };
 
-
     return (
         <div className={styles.app}>  
             <AppHeader />

@@ -165,7 +165,7 @@ export interface IConstructorReorderAction  {
 };
 export interface ISetModalAction  {
     readonly type: typeof SET_MODAL;
-    readonly payload: IIngredient;
+    readonly payload: IIngredient | number;
 };
 export interface IResetModalAction  {
     readonly type: typeof RESET_MODAL;
